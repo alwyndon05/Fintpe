@@ -1,0 +1,345 @@
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1 class="hero-title">Complete Financial Management Platform</h1>
+        <p class="hero-subtitle">Send money instantly with UPI, track all your accounts, manage investments, and achieve your financial goals - all in one secure platform.</p>
+        <div class="cta-buttons">
+            <button onclick="openLoginModal()" class="btn btn-primary">
+                <i class="fas fa-rocket"></i>
+                Get Started Free
+            </button>
+            <button onclick="openProductsModal()" class="btn btn-secondary">
+                <i class="fas fa-th-large"></i>
+                Explore Products
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" id="features">
+    <h2 class="section-title">Everything You Need in One App</h2>
+    <p class="section-subtitle">Comprehensive financial tools to manage, grow, and protect your money with bank-grade security.</p>
+    
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon" style="background: #dbeafe; color: var(--primary);">
+                <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3 class="feature-title">Instant UPI Payments</h3>
+            <p class="feature-description">Send and receive money instantly using UPI. Pay bills, split expenses, and transfer funds with just a phone number or UPI ID.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon" style="background: #d1fae5; color: var(--success);">
+                <i class="fas fa-university"></i>
+            </div>
+            <h3 class="feature-title">Account Aggregation</h3>
+            <p class="feature-description">Connect all your bank accounts, credit cards, and investments. Get a unified view of your complete financial picture.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon" style="background: #fef3c7; color: var(--warning);">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h3 class="feature-title">Investment Tracking</h3>
+            <p class="feature-description">Monitor your mutual funds, stocks, and SIP investments. Track performance and get personalized investment insights.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon" style="background: #e0e7ff; color: #6366f1;">
+                <i class="fas fa-receipt"></i>
+            </div>
+            <h3 class="feature-title">Expense Analytics</h3>
+            <p class="feature-description">Automatic expense categorization, spending insights, and budget tracking. Know where every rupee goes.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon" style="background: #f3e8ff; color: #a855f7;">
+                <i class="fas fa-file-invoice"></i>
+            </div>
+            <h3 class="feature-title">Bill Management</h3>
+            <p class="feature-description">Never miss a payment. Set up automatic bill reminders and pay utilities, credit cards, and loans on time.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon" style="background: #fecaca; color: var(--danger);">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="feature-title">Financial Security</h3>
+            <p class="feature-description">Bank-grade encryption, biometric authentication, and real-time fraud detection keep your money safe.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Dashboard Preview Section -->
+<section class="features-section" id="dashboard" style="background: var(--white);">
+    <h2 class="section-title">Your Financial Command Center</h2>
+    <p class="section-subtitle">Complete control over your finances with real-time analytics, smart calendar, and comprehensive insights.</p>
+    
+    <div style="max-width: 1200px; margin: 0 auto; background: var(--white); border-radius: 16px; padding: 2rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); border: 1px solid var(--border);">
+        <!-- Enhanced Dashboard Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
+            <div>
+                <h3 style="font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem;">Financial Overview</h3>
+                <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">Good morning, Nishant • Monday, January 20, 2025</p>
+            </div>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <div style="background: var(--success); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">
+                    ↗ +20% vs last month
+                </div>
+                <button class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+                    <i class="fas fa-download"></i>
+                    Export
+                </button>
+                <button class="btn btn-primary" style="padding: 0.5rem 1rem;">
+                    <i class="fas fa-sync"></i>
+                    Sync All
+                </button>
+            </div>
+        </div>
+
+        <!-- Enhanced Dashboard Cards with Analytics -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+            <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span style="font-size: 0.9rem; color: var(--text-secondary); font-weight: 500;">Account Balance</span>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <div style="width: 8px; height: 8px; background: #3b82f6; border-radius: 50%;"></div>
+                        <div style="width: 8px; height: 8px; background: #10b981; border-radius: 50%;"></div>
+                        <div style="width: 8px; height: 8px; background: #f59e0b; border-radius: 50%;"></div>
+                    </div>
+                </div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--text-primary);">₹3,49,904</div>
+                <div style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--success);">
+                    <i class="fas fa-arrow-up"></i>
+                    +₹15,230 this month
+                </div>
+                <div style="margin-top: 1rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.25rem;">
+                        <span style="color: var(--text-secondary);">SBI</span>
+                        <span style="color: #3b82f6; font-weight: 600;">₹2,79,932</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.25rem;">
+                        <span style="color: var(--text-secondary);">HDFC</span>
+                        <span style="color: #10b981; font-weight: 600;">₹2,58,630</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                        <span style="color: var(--text-secondary);">Axis</span>
+                        <span style="color: #f59e0b; font-weight: 600;">₹55,110</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span style="font-size: 0.9rem; color: var(--text-secondary); font-weight: 500;">Monthly spending</span>
+                    <i class="fas fa-credit-card" style="color: var(--danger);"></i>
+                </div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--text-primary);">₹32,450</div>
+                <div style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--danger);">
+                    <i class="fas fa-arrow-down"></i>
+                    -₹2,100 vs last month
+                </div>
+                <!-- Mini spending chart -->
+                <div style="margin-top: 1rem;">
+                    <div style="display: flex; gap: 2px; height: 40px; align-items: end;">
+                        <div style="background: var(--danger); width: 8px; height: 30px; border-radius: 2px;"></div>
+                        <div style="background: var(--danger); width: 8px; height: 25px; border-radius: 2px;"></div>
+                        <div style="background: var(--danger); width: 8px; height: 35px; border-radius: 2px;"></div>
+                        <div style="background: var(--danger); width: 8px; height: 20px; border-radius: 2px;"></div>
+                        <div style="background: var(--danger); width: 8px; height: 40px; border-radius: 2px;"></div>
+                        <div style="background: var(--danger); width: 8px; height: 15px; border-radius: 2px;"></div>
+                        <div style="background: var(--danger); width: 8px; height: 28px; border-radius: 2px;"></div>
+                        <div style="background: var(--primary); width: 8px; height: 38px; border-radius: 2px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span style="font-size: 0.9rem; color: var(--text-secondary); font-weight: 500;">INVESTMENTS</span>
+                    <i class="fas fa-chart-line" style="color: var(--success);"></i>
+                </div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--text-primary);">₹1,85,920</div>
+                <div style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--success);">
+                    <i class="fas fa-arrow-up"></i>
+                    +8.5% returns (YTD)
+                </div>
+                <!-- Investment breakdown -->
+                <div style="margin-top: 1rem; font-size: 0.8rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                        <span style="color: var(--text-secondary);">Equity</span>
+                        <span style="color: var(--success); font-weight: 600;">65%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                        <span style="color: var(--text-secondary);">Debt</span>
+                        <span style="color: var(--warning); font-weight: 600;">25%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-secondary);">Gold</span>
+                        <span style="color: #f59e0b; font-weight: 600;">10%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <span style="font-size: 0.9rem; color: var(--text-secondary); font-weight: 500;">FINANCIAL CALENDAR</span>
+                    <i class="fas fa-calendar-alt" style="color: var(--primary);"></i>
+                </div>
+                <div style="margin-top: 0.5rem;">
+                    <!-- Calendar widget -->
+                    <div style="background: var(--light); border-radius: 8px; padding: 1rem;">
+                        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-size: 0.7rem; margin-bottom: 0.5rem;">
+                            <div style="text-align: center; color: var(--text-secondary); font-weight: 600;">S</div>
+                            <div style="text-align: center; color: var(--text-secondary); font-weight: 600;">M</div>
+                            <div style="text-align: center; color: var(--text-secondary); font-weight: 600;">T</div>
+                            <div style="text-align: center; color: var(--text-secondary); font-weight: 600;">W</div>
+                            <div style="text-align: center; color: var(--text-secondary); font-weight: 600;">T</div>
+                            <div style="text-align: center; color: var(--text-secondary); font-weight: 600;">F</div>
+                            <div style="text-align: center; color: var(--text-secondary); font-weight: 600;">S</div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-size: 0.7rem;">
+                            <div style="text-align: center; padding: 2px; color: var(--text-secondary);">29</div>
+                            <div style="text-align: center; padding: 2px; color: var(--text-secondary);">30</div>
+                            <div style="text-align: center; padding: 2px; color: var(--text-secondary);">31</div>
+                            <div style="text-align: center; padding: 2px;">1</div>
+                            <div style="text-align: center; padding: 2px;">2</div>
+                            <div style="text-align: center; padding: 2px;">3</div>
+                            <div style="text-align: center; padding: 2px;">4</div>
+                            <div style="text-align: center; padding: 2px;">5</div>
+                            <div style="text-align: center; padding: 2px;">6</div>
+                            <div style="text-align: center; padding: 2px;">7</div>
+                            <div style="text-align: center; padding: 2px;">8</div>
+                            <div style="text-align: center; padding: 2px;">9</div>
+                            <div style="text-align: center; padding: 2px;">10</div>
+                            <div style="text-align: center; padding: 2px;">11</div>
+                            <div style="text-align: center; padding: 2px;">12</div>
+                            <div style="text-align: center; padding: 2px;">13</div>
+                            <div style="text-align: center; padding: 2px;">14</div>
+                            <div style="text-align: center; padding: 2px;">15</div>
+                            <div style="text-align: center; padding: 2px;">16</div>
+                            <div style="text-align: center; padding: 2px;">17</div>
+                            <div style="text-align: center; padding: 2px;">18</div>
+                            <div style="text-align: center; padding: 2px;">19</div>
+                            <div style="text-align: center; padding: 2px; background: var(--primary); color: white; border-radius: 2px; font-weight: 600;">20</div>
+                            <div style="text-align: center; padding: 2px;">21</div>
+                            <div style="text-align: center; padding: 2px;">22</div>
+                            <div style="text-align: center; padding: 2px; background: var(--warning); color: white; border-radius: 2px;">25</div>
+                            <div style="text-align: center; padding: 2px;">26</div>
+                            <div style="text-align: center; padding: 2px;">27</div>
+                            <div style="text-align: center; padding: 2px;">28</div>
+                            <div style="text-align: center; padding: 2px;">29</div>
+                            <div style="text-align: center; padding: 2px; background: var(--success); color: white; border-radius: 2px;">30</div>
+                            <div style="text-align: center; padding: 2px;">31</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 0.75rem; font-size: 0.8rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+                            <div style="width: 8px; height: 8px; background: var(--warning); border-radius: 50%;"></div>
+                            <span style="color: var(--text-secondary);">SIP Due (25th)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 8px; height: 8px; background: var(--success); border-radius: 50%;"></div>
+                            <span style="color: var(--text-secondary);">Salary (30th)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div style="margin-top: 2rem;">
+            <h4 style="margin-bottom: 1rem; color: var(--text-primary);">Recent Transactions</h4>
+            <table style="width: 100%; border-collapse: collapse; background: var(--white); border-radius: 8px; overflow: hidden; border: 1px solid var(--border);">
+                <thead>
+                    <tr>
+                        <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light); background: var(--light); font-weight: 600; color: var(--text-primary);">Date</th>
+                        <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light); background: var(--light); font-weight: 600; color: var(--text-primary);">Description</th>
+                        <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light); background: var(--light); font-weight: 600; color: var(--text-primary);">Category</th>
+                        <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light); background: var(--light); font-weight: 600; color: var(--text-primary);">Type</th>
+                        <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light); background: var(--light); font-weight: 600; color: var(--text-primary);">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">Jan 20</td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">Salary Credit - TechCorp Ltd</td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">Income</td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);"><span style="padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; background: #d1fae5; color: var(--success);">Credit</span></td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light); color: var(--success); font-weight: 600;">+₹85,000</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">Jan 19</td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">UPI Transfer to Rahul Kumar</td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">Transfer</td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);"><span style="padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; background: #dbeafe; color: var(--primary);">UPI</span></td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light); color: var(--primary); font-weight: 600;">-₹2,500</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">Jan 18</td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">Grocery Shopping - BigBasket</td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">Food & Dining</td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);"><span style="padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; background: #fee2e2; color: var(--danger);">Debit</span></td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light); color: var(--danger); font-weight: 600;">-₹3,250</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">Jan 17</td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">SIP Investment - HDFC MF</td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">Investment</td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);"><span style="padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; background: #fee2e2; color: var(--danger);">SIP</span></td>
+                        <td style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light); color: var(--danger); font-weight: 600;">-₹10,000</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; text-align: left;">Jan 16</td>
+                        <td style="padding: 1rem; text-align: left;">Electricity Bill Payment</td>
+                        <td style="padding: 1rem; text-align: left;">Utilities</td>
+                        <td style="padding: 1rem; text-align: left;"><span style="padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; background: #fee2e2; color: var(--danger);">Bill</span></td>
+                        <td style="padding: 1rem; text-align: left; color: var(--danger); font-weight: 600;">-₹1,850</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Security Features -->
+<section class="security-section" id="security">
+    <h2 class="section-title">Bank-Grade Security</h2>
+    <p class="section-subtitle">Your money and data are protected with the highest security standards.</p>
+    
+    <div class="security-features">
+        <div class="security-card">
+            <div class="security-icon">
+                <i class="fas fa-fingerprint"></i>
+            </div>
+            <h3>Biometric Authentication</h3>
+            <p>Login with fingerprint or face recognition. Your biometrics never leave your device.</p>
+        </div>
+
+        <div class="security-card">
+            <div class="security-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h3>256-bit Encryption</h3>
+            <p>All data is encrypted using military-grade AES-256 encryption, same as banks use.</p>
+        </div>
+
+        <div class="security-card">
+            <div class="security-icon">
+                <i class="fas fa-shield-virus"></i>
+            </div>
+            <h3>Fraud Detection</h3>
+            <p>AI-powered fraud detection monitors transactions 24/7 and alerts you of suspicious activity.</p>
+        </div>
+
+        <div class="security-card">
+            <div class="security-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h3>Two-Factor Authentication</h3>
+            <p>Additional security layer with OTP verification for all sensitive transactions.</p>
+        </div>
+    </div>
+</section>
