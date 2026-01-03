@@ -3953,27 +3953,20 @@
                                 
                                 <!-- Individual Dashboard View (Default) -->
                                 <div id="dashboardIndividualView">
-                                    <!-- Individual Net Worth Card (Top Priority) -->
-                                    <div class="dashboard-card" style="background: linear-gradient(135deg, var(--success), #059669); color: white; margin-bottom: 3rem; border: none;">
-                                        <div class="card-header" style="border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-                                            <span class="card-title" style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">Your Net Worth</span>
-                                            <div style="display: flex; align-items: center; gap: 1rem;">
-                                                <i class="fas fa-user-crown" style="color: #fbbf24; font-size: 1.5rem;"></i>
-                                                <button onclick="loadPage('account')" class="insight-arrow-btn" style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white;" title="Add your financial details">
-                                                    <i class="fas fa-arrow-right"></i>
-                                                </button>
-                                            </div>
+                                    <!-- Compact Net Worth Summary -->
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                                        <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;">
+                                            <div style="font-size: 0.8rem; color: #424242; margin-bottom: 0.5rem;">Net Worth</div>
+                                            <div style="font-size: 1.5rem; font-weight: 700; color: #10b981;" data-private="${formatCurrency(financialData.netWorth)}" data-placeholder="₹••••••">${formatCurrency(financialData.netWorth)}</div>
                                         </div>
-                                        <div class="card-amount" style="font-size: 2.5rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">${formatCurrency(financialData.netWorth)}</div>
-                                        ${financialData.netWorth === 0 ? `
-                                        <div style="margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.8);">
-                                            <i class="fas fa-info-circle"></i> Go to My Account to add your financial details
+                                        <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;">
+                                            <div style="font-size: 0.8rem; color: #424242; margin-bottom: 0.5rem;">Total Assets</div>
+                                            <div style="font-size: 1.5rem; font-weight: 700; color: #1e3a5f;" data-private="${formatCurrency(financialData.totalAssets)}" data-placeholder="₹••••••">${formatCurrency(financialData.totalAssets)}</div>
                                         </div>
-                                        ` : `
-                                        <div style="margin-top: 1.5rem; font-size: 0.85rem; color: rgba(255,255,255,0.8);">
-                                            Assets: ${formatCurrency(financialData.totalAssets)} | Liabilities: ${formatCurrency(financialData.totalLoans)}
+                                        <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;">
+                                            <div style="font-size: 0.8rem; color: #424242; margin-bottom: 0.5rem;">Liabilities</div>
+                                            <div style="font-size: 1.5rem; font-weight: 700; color: ${financialData.totalLoans > 0 ? '#ef4444' : '#424242'};" data-private="${formatCurrency(financialData.totalLoans)}" data-placeholder="₹••••••">${formatCurrency(financialData.totalLoans)}</div>
                                         </div>
-                                        `}
                                     </div>
 
                                     <div id="donutChartPlaceholder"></div>
@@ -3982,133 +3975,61 @@
                                         <div class="dashboard-card" onclick="openBankAccounts()" style="cursor: pointer;">
                                             <div class="card-header">
                                                 <span class="card-title">Liquid Balance</span>
-                                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                                    <i class="fas fa-wallet" style="color: var(--primary);"></i>
-                                                    <button onclick="event.stopPropagation(); openBankAccounts()" class="insight-arrow-btn" title="Add bank accounts">
-                                                        <i class="fas fa-arrow-right"></i>
-                                                    </button>
-                                                </div>
+                                                <i class="fas fa-wallet" style="color: var(--primary);"></i>
                                             </div>
-                                            <div class="card-amount">${formatCurrency(financialData.liquidBalance)}</div>
-                                            <div class="card-change ${financialData.liquidBalance > 0 ? 'positive' : ''}">
-                                                ${financialData.liquidBalance === 0 ? '<i class="fas fa-plus-circle"></i> Add bank accounts' : '<i class="fas fa-university"></i> From bank accounts'}
-                                            </div>
+                                            <div class="card-amount" data-private="${formatCurrency(financialData.liquidBalance)}" data-placeholder="₹••••••">${formatCurrency(financialData.liquidBalance)}</div>
                                         </div>
 
                                         <div class="dashboard-card" onclick="openInvestments()" style="cursor: pointer;">
                                             <div class="card-header">
-                                                <span class="card-title">INVESTMENTS</span>
-                                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                                    <i class="fas fa-chart-line" style="color: var(--success);"></i>
-                                                    <button onclick="event.stopPropagation(); openInvestments()" class="insight-arrow-btn" title="Add investments">
-                                                        <i class="fas fa-arrow-right"></i>
-                                                    </button>
-                                                </div>
+                                                <span class="card-title">Investments</span>
+                                                <i class="fas fa-chart-line" style="color: var(--success);"></i>
                                             </div>
-                                            <div class="card-amount">${formatCurrency(financialData.totalInvestments)}</div>
-                                            <div class="card-change ${financialData.totalInvestments > 0 ? 'positive' : ''}">
-                                                ${financialData.totalInvestments === 0 ? '<i class="fas fa-plus-circle"></i> Add investments' : '<i class="fas fa-briefcase"></i> Portfolio value'}
-                                            </div>
+                                            <div class="card-amount" data-private="${formatCurrency(financialData.totalInvestments)}" data-placeholder="₹••••••">${formatCurrency(financialData.totalInvestments)}</div>
                                         </div>
 
                                         <div class="dashboard-card" onclick="openRealEstateGold()" style="cursor: pointer;">
                                             <div class="card-header">
-                                                <span class="card-title">REAL ESTATE</span>
-                                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                                    <i class="fas fa-home" style="color: #f59e0b;"></i>
-                                                    <button onclick="event.stopPropagation(); openRealEstateGold()" class="insight-arrow-btn" title="Add property">
-                                                        <i class="fas fa-arrow-right"></i>
-                                                    </button>
-                                                </div>
+                                                <span class="card-title">Real Estate</span>
+                                                <i class="fas fa-home" style="color: #f59e0b;"></i>
                                             </div>
-                                            <div class="card-amount">${formatCurrency(financialData.realEstateValue)}</div>
-                                            <div class="card-change ${financialData.realEstateValue > 0 ? 'positive' : ''}">
-                                                ${financialData.realEstateValue === 0 ? '<i class="fas fa-plus-circle"></i> Add property' : '<i class="fas fa-building"></i> Property value'}
-                                            </div>
+                                            <div class="card-amount" data-private="${formatCurrency(financialData.realEstateValue)}" data-placeholder="₹••••••">${formatCurrency(financialData.realEstateValue)}</div>
                                         </div>
 
                                         <div class="dashboard-card" onclick="openRealEstateGold()" style="cursor: pointer;">
                                             <div class="card-header">
-                                                <span class="card-title">GOLD HOLDINGS</span>
-                                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                                    <i class="fas fa-coins" style="color: #fbbf24;"></i>
-                                                    <button onclick="event.stopPropagation(); openRealEstateGold()" class="insight-arrow-btn" title="Add gold">
-                                                        <i class="fas fa-arrow-right"></i>
-                                                    </button>
-                                                </div>
+                                                <span class="card-title">Gold</span>
+                                                <i class="fas fa-coins" style="color: #fbbf24;"></i>
                                             </div>
-                                            <div class="card-amount">${formatCurrency(financialData.goldValue)}</div>
-                                            <div class="card-change ${financialData.goldValue > 0 ? 'positive' : ''}">
-                                                ${financialData.goldValue === 0 ? '<i class="fas fa-plus-circle"></i> Add gold' : '<i class="fas fa-gem"></i> Gold value'}
-                                            </div>
+                                            <div class="card-amount" data-private="${formatCurrency(financialData.goldValue)}" data-placeholder="₹••••••">${formatCurrency(financialData.goldValue)}</div>
                                         </div>
 
-                                        <div class="dashboard-card" onclick="openLoans()" style="cursor: pointer;">
-                                            <div class="card-header">
-                                                <span class="card-title">LOANS & EMIs</span>
-                                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                                    <i class="fas fa-hand-holding-usd" style="color: #b87070;"></i>
-                                                    <button onclick="event.stopPropagation(); openLoans()" class="insight-arrow-btn" title="Add loans">
-                                                        <i class="fas fa-arrow-right"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-amount">${formatCurrency(financialData.totalLoans)}</div>
-                                            <div class="card-change ${financialData.totalLoans > 0 ? 'negative' : ''}">
-                                                ${financialData.totalLoans === 0 ? '<i class="fas fa-plus-circle"></i> Add loans' : '<i class="fas fa-calendar-check"></i> ' + formatCurrency(financialData.monthlyEmi) + ' monthly EMI'}
-                                            </div>
-                                        </div>
-
-                                        <div class="dashboard-card" onclick="loadPage('account'); setTimeout(() => loadAccountSection('esops'), 200);" style="cursor: pointer;">
+                                        <div class="dashboard-card" onclick="loadPage('account'); setTimeout(() => loadAccountSection('esops'), 300);" style="cursor: pointer;">
                                             <div class="card-header">
                                                 <span class="card-title">ESOPs</span>
-                                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                                    <i class="fas fa-briefcase" style="color: #7ba3a8;"></i>
-                                                    <button onclick="event.stopPropagation(); loadPage('account'); setTimeout(() => loadAccountSection('esops'), 200);" class="insight-arrow-btn" title="Add ESOPs">
-                                                        <i class="fas fa-arrow-right"></i>
-                                                    </button>
-                                                </div>
+                                                <i class="fas fa-briefcase" style="color: #7ba3a8;"></i>
                                             </div>
-                                            <div class="card-amount">${formatCurrency(financialData.esopsTotalValue)}</div>
-                                            <div class="card-change ${financialData.esopsTotalValue > 0 ? 'positive' : ''}">
-                                                ${financialData.esopsTotalValue === 0 ? '<i class="fas fa-plus-circle"></i> Add ESOPs' : '<i class="fas fa-unlock"></i> Vested: ' + formatCurrency(financialData.esopsValue)}
-                                            </div>
+                                            <div class="card-amount" data-private="${formatCurrency(financialData.esopsValue)}" data-placeholder="₹••••••">${formatCurrency(financialData.esopsValue)}</div>
                                         </div>
 
-                                        <div class="dashboard-card" onclick="loadPage('account'); setTimeout(() => loadAccountSection('nps'), 200);" style="cursor: pointer;">
+                                        <div class="dashboard-card" onclick="loadPage('account'); setTimeout(() => loadAccountSection('loans'), 300);" style="cursor: pointer;">
                                             <div class="card-header">
-                                                <span class="card-title">NPS</span>
-                                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                                    <i class="fas fa-piggy-bank" style="color: #6b8e7d;"></i>
-                                                    <button onclick="event.stopPropagation(); loadPage('account'); setTimeout(() => loadAccountSection('nps'), 200);" class="insight-arrow-btn" title="Add NPS">
-                                                        <i class="fas fa-arrow-right"></i>
-                                                    </button>
-                                                </div>
+                                                <span class="card-title">Loans</span>
+                                                <i class="fas fa-hand-holding-usd" style="color: #ef4444;"></i>
                                             </div>
-                                            <div class="card-amount">${formatCurrency(financialData.npsValue)}</div>
-                                            <div class="card-change ${financialData.npsValue > 0 ? 'positive' : ''}">
-                                                ${financialData.npsValue === 0 ? '<i class="fas fa-plus-circle"></i> Add NPS' : '<i class="fas fa-shield-alt"></i> Pension fund'}
-                                            </div>
+                                            <div class="card-amount" style="color: ${financialData.totalLoans > 0 ? '#ef4444' : 'inherit'};" data-private="${formatCurrency(financialData.totalLoans)}" data-placeholder="₹••••••">${formatCurrency(financialData.totalLoans)}</div>
                                         </div>
-
-                                        <div class="dashboard-card" onclick="loadPage('account'); setTimeout(() => loadAccountSection('ppf'), 200);" style="cursor: pointer;">
-                                            <div class="card-header">
-                                                <span class="card-title">PPF</span>
-                                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                                    <i class="fas fa-landmark" style="color: #9b8bb8;"></i>
-                                                    <button onclick="event.stopPropagation(); loadPage('account'); setTimeout(() => loadAccountSection('ppf'), 200);" class="insight-arrow-btn" title="Add PPF">
-                                                        <i class="fas fa-arrow-right"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-amount">${formatCurrency(financialData.ppfValue)}</div>
-                                            <div class="card-change ${financialData.ppfValue > 0 ? 'positive' : ''}">
-                                                ${financialData.ppfValue === 0 ? '<i class="fas fa-plus-circle"></i> Add PPF' : '<i class="fas fa-lock"></i> Tax-free savings'}
-                                            </div>
-                                        </div>
-
                                     </div>
 
+                                    <!-- Receivables Section -->
+                                    <div id="receivablesSection" style="margin-top: 1.5rem;"></div>
+
+                                    <div class="transactions-section" style="cursor: pointer; margin-top: 1.5rem;" onclick="openEvents()">
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <h4 style="margin: 0; color: #1e3a5f;"><i class="fas fa-calendar-alt" style="margin-right: 0.5rem; color: var(--primary);"></i>Upcoming Events</h4>
+                                            <span style="color: #424242; font-size: 0.85rem;">View all <i class="fas fa-chevron-right"></i></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -4315,7 +4236,129 @@
 
                 // Render donut chart if data exists
                 renderDonutChart(financialData);
+                renderReceivables();
             }
+        }
+
+        // Receivables Functions
+        function getReceivables() {
+            return JSON.parse(localStorage.getItem('fintpe_receivables_' + currentUser) || '[]');
+        }
+
+        function saveReceivables(data) {
+            localStorage.setItem('fintpe_receivables_' + currentUser, JSON.stringify(data));
+        }
+
+        function renderReceivables() {
+            const container = document.getElementById('receivablesSection');
+            if (!container) return;
+
+            const receivables = getReceivables();
+            const totalReceivable = receivables.reduce((sum, r) => sum + (parseFloat(r.amount) || 0), 0);
+
+            container.innerHTML = `
+                <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <div>
+                            <h4 style="margin: 0; color: #1e3a5f; font-size: 1rem;">
+                                <i class="fas fa-hand-holding-usd" style="margin-right: 0.5rem; color: #10b981;"></i>Receivables
+                            </h4>
+                            ${totalReceivable > 0 ? `<div style="font-size: 0.85rem; color: #424242; margin-top: 0.25rem;">Total: <strong style="color: #10b981;">${formatCurrency(totalReceivable)}</strong></div>` : ''}
+                        </div>
+                        <button onclick="showAddReceivableModal()" style="padding: 0.4rem 0.75rem; font-size: 0.8rem; background: #1e3a5f; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                            <i class="fas fa-plus"></i> Add
+                        </button>
+                    </div>
+                    ${receivables.length === 0 ? `
+                        <div style="text-align: center; padding: 1rem; color: #424242; font-size: 0.85rem;">
+                            <i class="fas fa-receipt" style="font-size: 1.5rem; opacity: 0.5; margin-bottom: 0.5rem; display: block;"></i>
+                            No pending receivables
+                        </div>
+                    ` : `
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            ${receivables.map((r, i) => `
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: var(--light); border-radius: 8px;">
+                                    <div>
+                                        <div style="font-weight: 500; color: #1e3a5f;">${r.name}</div>
+                                        ${r.note ? `<div style="font-size: 0.75rem; color: #424242;">${r.note}</div>` : ''}
+                                        ${r.date ? `<div style="font-size: 0.7rem; color: #424242;">${new Date(r.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</div>` : ''}
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <span style="font-weight: 600; color: #10b981;" data-private="${formatCurrency(r.amount)}" data-placeholder="₹••••">${formatCurrency(r.amount)}</span>
+                                        <button onclick="markReceivablePaid(${i})" title="Mark as received" style="padding: 0.25rem 0.5rem; background: #d1fae5; border: none; border-radius: 4px; color: #059669; cursor: pointer; font-size: 0.75rem;">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `}
+                </div>
+            `;
+        }
+
+        function showAddReceivableModal() {
+            const modal = document.getElementById('serviceModal');
+            const title = document.getElementById('serviceModalTitle');
+            const subtitle = document.getElementById('serviceModalSubtitle');
+            const body = document.getElementById('serviceModalBody');
+
+            title.textContent = 'Add Receivable';
+            subtitle.textContent = 'Track money owed to you';
+            body.innerHTML = `
+                <form id="addReceivableForm" style="max-width: 400px; margin: 0 auto;">
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #1e3a5f;">Name</label>
+                        <input type="text" id="receivableName" placeholder="Who owes you?" required
+                            style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #1e3a5f;">Amount</label>
+                        <input type="number" id="receivableAmount" placeholder="0" required
+                            style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #1e3a5f;">Note (optional)</label>
+                        <input type="text" id="receivableNote" placeholder="What for?"
+                            style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #1e3a5f;">Due Date (optional)</label>
+                        <input type="date" id="receivableDate"
+                            style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">
+                    </div>
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button type="button" class="btn btn-secondary" onclick="closeServiceModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add</button>
+                    </div>
+                </form>
+            `;
+            modal.style.display = 'block';
+
+            document.getElementById('addReceivableForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const receivables = getReceivables();
+                receivables.push({
+                    name: document.getElementById('receivableName').value.trim(),
+                    amount: parseFloat(document.getElementById('receivableAmount').value) || 0,
+                    note: document.getElementById('receivableNote').value.trim(),
+                    date: document.getElementById('receivableDate').value,
+                    addedAt: new Date().toISOString()
+                });
+                saveReceivables(receivables);
+                closeServiceModal();
+                renderReceivables();
+                showSuccessMessage('Receivable added');
+            });
+        }
+
+        function markReceivablePaid(index) {
+            if (!confirm('Mark as received?')) return;
+            const receivables = getReceivables();
+            receivables.splice(index, 1);
+            saveReceivables(receivables);
+            renderReceivables();
+            showSuccessMessage('Marked as received');
         }
 
         function renderDonutChart(data) {
