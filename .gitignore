@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Environment variables (contains secrets)
+.dev.vars
+.env
+.env.local
+
+# Cloudflare
+.wrangler/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
