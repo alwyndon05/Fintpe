@@ -3901,24 +3901,99 @@
                                             </div>
                                         </div>
 
-                                        <div class="dashboard-card" style="background: linear-gradient(135deg, #f8fafc, #f1f5f9);">
+                                        <div class="dashboard-card" onclick="loadPage('account'); setTimeout(() => loadAccountSection('esops'), 200);" style="cursor: pointer;">
                                             <div class="card-header">
-                                                <span class="card-title">QUICK TIPS</span>
+                                                <span class="card-title">ESOPs</span>
                                                 <div style="display: flex; align-items: center; gap: 1rem;">
-                                                    <i class="fas fa-lightbulb" style="color: #8b5cf6;"></i>
+                                                    <i class="fas fa-briefcase" style="color: #7ba3a8;"></i>
+                                                    <button onclick="event.stopPropagation(); loadPage('account'); setTimeout(() => loadAccountSection('esops'), 200);" class="insight-arrow-btn" title="Add ESOPs">
+                                                        <i class="fas fa-arrow-right"></i>
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
-                                                ${financialData.netWorth === 0 ?
-                                                    'Start by adding your bank accounts and investments to see your net worth.' :
-                                                    'Keep your financial data updated for accurate tracking.'}
+                                            <div class="card-amount">${formatCurrency(financialData.esopsValue)}</div>
+                                            <div class="card-change ${financialData.esopsValue > 0 ? 'positive' : ''}">
+                                                ${financialData.esopsValue === 0 ? '<i class="fas fa-plus-circle"></i> Add ESOPs' : '<i class="fas fa-chart-line"></i> Vested value'}
                                             </div>
-                                            <button onclick="loadPage('account')" class="btn btn-secondary" style="margin-top: 1rem; width: 100%;">
-                                                <i class="fas fa-cog"></i> Manage Account
-                                            </button>
                                         </div>
+
+                                        <div class="dashboard-card" onclick="loadPage('account'); setTimeout(() => loadAccountSection('nps'), 200);" style="cursor: pointer;">
+                                            <div class="card-header">
+                                                <span class="card-title">NPS</span>
+                                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                                    <i class="fas fa-piggy-bank" style="color: #6b8e7d;"></i>
+                                                    <button onclick="event.stopPropagation(); loadPage('account'); setTimeout(() => loadAccountSection('nps'), 200);" class="insight-arrow-btn" title="Add NPS">
+                                                        <i class="fas fa-arrow-right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-amount">${formatCurrency(financialData.npsValue)}</div>
+                                            <div class="card-change ${financialData.npsValue > 0 ? 'positive' : ''}">
+                                                ${financialData.npsValue === 0 ? '<i class="fas fa-plus-circle"></i> Add NPS' : '<i class="fas fa-shield-alt"></i> Pension fund'}
+                                            </div>
+                                        </div>
+
+                                        <div class="dashboard-card" onclick="loadPage('account'); setTimeout(() => loadAccountSection('ppf'), 200);" style="cursor: pointer;">
+                                            <div class="card-header">
+                                                <span class="card-title">PPF</span>
+                                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                                    <i class="fas fa-landmark" style="color: #9b8bb8;"></i>
+                                                    <button onclick="event.stopPropagation(); loadPage('account'); setTimeout(() => loadAccountSection('ppf'), 200);" class="insight-arrow-btn" title="Add PPF">
+                                                        <i class="fas fa-arrow-right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-amount">${formatCurrency(financialData.ppfValue)}</div>
+                                            <div class="card-change ${financialData.ppfValue > 0 ? 'positive' : ''}">
+                                                ${financialData.ppfValue === 0 ? '<i class="fas fa-plus-circle"></i> Add PPF' : '<i class="fas fa-lock"></i> Tax-free savings'}
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Market Rates Section -->
+                                    <div style="margin-top: 2rem;">
+                                        <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                            <i class="fas fa-chart-bar" style="color: var(--accent);"></i> Market Rates
+                                        </h3>
+                                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem;">
+                                            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 1rem; border-radius: 12px;">
+                                                <div style="font-size: 0.75rem; color: #92400e; font-weight: 500;">Gold (24K)</div>
+                                                <div style="font-size: 1.25rem; font-weight: 700; color: #78350f;">₹7,850/g</div>
+                                                <div style="font-size: 0.7rem; color: #10b981;">+0.32%</div>
+                                            </div>
+                                            <div style="background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); padding: 1rem; border-radius: 12px;">
+                                                <div style="font-size: 0.75rem; color: #4b5563; font-weight: 500;">Silver</div>
+                                                <div style="font-size: 1.25rem; font-weight: 700; color: #1f2937;">₹95.50/g</div>
+                                                <div style="font-size: 0.7rem; color: #10b981;">+0.18%</div>
+                                            </div>
+                                            <div style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: 1rem; border-radius: 12px;">
+                                                <div style="font-size: 0.75rem; color: #1e40af; font-weight: 500;">USD/INR</div>
+                                                <div style="font-size: 1.25rem; font-weight: 700; color: #1e3a8a;">₹84.35</div>
+                                                <div style="font-size: 0.7rem; color: #ef4444;">-0.05%</div>
+                                            </div>
+                                            <div style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); padding: 1rem; border-radius: 12px;">
+                                                <div style="font-size: 0.75rem; color: #065f46; font-weight: 500;">FD Rate (SBI)</div>
+                                                <div style="font-size: 1.25rem; font-weight: 700; color: #064e3b;">7.10%</div>
+                                                <div style="font-size: 0.7rem; color: #6b7280;">1 Year</div>
+                                            </div>
+                                            <div style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); padding: 1rem; border-radius: 12px;">
+                                                <div style="font-size: 0.75rem; color: #9d174d; font-weight: 500;">SENSEX</div>
+                                                <div style="font-size: 1.25rem; font-weight: 700; color: #831843;">78,472</div>
+                                                <div style="font-size: 0.7rem; color: #10b981;">+0.45%</div>
+                                            </div>
+                                            <div style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); padding: 1rem; border-radius: 12px;">
+                                                <div style="font-size: 0.75rem; color: #3730a3; font-weight: 500;">NIFTY 50</div>
+                                                <div style="font-size: 1.25rem; font-weight: 700; color: #312e81;">23,644</div>
+                                                <div style="font-size: 0.7rem; color: #10b981;">+0.38%</div>
+                                            </div>
+                                        </div>
+                                        <p style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.75rem; text-align: right;">
+                                            <i class="fas fa-info-circle"></i> Indicative rates · Updated periodically
+                                        </p>
                                     </div>
                                 </div>
+                            </div>
 
                                 <!-- Family Dashboard View (Hidden by default) -->
                                 <div id="dashboardFamilyView" style="display: none;">
@@ -4564,6 +4639,18 @@
                                             <div class="card-icon" style="color: #c9a86c;"><i class="fas fa-file-invoice-dollar"></i></div>
                                             <div class="card-content"><h3>Tax Services</h3></div>
                                         </div>
+                                        <div class="account-card" data-section="esops" onclick="loadAccountSection('esops')">
+                                            <div class="card-icon" style="color: #7ba3a8;"><i class="fas fa-briefcase"></i></div>
+                                            <div class="card-content"><h3>ESOPs</h3></div>
+                                        </div>
+                                        <div class="account-card" data-section="nps" onclick="loadAccountSection('nps')">
+                                            <div class="card-icon" style="color: #6b8e7d;"><i class="fas fa-piggy-bank"></i></div>
+                                            <div class="card-content"><h3>NPS</h3></div>
+                                        </div>
+                                        <div class="account-card" data-section="ppf" onclick="loadAccountSection('ppf')">
+                                            <div class="card-icon" style="color: #9b8bb8;"><i class="fas fa-landmark"></i></div>
+                                            <div class="card-content"><h3>PPF</h3></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="account-content-panel" id="accountContentPanel">
@@ -4610,7 +4697,10 @@
                 loans: { title: 'Loans & EMIs', subtitle: 'Track your loans, EMIs and outstanding balances', key: 'loans' },
                 insurance: { title: 'Insurance', subtitle: 'Health, life and motor insurance policies', key: 'insurance' },
                 calendarReminders: { title: 'Calendar & Reminders', subtitle: 'SIP dates, bill payments and notifications', key: 'calendarReminders' },
-                taxServices: { title: 'Tax Services', subtitle: 'ITR filing and tax planning', key: 'taxServices' }
+                taxServices: { title: 'Tax Services', subtitle: 'ITR filing and tax planning', key: 'taxServices' },
+                esops: { title: 'ESOPs', subtitle: 'Track employee stock options and vesting', key: 'esops' },
+                nps: { title: 'NPS', subtitle: 'National Pension System contributions', key: 'nps' },
+                ppf: { title: 'PPF', subtitle: 'Public Provident Fund balance tracking', key: 'ppf' }
             };
 
             const info = sectionInfo[sectionKey];
@@ -4990,6 +5080,61 @@
                     { name: 'emiDate', label: 'EMI Date (Day of Month)', type: 'number', placeholder: '5' },
                     { name: 'endDate', label: 'Loan End Date', type: 'date' },
                     { name: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Auto-debit from salary account' }
+                ]
+            },
+            esops: {
+                title: 'ESOPs',
+                subtitle: 'Track your employee stock options and vesting schedule.',
+                storageKey: 'fintpe_esops',
+                formTitle: 'Add ESOP Grant',
+                listTitle: 'Your ESOPs',
+                emptyState: 'No ESOPs added yet.',
+                ctaText: 'Save ESOP',
+                fields: [
+                    { name: 'company', label: 'Company', type: 'text', placeholder: 'Acme Corp', required: true },
+                    { name: 'grantDate', label: 'Grant Date', type: 'date', required: true },
+                    { name: 'totalOptions', label: 'Total Options', type: 'number', placeholder: '1000', required: true },
+                    { name: 'vestedOptions', label: 'Vested Options', type: 'number', placeholder: '250' },
+                    { name: 'strikePrice', label: 'Strike Price', type: 'number', placeholder: '50', prefix: '₹' },
+                    { name: 'currentPrice', label: 'Current Price', type: 'number', placeholder: '150', prefix: '₹' },
+                    { name: 'vestingSchedule', label: 'Vesting Schedule', type: 'text', placeholder: '4 years, 1 year cliff' },
+                    { name: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Next vesting on March 2025' }
+                ]
+            },
+            nps: {
+                title: 'NPS',
+                subtitle: 'National Pension System contributions and growth.',
+                storageKey: 'fintpe_nps',
+                formTitle: 'Add NPS Account',
+                listTitle: 'Your NPS',
+                emptyState: 'No NPS account added yet.',
+                ctaText: 'Save NPS Details',
+                fields: [
+                    { name: 'pranNumber', label: 'PRAN Number', type: 'text', placeholder: '1100XXXXXXXX', required: true },
+                    { name: 'accountType', label: 'Account Type', type: 'select', required: true, options: ['Tier I', 'Tier II', 'Both'] },
+                    { name: 'fundManager', label: 'Pension Fund Manager', type: 'select', options: ['SBI Pension Fund', 'LIC Pension Fund', 'UTI Retirement Solutions', 'HDFC Pension Fund', 'ICICI Prudential', 'Kotak Pension Fund', 'Aditya Birla Sun Life', 'Other'] },
+                    { name: 'totalContribution', label: 'Total Contribution', type: 'number', placeholder: '500000', prefix: '₹' },
+                    { name: 'currentValue', label: 'Current Value', type: 'number', placeholder: '650000', prefix: '₹' },
+                    { name: 'monthlyContribution', label: 'Monthly Contribution', type: 'number', placeholder: '5000', prefix: '₹' },
+                    { name: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Employer + self contribution' }
+                ]
+            },
+            ppf: {
+                title: 'PPF',
+                subtitle: 'Public Provident Fund balance and maturity tracking.',
+                storageKey: 'fintpe_ppf',
+                formTitle: 'Add PPF Account',
+                listTitle: 'Your PPF',
+                emptyState: 'No PPF account added yet.',
+                ctaText: 'Save PPF Details',
+                fields: [
+                    { name: 'bankName', label: 'Bank/Post Office', type: 'text', placeholder: 'SBI', required: true },
+                    { name: 'accountNumber', label: 'Account Number', type: 'text', placeholder: 'PPF123456', required: true },
+                    { name: 'openingDate', label: 'Account Opening Date', type: 'date' },
+                    { name: 'maturityDate', label: 'Maturity Date', type: 'date' },
+                    { name: 'currentBalance', label: 'Current Balance', type: 'number', placeholder: '850000', prefix: '₹' },
+                    { name: 'yearlyContribution', label: 'Yearly Contribution', type: 'number', placeholder: '150000', prefix: '₹' },
+                    { name: 'notes', label: 'Notes', type: 'textarea', placeholder: '15 year lock-in period' }
                 ]
             }
         };
@@ -6057,8 +6202,25 @@
             const totalLoans = loans.reduce((sum, loan) => sum + (parseFloat(loan.outstandingAmount) || 0), 0);
             const monthlyEmi = loans.reduce((sum, loan) => sum + (parseFloat(loan.emiAmount) || 0), 0);
 
-            // Total assets
-            const totalAssets = liquidBalance + totalInvestments + realEstateValue + goldValue;
+            // Calculate ESOPs value (vested options * (current price - strike price))
+            const esops = JSON.parse(localStorage.getItem('fintpe_esops') || '[]');
+            const esopsValue = esops.reduce((sum, esop) => {
+                const vestedOptions = parseFloat(esop.vestedOptions) || 0;
+                const currentPrice = parseFloat(esop.currentPrice) || 0;
+                const strikePrice = parseFloat(esop.strikePrice) || 0;
+                return sum + (vestedOptions * Math.max(0, currentPrice - strikePrice));
+            }, 0);
+
+            // Calculate NPS value
+            const npsAccounts = JSON.parse(localStorage.getItem('fintpe_nps') || '[]');
+            const npsValue = npsAccounts.reduce((sum, nps) => sum + (parseFloat(nps.currentValue) || 0), 0);
+
+            // Calculate PPF value
+            const ppfAccounts = JSON.parse(localStorage.getItem('fintpe_ppf') || '[]');
+            const ppfValue = ppfAccounts.reduce((sum, ppf) => sum + (parseFloat(ppf.currentBalance) || 0), 0);
+
+            // Total assets (include ESOPs, NPS, PPF)
+            const totalAssets = liquidBalance + totalInvestments + realEstateValue + goldValue + esopsValue + npsValue + ppfValue;
 
             // Net worth = Assets - Liabilities
             const netWorth = totalAssets - totalLoans;
@@ -6071,7 +6233,10 @@
                 totalLoans,
                 monthlyEmi,
                 totalAssets,
-                netWorth
+                netWorth,
+                esopsValue,
+                npsValue,
+                ppfValue
             };
         }
 
