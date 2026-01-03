@@ -29,14 +29,13 @@ They're not looking to track every ₹50 chai. They just want to know: **"Where 
 - ❌ Track your transactions
 - ❌ Know what you spend on
 - ❌ Connect to your bank accounts
-- ❌ Store your data on our servers
 
 **What we DO:**
 - ✅ Let you record account balances and totals
 - ✅ Show your net worth at a glance
 - ✅ Store important document references
 - ✅ Remind you of financial deadlines
-- ✅ Keep everything on YOUR device
+- ✅ Keep your data secure and encrypted
 
 **Your transactions are completely private. We only care about the totals.**
 
@@ -113,11 +112,9 @@ Fintpe focuses on the big picture:
 
 ## Current Tech Stack
 
-- Frontend: HTML/CSS/JS (static site hosted on GitHub Pages)
-- Storage: Local browser storage (localStorage/IndexedDB)
-- No backend server
-- No database
-- No authentication server (local auth only)
+- Frontend: HTML/CSS/JS (hosted on GitHub Pages)
+- Backend: Secure cloud storage with encryption
+- Authentication: User accounts with secure login
 
 ---
 
@@ -152,7 +149,7 @@ Fintpe focuses on the big picture:
 | Know what you spend on | Don't know, don't care |
 | Daily engagement | Monthly check-ins |
 | Link bank accounts | Never asks for access |
-| Data on their servers | Data on your device |
+| Sell your data | Secure & encrypted |
 
 ---
 
@@ -160,7 +157,7 @@ Fintpe focuses on the big picture:
 
 - "See your complete financial picture — without tracking every transaction."
 - "We don't track what you buy. We help you see what you have."
-- "Your net worth. Your documents. Your reminders. Your device."
+- "Your net worth. Your documents. Your reminders. Secure & private."
 - "The big picture, not the small print."
 
 ---
@@ -171,10 +168,10 @@ Fintpe focuses on the big picture:
 > "Your complete financial picture — without tracking every transaction."
 
 **Subtext:**
-> "Fintpe shows you what you own, what you owe, and what's coming up. We never see your transactions. Everything stays on your device."
+> "See what you own, what you owe, and what's coming up. We never track your transactions — just the big picture."
 
 **Trust badges:**
-> 🔒 No transaction tracking | 📱 Data stays on your device | 🇮🇳 Made in India
+> 🔒 No transaction tracking | 🛡️ Secure & encrypted | 🇮🇳 Made in India
 
 ---
 
@@ -182,13 +179,13 @@ Fintpe focuses on the big picture:
 
 When making updates to Fintpe:
 - Maintain the clean, minimal aesthetic
-- Keep all data local (localStorage or IndexedDB)
 - Use Indian financial terminology where appropriate
 - Focus on balances/totals, NOT transactions
 - Prioritize mobile responsiveness
 - Avoid features requiring daily engagement
 - No third-party tracking or analytics
 - Reinforce the "we don't track transactions" message in UI copy
+- Ensure data security and encryption messaging is accurate
 
 ---
 
