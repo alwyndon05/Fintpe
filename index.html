@@ -3005,17 +3005,27 @@
             const email = document.getElementById('loginEmail').value.trim().toLowerCase();
             const password = document.getElementById('loginPassword').value;
 
+            // Debug: Check if function is called
+            console.log('=== LOGIN ATTEMPT ===');
+            console.log('Email:', email);
+            console.log('Password length:', password.length);
+
             const users = getUsers();
+            console.log('Registered users:', Object.keys(users));
 
             if (!users[email]) {
                 showMessage('No account found with this email. Please sign up first.', 'error');
+                console.log('User not found:', email);
                 return;
             }
 
             if (users[email].password !== password) {
                 showMessage('Incorrect password. Please try again.', 'error');
+                console.log('Password mismatch for:', email);
                 return;
             }
+
+            console.log('Login successful for:', email);
 
             // Successful login
             isLoggedIn = true;
@@ -3042,6 +3052,8 @@
             const password = document.getElementById('signupPassword').value;
             const confirmPassword = document.getElementById('signupConfirmPassword').value;
 
+            console.log('Signup attempt for:', email);
+
             if (password !== confirmPassword) {
                 showMessage('Passwords do not match', 'error');
                 return;
@@ -3066,6 +3078,9 @@
                 profile: null
             };
             saveUsers(users);
+
+            console.log('User created:', email);
+            console.log('Stored users:', Object.keys(getUsers()));
 
             // Auto-login after signup
             isLoggedIn = true;
