@@ -9,31 +9,32 @@
     <style>
         /* Include your main.css styles here */
         :root {
-            --primary: #020347;
-            --primary-dark: #010225;
-            --primary-light: #0a0f6a;
-            --accent: #4f46e5;
-            --secondary: #059669;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #dc2626;
-            --dark: #020347;
-            --light: #f8fafc;
+            /* Minimalistic pastel color scheme - soft and soothing */
+            --primary: #6b7280;
+            --primary-dark: #4b5563;
+            --primary-light: #9ca3af;
+            --accent: #8b7355;
+            --secondary: #6b8e7d;
+            --success: #6b8e7d;
+            --warning: #c9a86c;
+            --danger: #b87070;
+            --dark: #374151;
+            --light: #faf9f7;
             --white: #ffffff;
-            --text-primary: #020347;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
-            --border: #e2e8f0;
-            --border-light: #f1f5f9;
+            --text-primary: #374151;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --border: #e8e6e3;
+            --border-light: #f3f2f0;
 
-            /* Modern additions */
-            --gradient-primary: linear-gradient(135deg, #020347 0%, #1e1b4b 100%);
-            --gradient-accent: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            --gradient-subtle: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            /* Subtle pastel additions */
+            --gradient-primary: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            --gradient-accent: linear-gradient(135deg, #8b7355 0%, #a68b5b 100%);
+            --gradient-subtle: linear-gradient(135deg, #faf9f7 0%, #f3f2f0 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.03);
             --radius-sm: 6px;
             --radius-md: 10px;
             --radius-lg: 16px;
@@ -137,23 +138,23 @@
         .animate-stagger.visible > *:nth-child(5) { animation: fadeInUp 0.6s var(--ease-out-expo) 0.5s forwards; }
         .animate-stagger.visible > *:nth-child(6) { animation: fadeInUp 0.6s var(--ease-out-expo) 0.6s forwards; }
 
-        /* Dark Mode Variables */
+        /* Dark Mode Variables - subtle and muted */
         [data-theme="dark"] {
-            --primary: #3b82f6;
-            --primary-dark: #2563eb;
-            --primary-light: #60a5fa;
-            --secondary: #059669;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #dc2626;
-            --dark: #0f172a;
-            --light: #1e293b;
-            --white: #334155;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --text-muted: #94a3b8;
-            --border: #475569;
-            --border-light: #334155;
+            --primary: #9ca3af;
+            --primary-dark: #6b7280;
+            --primary-light: #d1d5db;
+            --secondary: #7fa090;
+            --success: #7fa090;
+            --warning: #d4b87a;
+            --danger: #c88080;
+            --dark: #1f2937;
+            --light: #1f2937;
+            --white: #2d3748;
+            --text-primary: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --border: #374151;
+            --border-light: #2d3748;
         }
 
         * {
@@ -1868,22 +1869,22 @@
         }
 
         .icon-btn.edit {
-            background: #e0e7ff;
-            color: #4f46e5;
+            background: #f3f2f0;
+            color: #6b7280;
         }
 
         .icon-btn.edit:hover {
-            background: #4f46e5;
+            background: #6b7280;
             color: white;
         }
 
         .icon-btn.delete {
-            background: #fee2e2;
-            color: #dc2626;
+            background: #fef0f0;
+            color: #b87070;
         }
 
         .icon-btn.delete:hover {
-            background: #dc2626;
+            background: #b87070;
             color: white;
         }
 
@@ -1980,6 +1981,281 @@
         .management-empty-state p {
             margin: 0;
             color: var(--text-secondary);
+        }
+
+        /* Investment Portfolio Styles */
+        .portfolio-container {
+            padding: 0;
+        }
+
+        .broker-upload-section {
+            background: var(--light);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .broker-selection {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .broker-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .broker-btn:hover {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .broker-btn.active {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        .broker-btn img {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+        }
+
+        .broker-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .broker-icon.zerodha {
+            background: #387ed1;
+            color: white;
+        }
+
+        .broker-icon.groww {
+            background: #00d09c;
+            color: white;
+        }
+
+        .file-upload-area {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-area:hover,
+        .file-upload-area.drag-over {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .file-upload-area i {
+            font-size: 2.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .file-upload-area p {
+            margin: 0;
+            color: var(--text-secondary);
+        }
+
+        .file-upload-area .browse-link {
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .file-upload-area input[type="file"] {
+            display: none;
+        }
+
+        .portfolio-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .summary-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid var(--border);
+        }
+
+        .summary-card .label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .summary-card .value {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .summary-card .value.positive {
+            color: #6b8e7d;
+        }
+
+        .summary-card .value.negative {
+            color: #b87070;
+        }
+
+        .holdings-section {
+            background: var(--white);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .holdings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            background: var(--light);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .holdings-header h4 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .holdings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .holdings-table th {
+            background: var(--light);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            position: sticky;
+            top: 0;
+        }
+
+        .holdings-table td {
+            padding: 0.875rem 1rem;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .holdings-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .holdings-table tbody tr:hover {
+            background: rgba(37, 99, 235, 0.03);
+        }
+
+        .holdings-table .symbol {
+            font-weight: 600;
+        }
+
+        .holdings-table .sector {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .holdings-table .pnl-positive {
+            color: #6b8e7d;
+            font-weight: 600;
+        }
+
+        .holdings-table .pnl-negative {
+            color: #b87070;
+            font-weight: 600;
+        }
+
+        .holdings-scroll {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .portfolio-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-tab {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: var(--light);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .portfolio-tab:hover:not(.active) {
+            background: var(--border);
+        }
+
+        .clear-portfolio-btn {
+            background: #fef0f0;
+            color: #b87070;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .clear-portfolio-btn:hover {
+            background: #b87070;
+            color: white;
         }
 
         /* Settings Toggle Section */
@@ -2421,10 +2697,10 @@
             margin-bottom: 2px;
         }
 
-        .event-dot.emi { background: #dc2626; }
-        .event-dot.sip { background: #059669; }
-        .event-dot.insurance { background: #2563eb; }
-        .event-dot.bill { background: #f59e0b; }
+        .event-dot.emi { background: #b87070; }
+        .event-dot.sip { background: #6b8e7d; }
+        .event-dot.insurance { background: #8b9dc3; }
+        .event-dot.bill { background: #c9a86c; }
 
         .calendar-events-panel {
             background: var(--light);
@@ -3513,7 +3789,7 @@
                                             <div class="card-header">
                                                 <span class="card-title">LOANS & EMIs</span>
                                                 <div style="display: flex; align-items: center; gap: 1rem;">
-                                                    <i class="fas fa-hand-holding-usd" style="color: #dc2626;"></i>
+                                                    <i class="fas fa-hand-holding-usd" style="color: #b87070;"></i>
                                                     <button onclick="event.stopPropagation(); openLoans()" class="insight-arrow-btn" title="Add loans">
                                                         <i class="fas fa-arrow-right"></i>
                                                     </button>
@@ -3643,7 +3919,7 @@
                                             <div class="card-header">
                                                 <span class="card-title">FAMILY LOANS</span>
                                                 <div style="display: flex; align-items: center; gap: 1rem;">
-                                                    <i class="fas fa-hand-holding-usd" style="color: #dc2626;"></i>
+                                                    <i class="fas fa-hand-holding-usd" style="color: #b87070;"></i>
                                                     <button onclick="openFamilyLoansInsights()" class="insight-arrow-btn" title="View all family loans">
                                                         <i class="fas fa-arrow-right"></i>
                                                     </button>
@@ -3757,7 +4033,7 @@
                                         <tr onclick="showEventDetails('emi')" style="cursor: pointer;">
                                             <td>Jan 25</td>
                                             <td>Home Loan EMI - SBI</td>
-                                            <td><span class="transaction-type" style="background: #fee2e2; color: #dc2626;">EMI Due</span></td>
+                                            <td><span class="transaction-type" style="background: #fef0f0; color: #b87070;">EMI Due</span></td>
                                             <td style="color: var(--danger); font-weight: 600;" data-private="₹22,450" data-placeholder="₹•••••">₹22,450</td>
                                             <td><span style="color: #f59e0b; font-weight: 500;">⏰ Pending</span></td>
                                         </tr>
@@ -3771,7 +4047,7 @@
                                         <tr onclick="showEventDetails('insurance')" style="cursor: pointer;">
                                             <td>Feb 02</td>
                                             <td>Health Insurance Premium - HDFC ERGO</td>
-                                            <td><span class="transaction-type" style="background: #dbeafe; color: #2563eb;">Insurance</span></td>
+                                            <td><span class="transaction-type" style="background: #e8eff8; color: #6b7280;">Insurance</span></td>
                                             <td style="color: var(--primary); font-weight: 600;" data-private="₹8,500" data-placeholder="₹••••">₹8,500</td>
                                             <td><span style="color: #f59e0b; font-weight: 500;">⚠️ Due Soon</span></td>
                                         </tr>
@@ -4019,34 +4295,34 @@
                         <p class="section-subtitle">Your data, your control. Import, export, backup — do it yourself, your way.</p>
                         <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
                             <div style="background: var(--light); border-radius: 16px; padding: 2rem; border: 2px dashed var(--border); text-align: center;">
-                                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
+                                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #8b7355 0%, #a68b5b 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
                                     <i class="fas fa-file-csv" style="color: white; font-size: 1.5rem;"></i>
                                 </div>
                                 <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem;">CSV Import/Export</h3>
                                 <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">Import from any bank, app, or spreadsheet. Export everything to CSV anytime.</p>
                             </div>
                             <div style="background: var(--light); border-radius: 16px; padding: 2rem; border: 2px dashed var(--border); text-align: center;">
-                                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
+                                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #6b8e7d 0%, #7fa090 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
                                     <i class="fas fa-wifi-slash" style="color: white; font-size: 1.5rem;"></i>
                                 </div>
                                 <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem;">Works Offline</h3>
                                 <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">No internet? No problem. Full functionality offline with local storage.</p>
                             </div>
                             <div style="background: var(--light); border-radius: 16px; padding: 2rem; border: 2px dashed var(--border); text-align: center;">
-                                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
+                                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #8b9dc3 0%, #a3b5d8 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
                                     <i class="fas fa-cloud-download-alt" style="color: white; font-size: 1.5rem;"></i>
                                 </div>
                                 <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem;">Data Backup</h3>
                                 <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">Download your complete data as JSON. Restore anytime, anywhere.</p>
                             </div>
                         </div>
-                        <div style="max-width: 800px; margin: 3rem auto 0; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-radius: 16px; padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;">
+                        <div style="max-width: 800px; margin: 3rem auto 0; background: linear-gradient(135deg, #4b5563 0%, #6b7280 100%); border-radius: 16px; padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;">
                             <div>
                                 <h3 style="color: white; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">
-                                    <i class="fas fa-user-slash" style="margin-right: 0.5rem; color: #60a5fa;"></i>
+                                    <i class="fas fa-user-slash" style="margin-right: 0.5rem; color: #d1d5db;"></i>
                                     No Account Required
                                 </h3>
-                                <p style="color: #94a3b8; font-size: 0.95rem; margin: 0;">Start using immediately. All data stored locally on your device.</p>
+                                <p style="color: #d1d5db; font-size: 0.95rem; margin: 0;">Start using immediately. All data stored locally on your device.</p>
                             </div>
                             <button class="btn btn-primary" onclick="openLoginModal()">Try Without Signup</button>
                         </div>
@@ -4159,7 +4435,7 @@
                             <div class="account-management-grid">
                                 <!-- Row 1 -->
                                 <div class="account-card" onclick="openBankAccounts()">
-                                    <div class="card-icon" style="color: #059669;">
+                                    <div class="card-icon" style="color: #6b8e7d;">
                                         <i class="fas fa-university"></i>
                                     </div>
                                     <div class="card-content">
@@ -4169,7 +4445,7 @@
                                 </div>
 
                                 <div class="account-card" onclick="openMyProfile()">
-                                    <div class="card-icon" style="color: #3b82f6;">
+                                    <div class="card-icon" style="color: #8b7355;">
                                         <i class="fas fa-user-circle"></i>
                                     </div>
                                     <div class="card-content">
@@ -4180,7 +4456,7 @@
 
                                 <!-- Row 2 -->
                                 <div class="account-card" onclick="openSettingsPreferences()">
-                                    <div class="card-icon" style="color: #8b5cf6;">
+                                    <div class="card-icon" style="color: #9b8bb8;">
                                         <i class="fas fa-cog"></i>
                                     </div>
                                     <div class="card-content">
@@ -4190,7 +4466,7 @@
                                 </div>
 
                                 <div class="account-card" onclick="openInsurance()">
-                                    <div class="card-icon" style="color: #10b981;">
+                                    <div class="card-icon" style="color: #6b8e7d;">
                                         <i class="fas fa-shield-alt"></i>
                                     </div>
                                     <div class="card-content">
@@ -4201,7 +4477,7 @@
 
                                 <!-- Row 3 -->
                                 <div class="account-card" onclick="openRealEstateGold()">
-                                    <div class="card-icon" style="color: #f59e0b;">
+                                    <div class="card-icon" style="color: #c9a86c;">
                                         <i class="fas fa-home"></i>
                                     </div>
                                     <div class="card-content">
@@ -4211,7 +4487,7 @@
                                 </div>
 
                                 <div class="account-card" onclick="openPasswordSecurity()">
-                                    <div class="card-icon" style="color: #dc2626;">
+                                    <div class="card-icon" style="color: #b87070;">
                                         <i class="fas fa-lock"></i>
                                     </div>
                                     <div class="card-content">
@@ -4222,7 +4498,7 @@
 
                                 <!-- Row 4 -->
                                 <div class="account-card" onclick="openInvestments()">
-                                    <div class="card-icon" style="color: #8b5cf6;">
+                                    <div class="card-icon" style="color: #9b8bb8;">
                                         <i class="fas fa-chart-line"></i>
                                     </div>
                                     <div class="card-content">
@@ -4232,7 +4508,7 @@
                                 </div>
 
                                 <div class="account-card" onclick="openAuthorizations()">
-                                    <div class="card-icon" style="color: #06b6d4;">
+                                    <div class="card-icon" style="color: #7ba3a8;">
                                         <i class="fas fa-key"></i>
                                     </div>
                                     <div class="card-content">
@@ -4243,7 +4519,7 @@
 
                                 <!-- Row 5 -->
                                 <div class="account-card" onclick="openCalendarReminders()">
-                                    <div class="card-icon" style="color: #84cc16;">
+                                    <div class="card-icon" style="color: #8aa876;">
                                         <i class="fas fa-calendar-alt"></i>
                                     </div>
                                     <div class="card-content">
@@ -4253,7 +4529,7 @@
                                 </div>
 
                                 <div class="account-card" onclick="openTaxServices()">
-                                    <div class="card-icon" style="color: #f97316;">
+                                    <div class="card-icon" style="color: #c9a86c;">
                                         <i class="fas fa-file-invoice-dollar"></i>
                                     </div>
                                     <div class="card-content">
@@ -4263,7 +4539,7 @@
                                 </div>
 
                                 <div class="account-card" onclick="openLoans()">
-                                    <div class="card-icon" style="color: #dc2626;">
+                                    <div class="card-icon" style="color: #b87070;">
                                         <i class="fas fa-hand-holding-usd"></i>
                                     </div>
                                     <div class="card-content">
@@ -4493,14 +4769,20 @@
         };
 
         function openAccountManagementSection(sectionKey) {
+            // Special handling for investments - use portfolio upload
+            if (sectionKey === 'investments') {
+                openInvestmentPortfolio();
+                return;
+            }
+
             const config = ACCOUNT_MANAGEMENT_SECTIONS[sectionKey];
             if (!config) return;
-            
+
             const modal = document.getElementById('serviceModal');
             const title = document.getElementById('serviceModalTitle');
             const subtitle = document.getElementById('serviceModalSubtitle');
             const body = document.getElementById('serviceModalBody');
-            
+
             title.textContent = config.title;
             subtitle.textContent = config.subtitle;
             body.innerHTML = buildManagementModalContent(sectionKey, config);
@@ -4768,6 +5050,410 @@
             }
         }
 
+        // Investment Portfolio Functions
+        const PORTFOLIO_STORAGE_KEY = 'fintpe_portfolio';
+        let selectedBroker = null;
+        let currentPortfolioTab = 'all';
+
+        function openInvestmentPortfolio() {
+            const modal = document.getElementById('serviceModal');
+            const title = document.getElementById('serviceModalTitle');
+            const subtitle = document.getElementById('serviceModalSubtitle');
+            const body = document.getElementById('serviceModalBody');
+
+            title.textContent = 'Investments';
+            subtitle.textContent = 'Upload your broker CSV to track your portfolio.';
+            body.innerHTML = buildInvestmentPortfolioContent();
+            attachPortfolioEventListeners();
+            renderPortfolioData();
+            modal.style.display = 'block';
+        }
+
+        function buildInvestmentPortfolioContent() {
+            return '<div class="portfolio-container">' +
+                '<div class="broker-upload-section">' +
+                    '<p style="margin: 0 0 1rem 0; font-weight: 600; color: var(--text-primary);">Select your broker and upload holdings CSV:</p>' +
+                    '<div class="broker-selection">' +
+                        '<button type="button" class="broker-btn" data-broker="zerodha" onclick="selectBroker(\'zerodha\')">' +
+                            '<span class="broker-icon zerodha">Z</span>' +
+                            'Zerodha' +
+                        '</button>' +
+                        '<button type="button" class="broker-btn" data-broker="groww" onclick="selectBroker(\'groww\')">' +
+                            '<span class="broker-icon groww">G</span>' +
+                            'Groww' +
+                        '</button>' +
+                    '</div>' +
+                    '<div class="file-upload-area" id="fileUploadArea">' +
+                        '<i class="fas fa-cloud-upload-alt"></i>' +
+                        '<p>Drag & drop your CSV file here, or <span class="browse-link">browse</span></p>' +
+                        '<p style="font-size: 0.8rem; margin-top: 0.5rem;">Select a broker first, then upload the holdings CSV</p>' +
+                        '<input type="file" id="csvFileInput" accept=".csv" />' +
+                    '</div>' +
+                '</div>' +
+                '<div id="portfolioDataSection"></div>' +
+            '</div>';
+        }
+
+        function attachPortfolioEventListeners() {
+            const fileInput = document.getElementById('csvFileInput');
+            const uploadArea = document.getElementById('fileUploadArea');
+
+            if (uploadArea) {
+                uploadArea.addEventListener('click', function() {
+                    if (!selectedBroker) {
+                        showSuccessMessage('Please select a broker first');
+                        return;
+                    }
+                    fileInput.click();
+                });
+
+                uploadArea.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    uploadArea.classList.add('drag-over');
+                });
+
+                uploadArea.addEventListener('dragleave', function() {
+                    uploadArea.classList.remove('drag-over');
+                });
+
+                uploadArea.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    uploadArea.classList.remove('drag-over');
+                    if (!selectedBroker) {
+                        showSuccessMessage('Please select a broker first');
+                        return;
+                    }
+                    const file = e.dataTransfer.files[0];
+                    if (file && file.name.endsWith('.csv')) {
+                        parseCSVFile(file);
+                    }
+                });
+            }
+
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        parseCSVFile(file);
+                    }
+                });
+            }
+        }
+
+        function selectBroker(broker) {
+            selectedBroker = broker;
+            document.querySelectorAll('.broker-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.broker === broker);
+            });
+        }
+
+        function parseCSVFile(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                const holdings = parseCSVByBroker(text, selectedBroker);
+                if (holdings && holdings.length > 0) {
+                    savePortfolioData(holdings);
+                    renderPortfolioData();
+                    showSuccessMessage('Portfolio imported successfully! ' + holdings.length + ' holdings found.');
+                    setTimeout(function() { loadDashboard(); }, 500);
+                } else {
+                    showSuccessMessage('No valid holdings found in the CSV file.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function parseCSVByBroker(csvText, broker) {
+            const lines = csvText.split('\\n').map(line => line.trim()).filter(line => line);
+            if (lines.length < 2) return [];
+
+            const headerLine = lines[0].toLowerCase();
+            const dataLines = lines.slice(1);
+
+            if (broker === 'zerodha') {
+                return parseZerodhaCSV(headerLine, dataLines);
+            } else if (broker === 'groww') {
+                return parseGrowwCSV(headerLine, dataLines);
+            }
+            return [];
+        }
+
+        function parseZerodhaCSV(headerLine, dataLines) {
+            const headers = parseCSVLine(headerLine);
+            const holdings = [];
+
+            // Map headers to indices
+            const symbolIdx = headers.findIndex(h => h.includes('symbol') || h.includes('tradingsymbol'));
+            const isinIdx = headers.findIndex(h => h.includes('isin'));
+            const sectorIdx = headers.findIndex(h => h.includes('sector'));
+            const qtyIdx = headers.findIndex(h => h.includes('quantity') || h.includes('qty'));
+            const avgPriceIdx = headers.findIndex(h => h.includes('average') && h.includes('price'));
+            const currentPriceIdx = headers.findIndex(h => h.includes('previous') || h.includes('closing') || h.includes('ltp') || h.includes('current'));
+            const pnlIdx = headers.findIndex(h => h.includes('unrealized') && h.includes('p&l') && !h.includes('pct'));
+            const pnlPctIdx = headers.findIndex(h => h.includes('pct') || h.includes('%'));
+            const instrumentIdx = headers.findIndex(h => h.includes('instrument'));
+
+            dataLines.forEach(line => {
+                if (!line.trim()) return;
+                const values = parseCSVLine(line);
+                if (values.length < 3) return;
+
+                const symbol = values[symbolIdx] || '';
+                if (!symbol) return;
+
+                const holding = {
+                    symbol: symbol.replace(/"/g, '').trim(),
+                    isin: values[isinIdx] ? values[isinIdx].replace(/"/g, '').trim() : '',
+                    sector: values[sectorIdx] ? values[sectorIdx].replace(/"/g, '').trim() : '',
+                    quantity: parseFloat(values[qtyIdx]) || 0,
+                    avgPrice: parseFloat(values[avgPriceIdx]) || 0,
+                    currentPrice: parseFloat(values[currentPriceIdx]) || 0,
+                    pnl: parseFloat(values[pnlIdx]) || 0,
+                    pnlPercent: parseFloat(values[pnlPctIdx]) || 0,
+                    type: determineHoldingType(values[instrumentIdx] || symbol),
+                    broker: 'zerodha'
+                };
+
+                // Calculate invested and current value
+                holding.investedValue = holding.quantity * holding.avgPrice;
+                holding.currentValue = holding.quantity * holding.currentPrice;
+
+                // Recalculate P&L if not provided
+                if (holding.pnl === 0 && holding.investedValue > 0) {
+                    holding.pnl = holding.currentValue - holding.investedValue;
+                    holding.pnlPercent = (holding.pnl / holding.investedValue) * 100;
+                }
+
+                holdings.push(holding);
+            });
+
+            return holdings;
+        }
+
+        function parseGrowwCSV(headerLine, dataLines) {
+            const headers = parseCSVLine(headerLine);
+            const holdings = [];
+
+            // Groww CSV format - map headers
+            const symbolIdx = headers.findIndex(h => h.includes('symbol') || h.includes('stock') || h.includes('scheme'));
+            const qtyIdx = headers.findIndex(h => h.includes('quantity') || h.includes('units') || h.includes('qty'));
+            const avgPriceIdx = headers.findIndex(h => h.includes('avg') || h.includes('purchase'));
+            const currentPriceIdx = headers.findIndex(h => h.includes('current') || h.includes('nav') || h.includes('ltp'));
+            const investedIdx = headers.findIndex(h => h.includes('invested'));
+            const currentValueIdx = headers.findIndex(h => h.includes('current') && h.includes('value'));
+            const pnlIdx = headers.findIndex(h => (h.includes('gain') || h.includes('p&l') || h.includes('profit')) && !h.includes('%'));
+            const pnlPctIdx = headers.findIndex(h => h.includes('%') || h.includes('return'));
+            const typeIdx = headers.findIndex(h => h.includes('type') || h.includes('category'));
+
+            dataLines.forEach(line => {
+                if (!line.trim()) return;
+                const values = parseCSVLine(line);
+                if (values.length < 3) return;
+
+                const symbol = values[symbolIdx >= 0 ? symbolIdx : 0] || '';
+                if (!symbol) return;
+
+                const quantity = parseFloat(values[qtyIdx]) || 0;
+                const avgPrice = parseFloat(values[avgPriceIdx]) || 0;
+                const currentPrice = parseFloat(values[currentPriceIdx]) || 0;
+
+                const holding = {
+                    symbol: symbol.replace(/"/g, '').trim(),
+                    isin: '',
+                    sector: '',
+                    quantity: quantity,
+                    avgPrice: avgPrice,
+                    currentPrice: currentPrice,
+                    investedValue: investedIdx >= 0 ? parseFloat(values[investedIdx]) || (quantity * avgPrice) : (quantity * avgPrice),
+                    currentValue: currentValueIdx >= 0 ? parseFloat(values[currentValueIdx]) || (quantity * currentPrice) : (quantity * currentPrice),
+                    pnl: parseFloat(values[pnlIdx]) || 0,
+                    pnlPercent: parseFloat(values[pnlPctIdx]) || 0,
+                    type: typeIdx >= 0 ? (values[typeIdx] || '').toLowerCase().includes('mutual') ? 'mutualfund' : 'equity' : determineHoldingType(symbol),
+                    broker: 'groww'
+                };
+
+                // Recalculate P&L if not provided
+                if (holding.pnl === 0 && holding.investedValue > 0) {
+                    holding.pnl = holding.currentValue - holding.investedValue;
+                    holding.pnlPercent = (holding.pnl / holding.investedValue) * 100;
+                }
+
+                holdings.push(holding);
+            });
+
+            return holdings;
+        }
+
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current.trim());
+            return result;
+        }
+
+        function determineHoldingType(identifier) {
+            const lower = (identifier || '').toLowerCase();
+            if (lower.includes('mutual') || lower.includes('fund') || lower.includes('mf') || lower.includes('scheme')) {
+                return 'mutualfund';
+            }
+            if (lower.includes('etf')) {
+                return 'etf';
+            }
+            return 'equity';
+        }
+
+        function savePortfolioData(holdings) {
+            const existingData = getPortfolioData();
+
+            // Merge or replace holdings from the same broker
+            const brokerHoldings = holdings[0]?.broker || selectedBroker;
+            const otherBrokerHoldings = existingData.filter(h => h.broker !== brokerHoldings);
+            const mergedHoldings = [...otherBrokerHoldings, ...holdings];
+
+            localStorage.setItem(PORTFOLIO_STORAGE_KEY, JSON.stringify(mergedHoldings));
+        }
+
+        function getPortfolioData() {
+            try {
+                const data = localStorage.getItem(PORTFOLIO_STORAGE_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function clearPortfolio() {
+            if (!confirm('Clear all portfolio data?')) return;
+            localStorage.removeItem(PORTFOLIO_STORAGE_KEY);
+            renderPortfolioData();
+            showSuccessMessage('Portfolio cleared');
+            setTimeout(function() { loadDashboard(); }, 500);
+        }
+
+        function switchPortfolioTab(tab) {
+            currentPortfolioTab = tab;
+            document.querySelectorAll('.portfolio-tab').forEach(t => {
+                t.classList.toggle('active', t.dataset.tab === tab);
+            });
+            renderPortfolioHoldings();
+        }
+
+        function renderPortfolioData() {
+            const container = document.getElementById('portfolioDataSection');
+            if (!container) return;
+
+            const holdings = getPortfolioData();
+            if (!holdings.length) {
+                container.innerHTML = '';
+                return;
+            }
+
+            // Calculate summary
+            const summary = calculatePortfolioSummary(holdings);
+
+            // Build HTML using string concatenation to avoid template literal issues
+            let html = '<div class="portfolio-summary">';
+            html += '<div class="summary-card"><div class="label">Invested Value</div><div class="value">' + formatCurrency(summary.investedValue) + '</div></div>';
+            html += '<div class="summary-card"><div class="label">Current Value</div><div class="value">' + formatCurrency(summary.currentValue) + '</div></div>';
+            html += '<div class="summary-card"><div class="label">Total P&L</div><div class="value ' + (summary.totalPnl >= 0 ? 'positive' : 'negative') + '">' + (summary.totalPnl >= 0 ? '+' : '') + formatCurrency(summary.totalPnl) + '</div></div>';
+            html += '<div class="summary-card"><div class="label">Returns</div><div class="value ' + (summary.pnlPercent >= 0 ? 'positive' : 'negative') + '">' + (summary.pnlPercent >= 0 ? '+' : '') + summary.pnlPercent.toFixed(2) + '%</div></div>';
+            html += '</div>';
+
+            // Add tabs for filtering
+            html += '<div class="portfolio-tabs">';
+            html += '<button class="portfolio-tab' + (currentPortfolioTab === 'all' ? ' active' : '') + '" data-tab="all" onclick="switchPortfolioTab(\'all\')">All (' + holdings.length + ')</button>';
+
+            const equityCount = holdings.filter(h => h.type === 'equity').length;
+            const mfCount = holdings.filter(h => h.type === 'mutualfund').length;
+
+            if (equityCount > 0) {
+                html += '<button class="portfolio-tab' + (currentPortfolioTab === 'equity' ? ' active' : '') + '" data-tab="equity" onclick="switchPortfolioTab(\'equity\')">Equity (' + equityCount + ')</button>';
+            }
+            if (mfCount > 0) {
+                html += '<button class="portfolio-tab' + (currentPortfolioTab === 'mutualfund' ? ' active' : '') + '" data-tab="mutualfund" onclick="switchPortfolioTab(\'mutualfund\')">Mutual Funds (' + mfCount + ')</button>';
+            }
+            html += '</div>';
+
+            html += '<div class="holdings-section">';
+            html += '<div class="holdings-header"><h4>Holdings</h4><button class="clear-portfolio-btn" onclick="clearPortfolio()"><i class="fas fa-trash"></i> Clear All</button></div>';
+            html += '<div class="holdings-scroll" id="holdingsTableContainer"></div>';
+            html += '</div>';
+
+            container.innerHTML = html;
+            renderPortfolioHoldings();
+        }
+
+        function renderPortfolioHoldings() {
+            const container = document.getElementById('holdingsTableContainer');
+            if (!container) return;
+
+            const holdings = getPortfolioData();
+            const filtered = currentPortfolioTab === 'all' ? holdings : holdings.filter(h => h.type === currentPortfolioTab);
+
+            if (!filtered.length) {
+                container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-secondary);">No holdings in this category</div>';
+                return;
+            }
+
+            let html = '<table class="holdings-table"><thead><tr>';
+            html += '<th>Symbol</th><th>Qty</th><th style="text-align: right;">Avg Price</th><th style="text-align: right;">Current</th><th style="text-align: right;">Invested</th><th style="text-align: right;">Current Value</th><th style="text-align: right;">P&L</th><th style="text-align: right;">P&L %</th>';
+            html += '</tr></thead><tbody>';
+
+            filtered.forEach(function(h) {
+                const pnlClass = h.pnl >= 0 ? 'pnl-positive' : 'pnl-negative';
+                html += '<tr>';
+                html += '<td><span class="symbol">' + h.symbol + '</span>';
+                if (h.sector) {
+                    html += '<br><span class="sector">' + h.sector + '</span>';
+                }
+                html += '</td>';
+                html += '<td>' + h.quantity.toLocaleString('en-IN', {maximumFractionDigits: 4}) + '</td>';
+                html += '<td style="text-align: right;">' + formatCurrency(h.avgPrice) + '</td>';
+                html += '<td style="text-align: right;">' + formatCurrency(h.currentPrice) + '</td>';
+                html += '<td style="text-align: right;">' + formatCurrency(h.investedValue) + '</td>';
+                html += '<td style="text-align: right;">' + formatCurrency(h.currentValue) + '</td>';
+                html += '<td style="text-align: right;" class="' + pnlClass + '">' + (h.pnl >= 0 ? '+' : '') + formatCurrency(h.pnl) + '</td>';
+                html += '<td style="text-align: right;" class="' + pnlClass + '">' + (h.pnlPercent >= 0 ? '+' : '') + h.pnlPercent.toFixed(2) + '%</td>';
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function calculatePortfolioSummary(holdings) {
+            const summary = {
+                investedValue: 0,
+                currentValue: 0,
+                totalPnl: 0,
+                pnlPercent: 0
+            };
+
+            holdings.forEach(function(h) {
+                summary.investedValue += h.investedValue || 0;
+                summary.currentValue += h.currentValue || 0;
+            });
+
+            summary.totalPnl = summary.currentValue - summary.investedValue;
+            summary.pnlPercent = summary.investedValue > 0 ? (summary.totalPnl / summary.investedValue) * 100 : 0;
+
+            return summary;
+        }
+
         // Enhanced Features
         let currentTheme = 'light';
         let privacyModeEnabled = false;
@@ -4987,9 +5673,9 @@
             const bankAccounts = JSON.parse(localStorage.getItem('fintpe_bank_accounts') || '[]');
             const liquidBalance = bankAccounts.reduce((sum, acc) => sum + (parseFloat(acc.balance) || 0), 0);
 
-            // Calculate investments total
-            const investments = JSON.parse(localStorage.getItem('fintpe_investments') || '[]');
-            const totalInvestments = investments.reduce((sum, inv) => sum + (parseFloat(inv.holding) || 0), 0);
+            // Calculate investments total from portfolio data
+            const portfolio = JSON.parse(localStorage.getItem('fintpe_portfolio') || '[]');
+            const totalInvestments = portfolio.reduce((sum, h) => sum + (parseFloat(h.currentValue) || 0), 0);
 
             // Calculate real estate and gold from assets
             const assets = JSON.parse(localStorage.getItem('fintpe_realestate_gold') || '[]');
