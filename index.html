@@ -2917,7 +2917,6 @@
         // ========== AUTH SYSTEM ==========
         let isLoggedIn = false;
         let currentUser = null;
-        let userEmail = ''; // Alias for backwards compatibility
 
         // Get all users from localStorage
         function getUsers() {
@@ -3030,7 +3029,6 @@
             // Successful login
             isLoggedIn = true;
             currentUser = email;
-            userEmail = email;
             localStorage.setItem('fintpe_current_user', email);
 
             closeLoginModal();
@@ -3085,7 +3083,6 @@
             // Auto-login after signup
             isLoggedIn = true;
             currentUser = email;
-            userEmail = email;
             localStorage.setItem('fintpe_current_user', email);
 
             closeLoginModal();
@@ -3268,7 +3265,7 @@
                                 <div class="dashboard-welcome">
                                     <div>
                                         <h2 style="margin-bottom: 0.5rem;">Welcome to Fintpe! 👋</h2>
-                                        <p style="color: var(--text-secondary); margin: 0;">${userEmail}</p>
+                                        <p style="color: var(--text-secondary); margin: 0;">${currentUser || ''}</p>
                                     </div>
                                     <div style="display: flex; gap: 1rem; align-items: center;">
                                         <button onclick="toggleDashboardFamilyView()" class="btn btn-secondary" id="dashboardFamilyToggle">
@@ -4680,8 +4677,8 @@
                 } else {
                     initials = displayName.charAt(0).toUpperCase();
                 }
-            } else if (userEmail) {
-                const emailName = userEmail.split('@')[0];
+            } else if (currentUser) {
+                const emailName = currentUser.split('@')[0];
                 displayName = emailName.charAt(0).toUpperCase() + emailName.slice(1);
                 initials = emailName.charAt(0).toUpperCase();
             }
@@ -4718,8 +4715,8 @@
                 const storedValue = userProfileData ? userProfileData[field] : '';
                 if (storedValue) {
                     element.value = storedValue;
-                } else if (field === 'email' && userEmail) {
-                    element.value = userEmail;
+                } else if (field === 'email' && currentUser) {
+                    element.value = currentUser;
                 }
             });
 
@@ -4791,8 +4788,8 @@
             const form = document.getElementById('profileDetailsForm');
             if (form) {
                 form.reset();
-                if (userEmail && form.elements['email']) {
-                    form.elements['email'].value = userEmail;
+                if (currentUser && form.elements['email']) {
+                    form.elements['email'].value = currentUser;
                 }
             }
 
@@ -4861,8 +4858,8 @@
         }
 
         function saveSession() {
-            if (userEmail) {
-                localStorage.setItem('fintpe_user_email', userEmail);
+            if (currentUser) {
+                localStorage.setItem('fintpe_user_email', currentUser);
             }
         }
 
@@ -4894,7 +4891,7 @@
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
                 isLoggedIn = false;
-                userEmail = '';
+                currentUser = null;
                 clearSession();
                 loadPage('landing');
                 
@@ -6445,7 +6442,6 @@
                 if (users[savedUser]) {
                     isLoggedIn = true;
                     currentUser = savedUser;
-                    userEmail = savedUser;
                     updateNavigationForLogin();
                 }
             }
