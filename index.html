@@ -23,7 +23,7 @@
             --light: #ffffff;
             --white: #ffffff;
             --text-primary: #1e3a5f;
-            --text-secondary: #4a6fa5;
+            --text-secondary: #424242;
             --text-muted: #6b7280;
             --border: #e5e7eb;
             --border-light: #f3f4f6;
@@ -405,8 +405,6 @@
             font-size: 0.75rem;
             font-weight: 600;
             color: #424242;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
             margin-bottom: 2rem;
             padding: 0.5rem 1rem;
             background: #f5f5f5;
@@ -552,8 +550,6 @@
         .hero-stat-label {
             font-size: 0.8rem;
             color: #424242;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
         }
 
         @media (max-width: 768px) {
@@ -3947,23 +3943,12 @@
                             <div class="dashboard-header">
                                 <div class="dashboard-welcome">
                                     <div>
-                                        <h2 style="margin-bottom: 0.5rem;">Welcome to Fintpe! 👋</h2>
-                                        <p style="color: var(--text-secondary); margin: 0;">${currentUser || ''}</p>
+                                        <h2 style="margin-bottom: 0.5rem; color: #1e3a5f;">Welcome to Fintpe! 👋</h2>
+                                        <p style="color: #424242; margin: 0;">${currentUser || ''}</p>
                                     </div>
-                                    <div style="display: flex; gap: 1rem; align-items: center;">
-                                        <button onclick="toggleDashboardFamilyView()" class="btn btn-secondary" id="dashboardFamilyToggle">
-                                            <i class="fas fa-users"></i>
-                                            Family View
-                                        </button>
-                                        <button onclick="loadPage('account')" class="btn btn-secondary">
-                                            <i class="fas fa-user-cog"></i>
-                                            My Account
-                                        </button>
-                                        <button onclick="logout()" class="btn btn-secondary">
-                                            <i class="fas fa-sign-out-alt"></i>
-                                            Logout
-                                        </button>
-                                    </div>
+                                    <button onclick="toggleDashboardFamilyView()" id="dashboardFamilyToggle" style="padding: 0.4rem 0.75rem; font-size: 0.8rem; background: transparent; border: 1px solid var(--border); border-radius: 6px; color: #424242; cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
+                                        <i class="fas fa-users"></i> Family
+                                    </button>
                                 </div>
                                 
                                 <!-- Individual Dashboard View (Default) -->
