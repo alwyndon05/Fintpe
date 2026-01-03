@@ -797,6 +797,98 @@
             padding-right: 0.5rem;
         }
 
+        .settings-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .settings-section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .settings-section-title i {
+            color: var(--primary);
+        }
+
+        .rate-table {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .rate-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 80px;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+        }
+
+        .rate-row:last-child {
+            border-bottom: none;
+        }
+
+        .rate-row[onclick]:hover {
+            background: var(--light);
+            margin: 0 -0.5rem;
+            padding: 0.75rem 0.5rem;
+            border-radius: 8px;
+        }
+
+        .rate-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .rate-unit {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .rate-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: right;
+        }
+
+        .rate-change {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .rate-change.positive {
+            color: var(--success);
+        }
+
+        .rate-change.negative {
+            color: var(--danger);
+        }
+
+        .rate-change.neutral {
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 600px) {
+            .rate-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+            .rate-unit {
+                display: none;
+            }
+        }
+
         .form-section-title {
             font-size: 0.85rem;
             font-weight: 700;
@@ -1699,14 +1791,13 @@
 
         .profile-header {
             display: flex;
-            align-items: flex-middle;
-            gap: 5rem;
-            margin-bottom: 3rem;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
             background: var(--white);
-            border-radius: 32px;
-            padding: 5rem;
-            border: 2px solid var(--border);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            border: 1px solid var(--border);
         }
 
         .profile-avatar {
@@ -1714,16 +1805,16 @@
         }
 
         .avatar-circle {
-            width: 80px;
-            height: 80px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.25rem;
+            font-weight: 600;
             box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
         }
 
@@ -1732,10 +1823,10 @@
         }
 
         .profile-name {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .account-status-alert {
@@ -3159,7 +3250,6 @@
                 <span class="coming-soon-badge">Coming Soon</span>
             </div>
             <ul class="nav-menu" id="nav-menu">
-                <li><button onclick="openProductsModal()" class="nav-link">Products</button></li>
                 <li id="loginBtnContainer"><button class="login-btn" onclick="openLoginModal()" id="loginBtn">Login</button></li>
                 <li id="userMenuContainer" style="display: none;">
                     <div class="user-menu">
@@ -4471,83 +4561,145 @@
             if (!mainContent) return;
 
             mainContent.innerHTML = `
-                <div class="dashboard-container" style="display: block;">
-                    <div class="dashboard-content">
-                        <div class="dashboard-header">
-                            <div class="dashboard-welcome">
-                                <div>
-                                    <h2 style="margin-bottom: 0.5rem;">Market Rates</h2>
-                                    <p style="color: var(--text-secondary); margin: 0;">Live market rates and trends</p>
-                                </div>
-                                <button onclick="loadDashboard()" class="btn btn-secondary">
-                                    <i class="fas fa-arrow-left"></i> Back to Dashboard
-                                </button>
+                <section class="account-section">
+                    <div class="account-container">
+                        <div class="profile-header">
+                            <div class="profile-info" style="flex: 1;">
+                                <h1 class="profile-name" style="margin-bottom: 0;">Rate Chart</h1>
+                                <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">Market rates and bank interest rates</p>
                             </div>
+                            <button onclick="loadDashboard()" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+                                <i class="fas fa-arrow-left"></i> Dashboard
+                            </button>
                         </div>
 
-                        <div class="market-rates-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
-                            <div class="rate-card" style="background: linear-gradient(135deg, #FFD700, #FFA500); padding: 1.5rem; border-radius: 16px; color: #333;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-size: 2.5rem;">🥇</span>
-                                    <span style="font-size: 0.9rem; opacity: 0.8;">24K / 10g</span>
+                        <div class="account-settings-layout">
+                            <div class="settings-content" style="flex: 1; max-width: 100%;">
+                                <!-- Commodities -->
+                                <div class="settings-section">
+                                    <h3 class="settings-section-title"><i class="fas fa-coins"></i> Commodities</h3>
+                                    <div class="rate-table">
+                                        <div class="rate-row">
+                                            <span class="rate-name">Gold (24K)</span>
+                                            <span class="rate-unit">per 10g</span>
+                                            <span class="rate-value">₹78,450</span>
+                                            <span class="rate-change positive">+0.45%</span>
+                                        </div>
+                                        <div class="rate-row">
+                                            <span class="rate-name">Gold (22K)</span>
+                                            <span class="rate-unit">per 10g</span>
+                                            <span class="rate-value">₹71,880</span>
+                                            <span class="rate-change positive">+0.42%</span>
+                                        </div>
+                                        <div class="rate-row">
+                                            <span class="rate-name">Silver</span>
+                                            <span class="rate-unit">per kg</span>
+                                            <span class="rate-value">₹92,500</span>
+                                            <span class="rate-change positive">+0.32%</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <h3 style="font-size: 1.8rem; margin: 1rem 0 0.5rem;">₹78,450</h3>
-                                <p style="font-size: 0.9rem; margin: 0;">Gold</p>
-                                <div style="margin-top: 1rem; font-size: 0.85rem; color: #059669;">▲ +0.45%</div>
-                            </div>
 
-                            <div class="rate-card" style="background: linear-gradient(135deg, #C0C0C0, #A8A8A8); padding: 1.5rem; border-radius: 16px; color: #333;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-size: 2.5rem;">🥈</span>
-                                    <span style="font-size: 0.9rem; opacity: 0.8;">per kg</span>
+                                <!-- Currency Rates -->
+                                <div class="settings-section">
+                                    <h3 class="settings-section-title"><i class="fas fa-exchange-alt"></i> Currency Rates</h3>
+                                    <div class="rate-table">
+                                        <div class="rate-row">
+                                            <span class="rate-name">US Dollar (USD)</span>
+                                            <span class="rate-unit">1 USD</span>
+                                            <span class="rate-value">₹83.42</span>
+                                            <span class="rate-change positive">+0.12%</span>
+                                        </div>
+                                        <div class="rate-row">
+                                            <span class="rate-name">Euro (EUR)</span>
+                                            <span class="rate-unit">1 EUR</span>
+                                            <span class="rate-value">₹90.15</span>
+                                            <span class="rate-change negative">-0.08%</span>
+                                        </div>
+                                        <div class="rate-row">
+                                            <span class="rate-name">British Pound (GBP)</span>
+                                            <span class="rate-unit">1 GBP</span>
+                                            <span class="rate-value">₹105.20</span>
+                                            <span class="rate-change positive">+0.15%</span>
+                                        </div>
+                                        <div class="rate-row">
+                                            <span class="rate-name">Japanese Yen (JPY)</span>
+                                            <span class="rate-unit">100 JPY</span>
+                                            <span class="rate-value">₹55.80</span>
+                                            <span class="rate-change negative">-0.22%</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <h3 style="font-size: 1.8rem; margin: 1rem 0 0.5rem;">₹92,500</h3>
-                                <p style="font-size: 0.9rem; margin: 0;">Silver</p>
-                                <div style="margin-top: 1rem; font-size: 0.85rem; color: #059669;">▲ +0.32%</div>
-                            </div>
 
-                            <div class="rate-card" style="background: linear-gradient(135deg, #85bb65, #4a8c3e); padding: 1.5rem; border-radius: 16px; color: white;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-size: 2.5rem;">💵</span>
-                                    <span style="font-size: 0.9rem; opacity: 0.8;">USD/INR</span>
+                                <!-- Bank Rates -->
+                                <div class="settings-section">
+                                    <h3 class="settings-section-title"><i class="fas fa-university"></i> Bank Interest Rates</h3>
+                                    <div class="rate-table">
+                                        <div class="rate-row">
+                                            <span class="rate-name">SBI FD Rate</span>
+                                            <span class="rate-unit">1 Year</span>
+                                            <span class="rate-value">7.10%</span>
+                                            <span class="rate-change neutral">-</span>
+                                        </div>
+                                        <div class="rate-row">
+                                            <span class="rate-name">HDFC FD Rate</span>
+                                            <span class="rate-unit">1 Year</span>
+                                            <span class="rate-value">7.25%</span>
+                                            <span class="rate-change neutral">-</span>
+                                        </div>
+                                        <div class="rate-row">
+                                            <span class="rate-name">ICICI FD Rate</span>
+                                            <span class="rate-unit">1 Year</span>
+                                            <span class="rate-value">7.20%</span>
+                                            <span class="rate-change neutral">-</span>
+                                        </div>
+                                        <div class="rate-row">
+                                            <span class="rate-name">PPF Rate</span>
+                                            <span class="rate-unit">Current</span>
+                                            <span class="rate-value">7.10%</span>
+                                            <span class="rate-change neutral">-</span>
+                                        </div>
+                                        <div class="rate-row">
+                                            <span class="rate-name">NSC Rate</span>
+                                            <span class="rate-unit">5 Year</span>
+                                            <span class="rate-value">7.70%</span>
+                                            <span class="rate-change neutral">-</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <h3 style="font-size: 1.8rem; margin: 1rem 0 0.5rem;">₹83.42</h3>
-                                <p style="font-size: 0.9rem; margin: 0;">US Dollar</p>
-                                <div style="margin-top: 1rem; font-size: 0.85rem; color: #fef3c7;">▲ +0.12%</div>
-                            </div>
 
-                            <div class="rate-card" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8); padding: 1.5rem; border-radius: 16px; color: white;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-size: 2.5rem;">🏦</span>
-                                    <span style="font-size: 0.9rem; opacity: 0.8;">1 Year</span>
+                                <!-- Market Indices -->
+                                <div class="settings-section">
+                                    <h3 class="settings-section-title"><i class="fas fa-chart-line"></i> Market Indices</h3>
+                                    <div class="rate-table">
+                                        <div class="rate-row">
+                                            <span class="rate-name">SENSEX</span>
+                                            <span class="rate-unit">BSE</span>
+                                            <span class="rate-value">72,568.45</span>
+                                            <span class="rate-change positive">+1.25%</span>
+                                        </div>
+                                        <div class="rate-row">
+                                            <span class="rate-name">NIFTY 50</span>
+                                            <span class="rate-unit">NSE</span>
+                                            <span class="rate-value">21,845.30</span>
+                                            <span class="rate-change positive">+1.18%</span>
+                                        </div>
+                                        <div class="rate-row">
+                                            <span class="rate-name">NIFTY Bank</span>
+                                            <span class="rate-unit">NSE</span>
+                                            <span class="rate-value">46,125.80</span>
+                                            <span class="rate-change positive">+0.95%</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <h3 style="font-size: 1.8rem; margin: 1rem 0 0.5rem;">7.25%</h3>
-                                <p style="font-size: 0.9rem; margin: 0;">FD Rate (SBI)</p>
-                                <div style="margin-top: 1rem; font-size: 0.85rem; color: #fef3c7;">No change</div>
-                            </div>
 
-                            <div class="rate-card" style="background: linear-gradient(135deg, #EF4444, #B91C1C); padding: 1.5rem; border-radius: 16px; color: white;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-size: 2.5rem;">📈</span>
-                                    <span style="font-size: 0.9rem; opacity: 0.8;">BSE</span>
-                                </div>
-                                <h3 style="font-size: 1.8rem; margin: 1rem 0 0.5rem;">72,568</h3>
-                                <p style="font-size: 0.9rem; margin: 0;">SENSEX</p>
-                                <div style="margin-top: 1rem; font-size: 0.85rem; color: #fef3c7;">▲ +1.25%</div>
-                            </div>
-
-                            <div class="rate-card" style="background: linear-gradient(135deg, #8B5CF6, #6D28D9); padding: 1.5rem; border-radius: 16px; color: white;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-size: 2.5rem;">📊</span>
-                                    <span style="font-size: 0.9rem; opacity: 0.8;">NSE</span>
-                                </div>
-                                <h3 style="font-size: 1.8rem; margin: 1rem 0 0.5rem;">21,845</h3>
-                                <p style="font-size: 0.9rem; margin: 0;">NIFTY 50</p>
-                                <div style="margin-top: 1rem; font-size: 0.85rem; color: #fef3c7;">▲ +1.18%</div>
+                                <p style="text-align: center; color: var(--text-secondary); font-size: 0.85rem; margin-top: 1.5rem;">
+                                    <i class="fas fa-info-circle"></i> Rates are indicative and may vary. Last updated: Today
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
             `;
         }
 
@@ -4557,63 +4709,68 @@
             if (!mainContent) return;
 
             mainContent.innerHTML = `
-                <div class="dashboard-container" style="display: block;">
-                    <div class="dashboard-content">
-                        <div class="dashboard-header">
-                            <div class="dashboard-welcome">
-                                <div>
-                                    <h2 style="margin-bottom: 0.5rem;">Financial Calculators</h2>
-                                    <p style="color: var(--text-secondary); margin: 0;">Plan your finances with our calculators</p>
+                <section class="account-section">
+                    <div class="account-container">
+                        <div class="profile-header">
+                            <div class="profile-info" style="flex: 1;">
+                                <h1 class="profile-name" style="margin-bottom: 0;">Calculators</h1>
+                                <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">Financial planning tools</p>
+                            </div>
+                            <button onclick="loadDashboard()" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+                                <i class="fas fa-arrow-left"></i> Dashboard
+                            </button>
+                        </div>
+
+                        <div class="account-settings-layout">
+                            <div class="settings-content" style="flex: 1; max-width: 100%;">
+                                <div class="settings-section">
+                                    <div class="rate-table">
+                                        <div class="rate-row" onclick="openSIPCalculator()" style="cursor: pointer;">
+                                            <span class="rate-name"><i class="fas fa-chart-line" style="color: var(--primary); margin-right: 0.5rem;"></i> SIP Calculator</span>
+                                            <span class="rate-unit">Mutual Funds</span>
+                                            <span class="rate-value" style="color: var(--text-secondary);">Calculate returns</span>
+                                            <span class="rate-change"><i class="fas fa-chevron-right"></i></span>
+                                        </div>
+                                        <div class="rate-row" onclick="openEMICalculator()" style="cursor: pointer;">
+                                            <span class="rate-name"><i class="fas fa-home" style="color: var(--primary); margin-right: 0.5rem;"></i> EMI Calculator</span>
+                                            <span class="rate-unit">Loans</span>
+                                            <span class="rate-value" style="color: var(--text-secondary);">Calculate EMI</span>
+                                            <span class="rate-change"><i class="fas fa-chevron-right"></i></span>
+                                        </div>
+                                        <div class="rate-row" onclick="openFDCalculator()" style="cursor: pointer;">
+                                            <span class="rate-name"><i class="fas fa-university" style="color: var(--primary); margin-right: 0.5rem;"></i> FD Calculator</span>
+                                            <span class="rate-unit">Fixed Deposit</span>
+                                            <span class="rate-value" style="color: var(--text-secondary);">Calculate maturity</span>
+                                            <span class="rate-change"><i class="fas fa-chevron-right"></i></span>
+                                        </div>
+                                        <div class="rate-row" onclick="openPPFCalculator()" style="cursor: pointer;">
+                                            <span class="rate-name"><i class="fas fa-piggy-bank" style="color: var(--primary); margin-right: 0.5rem;"></i> PPF Calculator</span>
+                                            <span class="rate-unit">Public Provident Fund</span>
+                                            <span class="rate-value" style="color: var(--text-secondary);">Calculate returns</span>
+                                            <span class="rate-change"><i class="fas fa-chevron-right"></i></span>
+                                        </div>
+                                        <div class="rate-row" onclick="openRetirementCalculator()" style="cursor: pointer;">
+                                            <span class="rate-name"><i class="fas fa-umbrella-beach" style="color: var(--primary); margin-right: 0.5rem;"></i> Retirement Calculator</span>
+                                            <span class="rate-unit">Planning</span>
+                                            <span class="rate-value" style="color: var(--text-secondary);">Plan corpus</span>
+                                            <span class="rate-change"><i class="fas fa-chevron-right"></i></span>
+                                        </div>
+                                        <div class="rate-row" onclick="openTaxCalculator()" style="cursor: pointer;">
+                                            <span class="rate-name"><i class="fas fa-receipt" style="color: var(--primary); margin-right: 0.5rem;"></i> Tax Calculator</span>
+                                            <span class="rate-unit">Income Tax</span>
+                                            <span class="rate-value" style="color: var(--text-secondary);">Old vs New regime</span>
+                                            <span class="rate-change"><i class="fas fa-chevron-right"></i></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button onclick="loadDashboard()" class="btn btn-secondary">
-                                    <i class="fas fa-arrow-left"></i> Back to Dashboard
-                                </button>
+
+                                <p style="text-align: center; color: var(--text-secondary); font-size: 0.85rem; margin-top: 1.5rem;">
+                                    <i class="fas fa-info-circle"></i> Calculators coming soon! Stay tuned.
+                                </p>
                             </div>
                         </div>
-
-                        <div class="calculators-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
-                            <div class="calculator-card" onclick="openSIPCalculator()" style="background: var(--light); padding: 1.5rem; border-radius: 16px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border);">
-                                <div style="font-size: 2.5rem; margin-bottom: 1rem;">💰</div>
-                                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text);">SIP Calculator</h3>
-                                <p style="font-size: 0.9rem; color: var(--text-secondary);">Calculate your SIP returns and wealth accumulation</p>
-                            </div>
-
-                            <div class="calculator-card" onclick="openEMICalculator()" style="background: var(--light); padding: 1.5rem; border-radius: 16px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border);">
-                                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🏠</div>
-                                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text);">EMI Calculator</h3>
-                                <p style="font-size: 0.9rem; color: var(--text-secondary);">Calculate loan EMI and total interest payable</p>
-                            </div>
-
-                            <div class="calculator-card" onclick="openFDCalculator()" style="background: var(--light); padding: 1.5rem; border-radius: 16px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border);">
-                                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🏦</div>
-                                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text);">FD Calculator</h3>
-                                <p style="font-size: 0.9rem; color: var(--text-secondary);">Calculate fixed deposit maturity amount</p>
-                            </div>
-
-                            <div class="calculator-card" onclick="openPPFCalculator()" style="background: var(--light); padding: 1.5rem; border-radius: 16px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border);">
-                                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
-                                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text);">PPF Calculator</h3>
-                                <p style="font-size: 0.9rem; color: var(--text-secondary);">Calculate PPF maturity and tax savings</p>
-                            </div>
-
-                            <div class="calculator-card" onclick="openRetirementCalculator()" style="background: var(--light); padding: 1.5rem; border-radius: 16px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border);">
-                                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎯</div>
-                                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text);">Retirement Calculator</h3>
-                                <p style="font-size: 0.9rem; color: var(--text-secondary);">Plan for your retirement corpus</p>
-                            </div>
-
-                            <div class="calculator-card" onclick="openTaxCalculator()" style="background: var(--light); padding: 1.5rem; border-radius: 16px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border);">
-                                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📋</div>
-                                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text);">Tax Calculator</h3>
-                                <p style="font-size: 0.9rem; color: var(--text-secondary);">Calculate income tax under old/new regime</p>
-                            </div>
-                        </div>
-
-                        <p style="text-align: center; color: var(--text-secondary); margin-top: 2rem; font-size: 0.9rem;">
-                            <i class="fas fa-info-circle"></i> Calculators coming soon! Stay tuned.
-                        </p>
                     </div>
-                </div>
+                </section>
             `;
         }
 
