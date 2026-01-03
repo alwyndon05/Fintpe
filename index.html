@@ -270,72 +270,166 @@
             cursor: pointer;
         }
 
-        /* Hero Section */
+        /* ========== PREMIUM DARK HERO ========== */
         .hero {
-            padding: 12rem 2rem 8rem;
-            text-align: center;
-            background: var(--white);
+            min-height: 100vh;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #020347;
             position: relative;
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
+        /* Animated gradient mesh background */
+        .hero-gradient {
             position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 1200px;
-            height: 100%;
-            background: radial-gradient(ellipse at top, rgba(2, 3, 71, 0.03) 0%, transparent 70%);
-            pointer-events: none;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(120, 119, 198, 0.15), transparent),
+                radial-gradient(ellipse 60% 50% at 80% 50%, rgba(79, 70, 229, 0.12), transparent),
+                radial-gradient(ellipse 50% 40% at 40% 80%, rgba(16, 185, 129, 0.08), transparent);
+            animation: gradientShift 15s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+            33% { opacity: 0.8; transform: scale(1.05) rotate(1deg); }
+            66% { opacity: 0.9; transform: scale(0.98) rotate(-1deg); }
+        }
+
+        /* Grid overlay */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+        }
+
+        /* Glow orbs */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 600px;
+            height: 600px;
+            background: rgba(79, 70, 229, 0.3);
+            top: -20%;
+            right: -10%;
+            animation-delay: 0s;
+        }
+
+        .hero-orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(16, 185, 129, 0.2);
+            bottom: -10%;
+            left: -5%;
+            animation-delay: -7s;
+        }
+
+        .hero-orb-3 {
+            width: 300px;
+            height: 300px;
+            background: rgba(120, 119, 198, 0.25);
+            top: 40%;
+            left: 20%;
+            animation-delay: -14s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(10px, 10px) scale(1.02); }
         }
 
         .hero-content {
-            max-width: 720px;
+            max-width: 900px;
             margin: 0 auto;
             position: relative;
-            z-index: 1;
+            z-index: 10;
+            text-align: center;
+            padding: 4rem 0;
         }
 
         .hero-eyebrow {
-            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            color: var(--primary);
-            letter-spacing: 0.15em;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
             opacity: 0;
-            animation: fadeInUp 0.8s var(--ease-out-expo) 0.2s forwards;
+            animation: fadeInUp 1s var(--ease-out-expo) 0.1s forwards;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
         }
 
         .hero-title {
-            font-size: clamp(2.75rem, 7vw, 4.25rem);
+            font-size: clamp(3rem, 10vw, 5.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            line-height: 1.08;
-            letter-spacing: -0.03em;
+            color: #ffffff;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
             opacity: 0;
-            animation: fadeInUp 0.8s var(--ease-out-expo) 0.35s forwards;
+            animation: fadeInUp 1s var(--ease-out-expo) 0.25s forwards;
         }
 
-        .hero-title-line {
-            display: block;
-            overflow: hidden;
+        .hero-title-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: textShimmer 5s linear infinite;
+        }
+
+        @keyframes textShimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-            color: var(--text-secondary);
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.6);
             line-height: 1.7;
-            max-width: 520px;
+            max-width: 560px;
             margin-left: auto;
             margin-right: auto;
             opacity: 0;
-            animation: fadeInUp 0.8s var(--ease-out-expo) 0.5s forwards;
+            animation: fadeInUp 1s var(--ease-out-expo) 0.4s forwards;
         }
 
         .cta-buttons {
@@ -343,15 +437,16 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 4rem;
             opacity: 0;
-            animation: fadeInUp 0.8s var(--ease-out-expo) 0.65s forwards;
+            animation: fadeInUp 1s var(--ease-out-expo) 0.55s forwards;
         }
 
-        /* Buttons */
+        /* Premium buttons */
         .btn {
-            padding: 0.95rem 1.75rem;
+            padding: 1rem 2rem;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 0.95rem;
             text-decoration: none;
@@ -365,51 +460,87 @@
         }
 
         .btn-primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 2px 8px rgba(2, 3, 71, 0.2);
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            background: #ffffff;
+            color: #020347;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(2, 3, 71, 0.25);
-        }
-
-        .btn-primary:hover::before {
-            opacity: 1;
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2), 0 10px 40px rgba(0, 0, 0, 0.4);
         }
 
         .btn-primary i {
-            transition: transform 0.3s var(--ease-out-expo);
+            transition: transform 0.4s var(--ease-out-expo);
         }
 
         .btn-primary:hover i {
-            transform: translateX(3px);
+            transform: translateX(4px);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--primary);
-            border: 1.5px solid var(--primary);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+        }
+
+        .btn-tertiary {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 1rem 1.5rem;
+        }
+
+        .btn-tertiary:hover {
+            color: #ffffff;
+        }
+
+        /* Stats row */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            opacity: 0;
+            animation: fadeInUp 1s var(--ease-out-expo) 0.7s forwards;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 768px) {
+            .hero-stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .hero-stat-value {
+                font-size: 2rem;
+            }
+        }
+
+        /* Non-hero button overrides */
+        .features-section .btn-primary {
             background: var(--primary);
             color: white;
             box-shadow: 0 4px 12px rgba(2, 3, 71, 0.15);
@@ -491,6 +622,254 @@
 
         .modal-body, .service-modal-body {
             padding: 2rem;
+        }
+
+        /* Auth Tabs */
+        .auth-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 1.5rem;
+            background: var(--light);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: transparent;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .auth-tab.active {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .auth-tab:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        /* Settings Tabs */
+        .settings-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 1.5rem;
+            background: var(--light);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .settings-tab {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: transparent;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .settings-tab.active {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .settings-tab:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        .settings-content {
+            max-height: 50vh;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .form-section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .account-action-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.75rem;
+            border: 1px solid transparent;
+        }
+
+        .account-action-item:hover {
+            background: var(--white);
+            border-color: var(--border);
+            transform: translateX(4px);
+        }
+
+        .account-action-item .action-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--white);
+            border-radius: 10px;
+            font-size: 1.2rem;
+        }
+
+        .account-action-item .action-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .account-action-item .action-info p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .account-action-item .action-arrow {
+            margin-left: auto;
+            color: var(--text-secondary);
+        }
+
+        /* Onboarding Styles */
+        .step-indicator {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 500px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .form-actions .btn {
+            flex: 1;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: var(--light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .checkbox-label:hover {
+            background: var(--border);
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + span,
+        .checkbox-label:has(input:checked) {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Toast Messages */
+        .toast-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            background: var(--white);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 9999;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            font-weight: 500;
+        }
+
+        .toast-message.show {
+            transform: translateX(0);
+        }
+
+        .toast-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast-success i {
+            color: var(--success);
+        }
+
+        .toast-error {
+            border-left: 4px solid var(--danger);
+        }
+
+        .toast-error i {
+            color: var(--danger);
+        }
+
+        .toast-info {
+            border-left: 4px solid var(--primary);
+        }
+
+        .toast-info i {
+            color: var(--primary);
         }
 
         .close {
@@ -1997,43 +2376,196 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close" onclick="closeLoginModal()">&times;</span>
-                <h2 id="modalTitle">Login to Fintpe</h2>
-                <p id="modalSubtitle">Access your financial dashboard</p>
+                <h2 id="modalTitle">Welcome to Fintpe</h2>
+                <p id="modalSubtitle">Your private finance dashboard</p>
             </div>
             <div class="modal-body">
-                <!-- Email Login Form -->
-                <form class="login-form" id="emailForm">
+                <!-- Auth Tabs -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
+                    <button class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</button>
+                </div>
+
+                <!-- Login Form -->
+                <form class="login-form" id="loginForm" onsubmit="handleLogin(event)">
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" id="email" placeholder="Enter your email address" required>
+                        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
                     </div>
                     <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                        <i class="fas fa-paper-plane"></i>
-                        Send OTP
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
                     </button>
                 </form>
 
-                <!-- OTP Verification Form -->
-                <div class="otp-container" id="otpContainer">
-                    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 1rem;">
-                        We've sent a 6-digit OTP to <span id="emailDisplay" style="color: var(--primary); font-weight: 600;"></span>
-                    </p>
-                    <div class="otp-inputs">
-                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
-                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
-                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
-                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
-                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
-                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]">
+                <!-- Signup Form -->
+                <form class="login-form" id="signupForm" style="display: none;" onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="signupEmail" placeholder="Enter your email" required>
                     </div>
-                    <button type="button" class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="verifyOTP()">
-                        <i class="fas fa-check"></i>
-                        Verify & Login
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="signupPassword" placeholder="Create a password (min 6 chars)" minlength="6" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-user-plus"></i>
+                        Create Account
                     </button>
-                    <div class="resend-otp">
-                        <a href="#" class="resend-link" onclick="resendOTP()">Didn't receive OTP? Resend</a>
+                </form>
+
+                <p style="text-align: center; margin-top: 1.5rem; color: var(--text-muted); font-size: 0.85rem;">
+                    <i class="fas fa-lock" style="margin-right: 0.5rem;"></i>
+                    All data stored locally on your device
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Onboarding Modal -->
+    <div id="onboardingModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2 id="onboardingTitle">Let's set up your profile</h2>
+                <p id="onboardingSubtitle">This helps us personalize your experience</p>
+            </div>
+            <div class="modal-body">
+                <form id="onboardingForm" onsubmit="handleOnboarding(event)">
+                    <!-- Step 1: Basic Info -->
+                    <div class="onboarding-step" id="onboardingStep1">
+                        <div class="step-indicator">Step 1 of 3 — Basic Info</div>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="profileName" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Date of Birth</label>
+                                <input type="date" id="profileDOB" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select id="profileGender">
+                                    <option value="">Select</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                    <option value="prefer-not">Prefer not to say</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number (Optional)</label>
+                            <input type="tel" id="profilePhone" placeholder="+91 98765 43210">
+                        </div>
+                        <button type="button" class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="nextOnboardingStep(2)">
+                            Continue
+                            <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
+                        </button>
                     </div>
-                </div>
+
+                    <!-- Step 2: Financial Profile -->
+                    <div class="onboarding-step" id="onboardingStep2" style="display: none;">
+                        <div class="step-indicator">Step 2 of 3 — Financial Profile</div>
+                        <div class="form-group">
+                            <label>Employment Status</label>
+                            <select id="profileEmployment" required>
+                                <option value="">Select</option>
+                                <option value="salaried">Salaried</option>
+                                <option value="self-employed">Self Employed</option>
+                                <option value="business">Business Owner</option>
+                                <option value="freelancer">Freelancer</option>
+                                <option value="student">Student</option>
+                                <option value="retired">Retired</option>
+                                <option value="homemaker">Homemaker</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Monthly Income Range</label>
+                            <select id="profileIncome" required>
+                                <option value="">Select</option>
+                                <option value="0-25000">Below ₹25,000</option>
+                                <option value="25000-50000">₹25,000 - ₹50,000</option>
+                                <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+                                <option value="100000-250000">₹1,00,000 - ₹2,50,000</option>
+                                <option value="250000-500000">₹2,50,000 - ₹5,00,000</option>
+                                <option value="500000+">Above ₹5,00,000</option>
+                                <option value="prefer-not">Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Primary Currency</label>
+                            <select id="profileCurrency" required>
+                                <option value="INR">₹ Indian Rupee (INR)</option>
+                                <option value="USD">$ US Dollar (USD)</option>
+                                <option value="EUR">€ Euro (EUR)</option>
+                                <option value="GBP">£ British Pound (GBP)</option>
+                                <option value="AED">د.إ UAE Dirham (AED)</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-tertiary" onclick="prevOnboardingStep(1)">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="nextOnboardingStep(3)">
+                                Continue <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Goals & Preferences -->
+                    <div class="onboarding-step" id="onboardingStep3" style="display: none;">
+                        <div class="step-indicator">Step 3 of 3 — Goals & Preferences</div>
+                        <div class="form-group">
+                            <label>What are your financial goals? (Select all that apply)</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="goals" value="track-expenses"> Track daily expenses
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="goals" value="build-savings"> Build emergency savings
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="goals" value="invest"> Start/grow investments
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="goals" value="debt-free"> Become debt-free
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="goals" value="retirement"> Plan for retirement
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="goals" value="net-worth"> Track net worth
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Risk Tolerance</label>
+                            <select id="profileRiskTolerance">
+                                <option value="conservative">Conservative — Prefer safety over returns</option>
+                                <option value="moderate">Moderate — Balance of safety and growth</option>
+                                <option value="aggressive">Aggressive — Higher risk for higher returns</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-tertiary" onclick="prevOnboardingStep(2)">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-check"></i> Complete Setup
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -2101,17 +2633,49 @@
 
     <!-- JavaScript -->
     <script>
-        // Fixed auth.js content
+        // ========== AUTH SYSTEM ==========
         let isLoggedIn = false;
-        let userEmail = '';
-        let otpSent = false;
+        let currentUser = null;
+
+        // Get all users from localStorage
+        function getUsers() {
+            return JSON.parse(localStorage.getItem('fintpe_users') || '{}');
+        }
+
+        // Save users to localStorage
+        function saveUsers(users) {
+            localStorage.setItem('fintpe_users', JSON.stringify(users));
+        }
+
+        // Get current user profile
+        function getUserProfile() {
+            if (!currentUser) return null;
+            const users = getUsers();
+            return users[currentUser]?.profile || null;
+        }
+
+        // Save user profile
+        function saveUserProfile(profile) {
+            if (!currentUser) return;
+            const users = getUsers();
+            if (users[currentUser]) {
+                users[currentUser].profile = profile;
+                saveUsers(users);
+            }
+        }
+
+        // Check if user has completed onboarding
+        function hasCompletedOnboarding() {
+            const profile = getUserProfile();
+            return profile && profile.onboardingComplete;
+        }
 
         // Login Modal Functions
         function openLoginModal() {
             const modal = document.getElementById('loginModal');
             if (modal) {
                 modal.style.display = 'block';
-                resetLoginForm();
+                switchAuthTab('login');
             }
         }
 
@@ -2119,74 +2683,248 @@
             const modal = document.getElementById('loginModal');
             if (modal) {
                 modal.style.display = 'none';
-                resetLoginForm();
+                resetAuthForms();
             }
         }
 
-        function resetLoginForm() {
-            const emailForm = document.getElementById('emailForm');
-            const otpContainer = document.getElementById('otpContainer');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalSubtitle = document.getElementById('modalSubtitle');
-            const emailInput = document.getElementById('email');
-            
-            if (emailForm) emailForm.style.display = 'block';
-            if (otpContainer) otpContainer.style.display = 'none';
-            if (modalTitle) modalTitle.textContent = 'Login to Fintpe';
-            if (modalSubtitle) modalSubtitle.textContent = 'Access your financial dashboard';
-            if (emailInput) emailInput.value = '';
-            
-            const otpInputs = document.querySelectorAll('.otp-input');
-            otpInputs.forEach(input => input.value = '');
-            
-            otpSent = false;
+        function resetAuthForms() {
+            document.getElementById('loginForm')?.reset();
+            document.getElementById('signupForm')?.reset();
         }
 
-        // Verify OTP
-        function verifyOTP() {
-            const otpInputs = document.querySelectorAll('.otp-input');
-            let otp = '';
-            otpInputs.forEach(input => otp += input.value);
+        // Switch between login and signup tabs
+        function switchAuthTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const tabs = document.querySelectorAll('.auth-tab');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalSubtitle = document.getElementById('modalSubtitle');
 
-            if (otp.length !== 6) {
-                alert('Please enter complete 6-digit OTP');
+            tabs.forEach(t => t.classList.remove('active'));
+
+            if (tab === 'login') {
+                loginForm.style.display = 'block';
+                signupForm.style.display = 'none';
+                tabs[0].classList.add('active');
+                modalTitle.textContent = 'Welcome back';
+                modalSubtitle.textContent = 'Login to your account';
+            } else {
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+                tabs[1].classList.add('active');
+                modalTitle.textContent = 'Create account';
+                modalSubtitle.textContent = 'Start managing your finances';
+            }
+        }
+
+        // Handle Login
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const password = document.getElementById('loginPassword').value;
+
+            const users = getUsers();
+
+            if (!users[email]) {
+                showMessage('No account found with this email. Please sign up first.', 'error');
                 return;
             }
 
-            const verifyButton = document.querySelector('button[onclick="verifyOTP()"]');
-            if (!verifyButton) return;
-            
-            const originalText = verifyButton.innerHTML;
-            
-            verifyButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
-            verifyButton.disabled = true;
+            if (users[email].password !== password) {
+                showMessage('Incorrect password. Please try again.', 'error');
+                return;
+            }
 
+            // Successful login
+            isLoggedIn = true;
+            currentUser = email;
+            localStorage.setItem('fintpe_current_user', email);
+
+            closeLoginModal();
+
+            // Check if onboarding is needed
+            if (!hasCompletedOnboarding()) {
+                openOnboardingModal();
+            } else {
+                loadDashboard();
+                updateNavigationForLogin();
+                showMessage('Welcome back!', 'success');
+            }
+        }
+
+        // Handle Signup
+        function handleSignup(event) {
+            event.preventDefault();
+            const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+
+            if (password !== confirmPassword) {
+                showMessage('Passwords do not match', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('Password must be at least 6 characters', 'error');
+                return;
+            }
+
+            const users = getUsers();
+
+            if (users[email]) {
+                showMessage('An account already exists with this email', 'error');
+                return;
+            }
+
+            // Create new user
+            users[email] = {
+                password: password,
+                createdAt: new Date().toISOString(),
+                profile: null
+            };
+            saveUsers(users);
+
+            // Auto-login after signup
+            isLoggedIn = true;
+            currentUser = email;
+            localStorage.setItem('fintpe_current_user', email);
+
+            closeLoginModal();
+            openOnboardingModal();
+            showMessage('Account created successfully!', 'success');
+        }
+
+        // Onboarding Modal Functions
+        function openOnboardingModal() {
+            const modal = document.getElementById('onboardingModal');
+            if (modal) {
+                modal.style.display = 'block';
+                showOnboardingStep(1);
+            }
+        }
+
+        function closeOnboardingModal() {
+            const modal = document.getElementById('onboardingModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        function showOnboardingStep(step) {
+            for (let i = 1; i <= 3; i++) {
+                const stepEl = document.getElementById(`onboardingStep${i}`);
+                if (stepEl) {
+                    stepEl.style.display = i === step ? 'block' : 'none';
+                }
+            }
+        }
+
+        function nextOnboardingStep(step) {
+            // Validate current step before moving
+            if (step === 2) {
+                const name = document.getElementById('profileName').value;
+                const dob = document.getElementById('profileDOB').value;
+                if (!name || !dob) {
+                    showMessage('Please fill in required fields', 'error');
+                    return;
+                }
+            } else if (step === 3) {
+                const employment = document.getElementById('profileEmployment').value;
+                const income = document.getElementById('profileIncome').value;
+                if (!employment || !income) {
+                    showMessage('Please fill in required fields', 'error');
+                    return;
+                }
+            }
+            showOnboardingStep(step);
+        }
+
+        function prevOnboardingStep(step) {
+            showOnboardingStep(step);
+        }
+
+        // Handle Onboarding Form Submit
+        function handleOnboarding(event) {
+            event.preventDefault();
+
+            // Collect all profile data
+            const goals = [];
+            document.querySelectorAll('input[name="goals"]:checked').forEach(cb => {
+                goals.push(cb.value);
+            });
+
+            const profile = {
+                name: document.getElementById('profileName').value,
+                dateOfBirth: document.getElementById('profileDOB').value,
+                gender: document.getElementById('profileGender').value,
+                phone: document.getElementById('profilePhone').value,
+                employment: document.getElementById('profileEmployment').value,
+                incomeRange: document.getElementById('profileIncome').value,
+                currency: document.getElementById('profileCurrency').value,
+                goals: goals,
+                riskTolerance: document.getElementById('profileRiskTolerance').value,
+                onboardingComplete: true,
+                updatedAt: new Date().toISOString()
+            };
+
+            // Save profile
+            saveUserProfile(profile);
+
+            closeOnboardingModal();
+            loadDashboard();
+            updateNavigationForLogin();
+            showMessage(`Welcome, ${profile.name}! Your profile is set up.`, 'success');
+        }
+
+        // Show message toast
+        function showMessage(message, type = 'info') {
+            // Remove existing toasts
+            document.querySelectorAll('.toast-message').forEach(t => t.remove());
+
+            const toast = document.createElement('div');
+            toast.className = `toast-message toast-${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 10);
             setTimeout(() => {
-                verifyButton.innerHTML = '<i class="fas fa-check"></i> Login Successful!';
-                verifyButton.style.background = 'var(--success)';
-                
-                setTimeout(() => {
-                    isLoggedIn = true;
-                    saveSession();
-                    closeLoginModal();
-                    loadDashboard();
-                    updateNavigationForLogin();
-                }, 1500);
-            }, 2000);
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
 
         // Update navigation after login
         function updateNavigationForLogin() {
             const loginBtn = document.getElementById('loginBtn');
+            const profile = getUserProfile();
             if (loginBtn) {
-                loginBtn.innerHTML = '<i class="fas fa-user"></i> Dashboard';
+                loginBtn.innerHTML = `<i class="fas fa-user"></i> ${profile?.name?.split(' ')[0] || 'Dashboard'}`;
                 loginBtn.onclick = () => loadDashboard();
             }
         }
 
+        // Logout function
+        function logout() {
+            isLoggedIn = false;
+            currentUser = null;
+            localStorage.removeItem('fintpe_current_user');
+
+            const loginBtn = document.getElementById('loginBtn');
+            if (loginBtn) {
+                loginBtn.innerHTML = '<i class="fas fa-user"></i> Login';
+                loginBtn.onclick = () => openLoginModal();
+            }
+
+            loadPage('landing');
+            showMessage('You have been logged out', 'info');
+        }
+
         // Load Dashboard with Family View Support
         function loadDashboard() {
-            if (!isLoggedIn || !userEmail) {
+            if (!isLoggedIn || !currentUser) {
                 openLoginModal();
                 return;
             }
@@ -2616,18 +3354,40 @@
             if (mainContent) {
                 mainContent.innerHTML = `
                     <section class="hero">
+                        <!-- Animated background layers -->
+                        <div class="hero-gradient"></div>
+                        <div class="hero-grid"></div>
+                        <div class="hero-orb hero-orb-1"></div>
+                        <div class="hero-orb hero-orb-2"></div>
+                        <div class="hero-orb hero-orb-3"></div>
+
                         <div class="hero-content">
-                            <p class="hero-eyebrow">Personal Finance, Simplified</p>
-                            <h1 class="hero-title">Your money.<br>Your way.</h1>
-                            <p class="hero-subtitle">A private, DIY finance platform. Track net worth, assets, and investments in one place. No accounts. No tracking. No clutter.</p>
+                            <p class="hero-eyebrow">Now in Beta</p>
+                            <h1 class="hero-title">Your money.<br><span class="hero-title-gradient">Your way.</span></h1>
+                            <p class="hero-subtitle">The private finance platform for people who want control. Track everything, share nothing.</p>
                             <div class="cta-buttons">
                                 <button onclick="openLoginModal()" class="btn btn-primary">
-                                    Start tracking
-                                    <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
+                                    Start for free
+                                    <i class="fas fa-arrow-right"></i>
                                 </button>
-                                <button onclick="openProductsModal()" class="btn btn-tertiary">
-                                    Learn more
+                                <button onclick="openProductsModal()" class="btn btn-secondary">
+                                    <i class="fas fa-play"></i>
+                                    Watch demo
                                 </button>
+                            </div>
+                            <div class="hero-stats">
+                                <div class="hero-stat">
+                                    <div class="hero-stat-value" data-count="100">100%</div>
+                                    <div class="hero-stat-label">Private</div>
+                                </div>
+                                <div class="hero-stat">
+                                    <div class="hero-stat-value">0</div>
+                                    <div class="hero-stat-label">Data shared</div>
+                                </div>
+                                <div class="hero-stat">
+                                    <div class="hero-stat-value">∞</div>
+                                    <div class="hero-stat-label">Control</div>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -3853,90 +4613,357 @@
             }
         }
 
-        // Settings & Preferences Modal
+        // Settings & Preferences Modal with Profile Editing
         function openSettingsPreferences() {
-            // Create modal for settings
+            const profile = getUserProfile() || {};
             const settingsModal = document.createElement('div');
             settingsModal.className = 'modal';
             settingsModal.style.display = 'block';
             settingsModal.innerHTML = `
-                <div class="modal-content" style="max-width: 600px;">
+                <div class="modal-content" style="max-width: 650px;">
                     <div class="modal-header">
                         <span class="close" onclick="closeSettingsModal()">&times;</span>
-                        <h2>Settings & Preferences</h2>
-                        <p>Customize your Fintpe experience</p>
+                        <h2>Settings</h2>
+                        <p>Manage your account and preferences</p>
                     </div>
-                    <div class="modal-body">
-                        <div class="settings-toggle-section" style="background: transparent; padding: 0; border: none; box-shadow: none;">
-                            <div class="toggle-setting-item">
-                                <div class="toggle-setting-info">
-                                    <h3>Privacy mode</h3>
-                                    <p>Hide sensitive financial information with blur effect. When enabled, all amounts and balances will be hidden across the app.</p>
+                    <div class="modal-body" style="padding: 0;">
+                        <!-- Settings Tabs -->
+                        <div class="settings-tabs">
+                            <button class="settings-tab active" onclick="switchSettingsTab('profile')">
+                                <i class="fas fa-user"></i> Profile
+                            </button>
+                            <button class="settings-tab" onclick="switchSettingsTab('preferences')">
+                                <i class="fas fa-sliders-h"></i> Preferences
+                            </button>
+                            <button class="settings-tab" onclick="switchSettingsTab('account')">
+                                <i class="fas fa-shield-alt"></i> Account
+                            </button>
+                        </div>
+
+                        <!-- Profile Tab -->
+                        <div class="settings-tab-content" id="settingsTabProfile" style="padding: 1.5rem;">
+                            <form id="editProfileForm" onsubmit="saveProfileChanges(event)">
+                                <div class="form-section-title">Personal Information</div>
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" id="editProfileName" value="${profile.name || ''}" required>
                                 </div>
-                                <button class="ios-toggle" id="modalPrivacyToggle" onclick="togglePrivacyModeFromModal()">
-                                    <div class="ios-toggle-slider"></div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Date of Birth</label>
+                                        <input type="date" id="editProfileDOB" value="${profile.dateOfBirth || ''}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Gender</label>
+                                        <select id="editProfileGender">
+                                            <option value="">Select</option>
+                                            <option value="male" ${profile.gender === 'male' ? 'selected' : ''}>Male</option>
+                                            <option value="female" ${profile.gender === 'female' ? 'selected' : ''}>Female</option>
+                                            <option value="other" ${profile.gender === 'other' ? 'selected' : ''}>Other</option>
+                                            <option value="prefer-not" ${profile.gender === 'prefer-not' ? 'selected' : ''}>Prefer not to say</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" id="editProfilePhone" value="${profile.phone || ''}" placeholder="+91 98765 43210">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" value="${currentUser || ''}" disabled style="background: var(--light); cursor: not-allowed;">
+                                    <small style="color: var(--text-muted);">Email cannot be changed</small>
+                                </div>
+
+                                <div class="form-section-title" style="margin-top: 1.5rem;">Financial Profile</div>
+                                <div class="form-group">
+                                    <label>Employment Status</label>
+                                    <select id="editProfileEmployment">
+                                        <option value="">Select</option>
+                                        <option value="salaried" ${profile.employment === 'salaried' ? 'selected' : ''}>Salaried</option>
+                                        <option value="self-employed" ${profile.employment === 'self-employed' ? 'selected' : ''}>Self Employed</option>
+                                        <option value="business" ${profile.employment === 'business' ? 'selected' : ''}>Business Owner</option>
+                                        <option value="freelancer" ${profile.employment === 'freelancer' ? 'selected' : ''}>Freelancer</option>
+                                        <option value="student" ${profile.employment === 'student' ? 'selected' : ''}>Student</option>
+                                        <option value="retired" ${profile.employment === 'retired' ? 'selected' : ''}>Retired</option>
+                                        <option value="homemaker" ${profile.employment === 'homemaker' ? 'selected' : ''}>Homemaker</option>
+                                        <option value="other" ${profile.employment === 'other' ? 'selected' : ''}>Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Monthly Income Range</label>
+                                        <select id="editProfileIncome">
+                                            <option value="">Select</option>
+                                            <option value="0-25000" ${profile.incomeRange === '0-25000' ? 'selected' : ''}>Below ₹25,000</option>
+                                            <option value="25000-50000" ${profile.incomeRange === '25000-50000' ? 'selected' : ''}>₹25,000 - ₹50,000</option>
+                                            <option value="50000-100000" ${profile.incomeRange === '50000-100000' ? 'selected' : ''}>₹50,000 - ₹1,00,000</option>
+                                            <option value="100000-250000" ${profile.incomeRange === '100000-250000' ? 'selected' : ''}>₹1,00,000 - ₹2,50,000</option>
+                                            <option value="250000-500000" ${profile.incomeRange === '250000-500000' ? 'selected' : ''}>₹2,50,000 - ₹5,00,000</option>
+                                            <option value="500000+" ${profile.incomeRange === '500000+' ? 'selected' : ''}>Above ₹5,00,000</option>
+                                            <option value="prefer-not" ${profile.incomeRange === 'prefer-not' ? 'selected' : ''}>Prefer not to say</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Primary Currency</label>
+                                        <select id="editProfileCurrency">
+                                            <option value="INR" ${profile.currency === 'INR' ? 'selected' : ''}>₹ INR</option>
+                                            <option value="USD" ${profile.currency === 'USD' ? 'selected' : ''}>$ USD</option>
+                                            <option value="EUR" ${profile.currency === 'EUR' ? 'selected' : ''}>€ EUR</option>
+                                            <option value="GBP" ${profile.currency === 'GBP' ? 'selected' : ''}>£ GBP</option>
+                                            <option value="AED" ${profile.currency === 'AED' ? 'selected' : ''}>د.إ AED</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Risk Tolerance</label>
+                                    <select id="editProfileRisk">
+                                        <option value="conservative" ${profile.riskTolerance === 'conservative' ? 'selected' : ''}>Conservative</option>
+                                        <option value="moderate" ${profile.riskTolerance === 'moderate' ? 'selected' : ''}>Moderate</option>
+                                        <option value="aggressive" ${profile.riskTolerance === 'aggressive' ? 'selected' : ''}>Aggressive</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-section-title" style="margin-top: 1.5rem;">Financial Goals</div>
+                                <div class="checkbox-group" id="editProfileGoals">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="editGoals" value="track-expenses" ${profile.goals?.includes('track-expenses') ? 'checked' : ''}> Track daily expenses
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="editGoals" value="build-savings" ${profile.goals?.includes('build-savings') ? 'checked' : ''}> Build emergency savings
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="editGoals" value="invest" ${profile.goals?.includes('invest') ? 'checked' : ''}> Start/grow investments
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="editGoals" value="debt-free" ${profile.goals?.includes('debt-free') ? 'checked' : ''}> Become debt-free
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="editGoals" value="retirement" ${profile.goals?.includes('retirement') ? 'checked' : ''}> Plan for retirement
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="editGoals" value="net-worth" ${profile.goals?.includes('net-worth') ? 'checked' : ''}> Track net worth
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem; justify-content: center;">
+                                    <i class="fas fa-save"></i> Save Changes
                                 </button>
+                            </form>
+                        </div>
+
+                        <!-- Preferences Tab -->
+                        <div class="settings-tab-content" id="settingsTabPreferences" style="display: none; padding: 1.5rem;">
+                            <div class="settings-toggle-section" style="background: transparent; padding: 0; border: none; box-shadow: none;">
+                                <div class="toggle-setting-item">
+                                    <div class="toggle-setting-info">
+                                        <h3>Privacy mode</h3>
+                                        <p>Hide sensitive financial information with blur effect.</p>
+                                    </div>
+                                    <button class="ios-toggle" id="modalPrivacyToggle" onclick="togglePrivacyModeFromModal()">
+                                        <div class="ios-toggle-slider"></div>
+                                    </button>
+                                </div>
+
+                                <div class="toggle-setting-item">
+                                    <div class="toggle-setting-info">
+                                        <h3>Dark theme</h3>
+                                        <p>Switch between light and dark theme.</p>
+                                    </div>
+                                    <button class="ios-toggle" id="modalThemeToggle" onclick="toggleThemeFromModal()">
+                                        <div class="ios-toggle-slider"></div>
+                                    </button>
+                                </div>
+
+                                <div class="toggle-setting-item">
+                                    <div class="toggle-setting-info">
+                                        <h3>Email notifications</h3>
+                                        <p>Receive email notifications for account activities.</p>
+                                    </div>
+                                    <button class="ios-toggle active" id="modalEmailToggle" onclick="toggleEmailNotificationsFromModal()">
+                                        <div class="ios-toggle-slider"></div>
+                                    </button>
+                                </div>
+
+                                <div class="toggle-setting-item">
+                                    <div class="toggle-setting-info">
+                                        <h3>SMS alerts</h3>
+                                        <p>Get SMS alerts for transactions and security.</p>
+                                    </div>
+                                    <button class="ios-toggle active" id="modalSmsToggle" onclick="toggleSmsAlertsFromModal()">
+                                        <div class="ios-toggle-slider"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account Tab -->
+                        <div class="settings-tab-content" id="settingsTabAccount" style="display: none; padding: 1.5rem;">
+                            <div class="form-section-title">Security</div>
+                            <div class="account-action-item" onclick="showChangePasswordForm()">
+                                <div class="action-icon"><i class="fas fa-key"></i></div>
+                                <div class="action-info">
+                                    <h4>Change Password</h4>
+                                    <p>Update your account password</p>
+                                </div>
+                                <i class="fas fa-chevron-right"></i>
                             </div>
 
-                            <div class="toggle-setting-item">
-                                <div class="toggle-setting-info">
-                                    <h3>Dark theme</h3>
-                                    <p>Switch between light and dark theme for comfortable viewing. Dark theme reduces eye strain in low-light conditions.</p>
-                                </div>
-                                <button class="ios-toggle" id="modalThemeToggle" onclick="toggleThemeFromModal()">
-                                    <div class="ios-toggle-slider"></div>
-                                </button>
-                            </div>
-
-                            <div class="toggle-setting-item">
-                                <div class="toggle-setting-info">
-                                    <h3>Email notifications</h3>
-                                    <p>Receive email notifications for important account activities, transactions, and updates.</p>
-                                </div>
-                                <button class="ios-toggle active" id="modalEmailToggle" onclick="toggleEmailNotificationsFromModal()">
-                                    <div class="ios-toggle-slider"></div>
-                                </button>
-                            </div>
-
-                            <div class="toggle-setting-item">
-                                <div class="toggle-setting-info">
-                                    <h3>SMS alerts</h3>
-                                    <p>Get SMS alerts for transactions, low balance warnings, and security notifications.</p>
-                                </div>
-                                <button class="ios-toggle active" id="modalSmsToggle" onclick="toggleSmsAlertsFromModal()">
-                                    <div class="ios-toggle-slider"></div>
-                                </button>
-                            </div>
-
-                            <div class="toggle-setting-item">
+                            <div class="toggle-setting-item" style="margin-top: 1rem;">
                                 <div class="toggle-setting-info">
                                     <h3>Biometric login</h3>
-                                    <p>Enable fingerprint or face recognition for faster and more secure login.</p>
+                                    <p>Enable fingerprint or face recognition.</p>
                                 </div>
                                 <button class="ios-toggle" id="modalBiometricToggle" onclick="toggleBiometricLogin()">
                                     <div class="ios-toggle-slider"></div>
                                 </button>
                             </div>
+
+                            <div class="form-section-title" style="margin-top: 2rem;">Data Management</div>
+                            <div class="account-action-item" onclick="exportUserData()">
+                                <div class="action-icon" style="background: #d1fae5; color: #10b981;"><i class="fas fa-download"></i></div>
+                                <div class="action-info">
+                                    <h4>Export Data</h4>
+                                    <p>Download all your data as JSON</p>
+                                </div>
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+
+                            <div class="form-section-title" style="margin-top: 2rem; color: var(--danger);">Danger Zone</div>
+                            <div class="account-action-item" onclick="confirmDeleteAccount()" style="border-color: #fee2e2;">
+                                <div class="action-icon" style="background: #fee2e2; color: var(--danger);"><i class="fas fa-trash-alt"></i></div>
+                                <div class="action-info">
+                                    <h4 style="color: var(--danger);">Delete Account</h4>
+                                    <p>Permanently delete your account and data</p>
+                                </div>
+                                <i class="fas fa-chevron-right" style="color: var(--danger);"></i>
+                            </div>
+
+                            <button class="btn btn-tertiary" style="width: 100%; margin-top: 2rem; justify-content: center; color: var(--danger);" onclick="logout(); closeSettingsModal();">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
                         </div>
                     </div>
                 </div>
             `;
-            
+
             document.body.appendChild(settingsModal);
             settingsModal.id = 'settingsModal';
-            
+
             // Sync toggle states
             setTimeout(() => {
                 const savedTheme = localStorage.getItem('fintpe_theme');
                 const savedPrivacy = localStorage.getItem('fintpe_privacy') === 'true';
-                
+
                 if (savedTheme === 'dark') {
-                    document.getElementById('modalThemeToggle').classList.add('active');
+                    const toggle = document.getElementById('modalThemeToggle');
+                    if (toggle) toggle.classList.add('active');
                 }
                 if (savedPrivacy) {
-                    document.getElementById('modalPrivacyToggle').classList.add('active');
+                    const toggle = document.getElementById('modalPrivacyToggle');
+                    if (toggle) toggle.classList.add('active');
                 }
             }, 100);
+        }
+
+        function switchSettingsTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.settings-tab').forEach((t, i) => {
+                t.classList.remove('active');
+                if ((tab === 'profile' && i === 0) || (tab === 'preferences' && i === 1) || (tab === 'account' && i === 2)) {
+                    t.classList.add('active');
+                }
+            });
+
+            // Update tab content
+            document.getElementById('settingsTabProfile').style.display = tab === 'profile' ? 'block' : 'none';
+            document.getElementById('settingsTabPreferences').style.display = tab === 'preferences' ? 'block' : 'none';
+            document.getElementById('settingsTabAccount').style.display = tab === 'account' ? 'block' : 'none';
+        }
+
+        function saveProfileChanges(event) {
+            event.preventDefault();
+
+            const goals = [];
+            document.querySelectorAll('input[name="editGoals"]:checked').forEach(cb => {
+                goals.push(cb.value);
+            });
+
+            const updatedProfile = {
+                name: document.getElementById('editProfileName').value,
+                dateOfBirth: document.getElementById('editProfileDOB').value,
+                gender: document.getElementById('editProfileGender').value,
+                phone: document.getElementById('editProfilePhone').value,
+                employment: document.getElementById('editProfileEmployment').value,
+                incomeRange: document.getElementById('editProfileIncome').value,
+                currency: document.getElementById('editProfileCurrency').value,
+                riskTolerance: document.getElementById('editProfileRisk').value,
+                goals: goals,
+                onboardingComplete: true,
+                updatedAt: new Date().toISOString()
+            };
+
+            saveUserProfile(updatedProfile);
+            updateNavigationForLogin();
+            showMessage('Profile updated successfully!', 'success');
+        }
+
+        function exportUserData() {
+            const profile = getUserProfile();
+            const data = {
+                email: currentUser,
+                profile: profile,
+                exportedAt: new Date().toISOString()
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `fintpe-data-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showMessage('Data exported successfully!', 'success');
+        }
+
+        function confirmDeleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                if (confirm('This will permanently delete all your data. Type "DELETE" to confirm.')) {
+                    const users = getUsers();
+                    delete users[currentUser];
+                    saveUsers(users);
+                    logout();
+                    closeSettingsModal();
+                    showMessage('Account deleted successfully', 'info');
+                }
+            }
+        }
+
+        function showChangePasswordForm() {
+            const currentPassword = prompt('Enter your current password:');
+            if (!currentPassword) return;
+
+            const users = getUsers();
+            if (users[currentUser].password !== currentPassword) {
+                showMessage('Incorrect current password', 'error');
+                return;
+            }
+
+            const newPassword = prompt('Enter new password (min 6 characters):');
+            if (!newPassword || newPassword.length < 6) {
+                showMessage('Password must be at least 6 characters', 'error');
+                return;
+            }
+
+            const confirmPassword = prompt('Confirm new password:');
+            if (newPassword !== confirmPassword) {
+                showMessage('Passwords do not match', 'error');
+                return;
+            }
+
+            users[currentUser].password = newPassword;
+            saveUsers(users);
+            showMessage('Password changed successfully!', 'success');
         }
 
         function closeSettingsModal() {
@@ -5017,15 +6044,18 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadStoredProfileDetails();
             loadPage('landing');
-            
+
             // Check for existing session
-            const savedEmail = localStorage.getItem('fintpe_user_email');
-            if (savedEmail) {
-                isLoggedIn = true;
-                userEmail = savedEmail;
-                updateNavigationForLogin();
+            const savedUser = localStorage.getItem('fintpe_current_user');
+            if (savedUser) {
+                const users = getUsers();
+                if (users[savedUser]) {
+                    isLoggedIn = true;
+                    currentUser = savedUser;
+                    updateNavigationForLogin();
+                }
             }
-            
+
             // Mobile Navigation
             const mobileToggle = document.getElementById('mobile-toggle');
             const navMenu = document.getElementById('nav-menu');
@@ -5038,73 +6068,6 @@
                     icon.classList.toggle('fa-times');
                 });
             }
-
-            // Handle email form submission
-            const emailForm = document.getElementById('emailForm');
-            if (emailForm) {
-                emailForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const emailInput = document.getElementById('email');
-                    if (!emailInput) return;
-                    
-                    const email = emailInput.value;
-                    if (!email || !email.includes('@')) {
-                        alert('Please enter a valid email address');
-                        return;
-                    }
-
-                    userEmail = email;
-                    const button = this.querySelector('button[type="submit"]');
-                    if (!button) return;
-                    
-                    const originalText = button.innerHTML;
-                    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending OTP...';
-                    button.disabled = true;
-
-                    setTimeout(() => {
-                        button.innerHTML = originalText;
-                        button.disabled = false;
-                        
-                        const emailForm = document.getElementById('emailForm');
-                        const otpContainer = document.getElementById('otpContainer');
-                        const emailDisplay = document.getElementById('emailDisplay');
-                        const modalTitle = document.getElementById('modalTitle');
-                        const modalSubtitle = document.getElementById('modalSubtitle');
-                        
-                        if (emailForm) emailForm.style.display = 'none';
-                        if (otpContainer) otpContainer.style.display = 'block';
-                        if (emailDisplay) emailDisplay.textContent = email;
-                        if (modalTitle) modalTitle.textContent = 'Verify OTP';
-                        if (modalSubtitle) modalSubtitle.textContent = 'Complete your login';
-                        
-                        otpSent = true;
-                        const firstOtpInput = document.querySelector('.otp-input');
-                        if (firstOtpInput) firstOtpInput.focus();
-                        
-                        alert('OTP sent successfully! Use any 6 digits for demo (e.g., 123456)');
-                    }, 2000);
-                });
-            }
-
-            // OTP Input Handling
-            const otpInputs = document.querySelectorAll('.otp-input');
-            otpInputs.forEach((input, index) => {
-                input.addEventListener('input', function(e) {
-                    if (e.target.value.length === 1) {
-                        if (index < otpInputs.length - 1) {
-                            otpInputs[index + 1].focus();
-                        }
-                    }
-                });
-
-                input.addEventListener('keydown', function(e) {
-                    if (e.key === 'Backspace' && e.target.value === '') {
-                        if (index > 0) {
-                            otpInputs[index - 1].focus();
-                        }
-                    }
-                });
-            });
 
             // Modal close handlers
             window.onclick = function(event) {
