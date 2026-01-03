@@ -6,6 +6,7 @@
     <title>Fintpe - DIY Personal Finance | Track Net Worth, Assets & Investments</title>
     <meta name="description" content="Your money. Your way. Your data. A privacy-first personal finance platform to track net worth, assets, and investments. No clutter, no spam, no tracking.">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         /* Include your main.css styles here */
         :root {
@@ -2399,103 +2400,130 @@
             color: var(--success);
         }
 
-        /* Account Management Grid */
+        /* Account Management - Clean List Style like Claude Settings */
         .account-management-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 2rem;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
         }
 
         .account-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            border-radius: 0;
+            padding: 1rem 1.25rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.15s ease;
+        }
+
+        .account-card:last-child {
+            border-bottom: none;
         }
 
         .account-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
-            transform: translateY(-2px);
+            background: var(--light);
+            border-color: var(--border);
+            box-shadow: none;
+            transform: none;
+        }
+
+        .account-card:hover .card-content h3 {
+            color: var(--accent);
         }
 
         .card-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
-            background: rgba(59, 130, 246, 0.1);
+            width: 20px;
+            height: 20px;
+            border-radius: 0;
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 0.95rem;
             flex-shrink: 0;
+            color: var(--text-secondary) !important;
         }
 
         .card-content h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 0.95rem;
+            font-weight: 500;
             color: var(--text-primary);
-            margin-bottom: 0.25rem;
+            margin-bottom: 0;
+            transition: color 0.15s ease;
         }
 
         .card-content p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin: 0;
+            display: none;
         }
 
-        /* Quick Actions */
+        .account-grid-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Quick Actions - Minimal Style */
         .quick-actions {
             background: var(--white);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 1.25rem;
             border: 1px solid var(--border);
         }
 
         .quick-actions h3 {
-            font-size: 1.3rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
 
         .quick-actions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
         .quick-action-btn {
-            background: var(--light);
+            background: transparent;
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
+            border-radius: 6px;
+            padding: 0.5rem 0.875rem;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
             gap: 0.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text-primary);
-            font-size: 0.9rem;
+            transition: all 0.15s ease;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
             font-weight: 500;
         }
 
         .quick-action-btn:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-            transform: translateY(-2px);
+            background: var(--light);
+            border-color: var(--border);
+            color: var(--text-primary);
+            transform: none;
+        }
+
+        .quick-action-btn.danger {
+            color: var(--danger);
         }
 
         .quick-action-btn.danger:hover {
-            background: var(--danger);
+            background: #fef0f0;
             border-color: var(--danger);
         }
 
@@ -5085,9 +5113,9 @@
                     '</div>' +
                     '<div class="file-upload-area" id="fileUploadArea">' +
                         '<i class="fas fa-cloud-upload-alt"></i>' +
-                        '<p>Drag & drop your CSV file here, or <span class="browse-link">browse</span></p>' +
-                        '<p style="font-size: 0.8rem; margin-top: 0.5rem;">Select a broker first, then upload the holdings CSV</p>' +
-                        '<input type="file" id="csvFileInput" accept=".csv" />' +
+                        '<p>Drag & drop your Excel file here, or <span class="browse-link">browse</span></p>' +
+                        '<p style="font-size: 0.8rem; margin-top: 0.5rem;">Select a broker first, then upload the holdings file (.xlsx)</p>' +
+                        '<input type="file" id="csvFileInput" accept=".xlsx,.xls,.csv" />' +
                     '</div>' +
                 '</div>' +
                 '<div id="portfolioDataSection"></div>' +
@@ -5124,7 +5152,7 @@
                         return;
                     }
                     const file = e.dataTransfer.files[0];
-                    if (file && file.name.endsWith('.csv')) {
+                    if (file && (file.name.endsWith('.xlsx') || file.name.endsWith('.xls') || file.name.endsWith('.csv'))) {
                         parseCSVFile(file);
                     }
                 });
@@ -5148,24 +5176,164 @@
         }
 
         function parseCSVFile(file) {
+            const isExcel = file.name.endsWith('.xlsx') || file.name.endsWith('.xls');
             const reader = new FileReader();
+
             reader.onload = function(e) {
-                const text = e.target.result;
-                const holdings = parseCSVByBroker(text, selectedBroker);
+                let holdings = [];
+
+                if (isExcel) {
+                    // Parse Excel file using SheetJS
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                        const rows = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+                        holdings = parseExcelByBroker(rows, selectedBroker);
+                    } catch (err) {
+                        console.error('Excel parse error:', err);
+                        showSuccessMessage('Error parsing Excel file. Please check the format.');
+                        return;
+                    }
+                } else {
+                    // Parse CSV file
+                    const text = e.target.result;
+                    holdings = parseCSVByBroker(text, selectedBroker);
+                }
+
                 if (holdings && holdings.length > 0) {
                     savePortfolioData(holdings);
                     renderPortfolioData();
                     showSuccessMessage('Portfolio imported successfully! ' + holdings.length + ' holdings found.');
                     setTimeout(function() { loadDashboard(); }, 500);
                 } else {
-                    showSuccessMessage('No valid holdings found in the CSV file.');
+                    showSuccessMessage('No valid holdings found in the file.');
                 }
             };
-            reader.readAsText(file);
+
+            if (isExcel) {
+                reader.readAsArrayBuffer(file);
+            } else {
+                reader.readAsText(file);
+            }
+        }
+
+        function parseExcelByBroker(rows, broker) {
+            if (rows.length < 2) return [];
+
+            const headerRow = rows[0].map(h => (h || '').toString().toLowerCase());
+            const dataRows = rows.slice(1);
+
+            if (broker === 'zerodha') {
+                return parseZerodhaExcel(headerRow, dataRows);
+            } else if (broker === 'groww') {
+                return parseGrowwExcel(headerRow, dataRows);
+            }
+            return [];
+        }
+
+        function parseZerodhaExcel(headers, dataRows) {
+            const holdings = [];
+
+            // Map headers to indices
+            const symbolIdx = headers.findIndex(h => h.includes('symbol') || h.includes('tradingsymbol'));
+            const isinIdx = headers.findIndex(h => h.includes('isin'));
+            const sectorIdx = headers.findIndex(h => h.includes('sector'));
+            const qtyIdx = headers.findIndex(h => h.includes('quantity') || h.includes('qty'));
+            const avgPriceIdx = headers.findIndex(h => h.includes('average') && h.includes('price'));
+            const currentPriceIdx = headers.findIndex(h => h.includes('previous') || h.includes('closing') || h.includes('ltp') || h.includes('current'));
+            const pnlIdx = headers.findIndex(h => h.includes('unrealized') && h.includes('p&l') && !h.includes('pct'));
+            const pnlPctIdx = headers.findIndex(h => h.includes('pct') || h.includes('%'));
+            const instrumentIdx = headers.findIndex(h => h.includes('instrument'));
+
+            dataRows.forEach(function(row) {
+                if (!row || row.length < 3) return;
+
+                const symbol = row[symbolIdx >= 0 ? symbolIdx : 0];
+                if (!symbol) return;
+
+                const holding = {
+                    symbol: String(symbol).trim(),
+                    isin: isinIdx >= 0 ? String(row[isinIdx] || '').trim() : '',
+                    sector: sectorIdx >= 0 ? String(row[sectorIdx] || '').trim() : '',
+                    quantity: parseFloat(row[qtyIdx]) || 0,
+                    avgPrice: parseFloat(row[avgPriceIdx]) || 0,
+                    currentPrice: parseFloat(row[currentPriceIdx]) || 0,
+                    pnl: parseFloat(row[pnlIdx]) || 0,
+                    pnlPercent: parseFloat(row[pnlPctIdx]) || 0,
+                    type: determineHoldingType(instrumentIdx >= 0 ? String(row[instrumentIdx] || '') : String(symbol)),
+                    broker: 'zerodha'
+                };
+
+                holding.investedValue = holding.quantity * holding.avgPrice;
+                holding.currentValue = holding.quantity * holding.currentPrice;
+
+                if (holding.pnl === 0 && holding.investedValue > 0) {
+                    holding.pnl = holding.currentValue - holding.investedValue;
+                    holding.pnlPercent = (holding.pnl / holding.investedValue) * 100;
+                }
+
+                if (holding.quantity > 0) {
+                    holdings.push(holding);
+                }
+            });
+
+            return holdings;
+        }
+
+        function parseGrowwExcel(headers, dataRows) {
+            const holdings = [];
+
+            const symbolIdx = headers.findIndex(h => h.includes('symbol') || h.includes('stock') || h.includes('scheme') || h.includes('name'));
+            const qtyIdx = headers.findIndex(h => h.includes('quantity') || h.includes('units') || h.includes('qty'));
+            const avgPriceIdx = headers.findIndex(h => h.includes('avg') || h.includes('purchase') || h.includes('buy'));
+            const currentPriceIdx = headers.findIndex(h => h.includes('current') || h.includes('nav') || h.includes('ltp') || h.includes('market'));
+            const investedIdx = headers.findIndex(h => h.includes('invested'));
+            const currentValueIdx = headers.findIndex(h => h.includes('current') && h.includes('value'));
+            const pnlIdx = headers.findIndex(h => (h.includes('gain') || h.includes('p&l') || h.includes('profit') || h.includes('returns')) && !h.includes('%'));
+            const pnlPctIdx = headers.findIndex(h => h.includes('%') || h.includes('return'));
+            const typeIdx = headers.findIndex(h => h.includes('type') || h.includes('category'));
+
+            dataRows.forEach(function(row) {
+                if (!row || row.length < 3) return;
+
+                const symbol = row[symbolIdx >= 0 ? symbolIdx : 0];
+                if (!symbol) return;
+
+                const quantity = parseFloat(row[qtyIdx]) || 0;
+                const avgPrice = parseFloat(row[avgPriceIdx]) || 0;
+                const currentPrice = parseFloat(row[currentPriceIdx]) || 0;
+
+                const holding = {
+                    symbol: String(symbol).trim(),
+                    isin: '',
+                    sector: '',
+                    quantity: quantity,
+                    avgPrice: avgPrice,
+                    currentPrice: currentPrice,
+                    investedValue: investedIdx >= 0 ? parseFloat(row[investedIdx]) || (quantity * avgPrice) : (quantity * avgPrice),
+                    currentValue: currentValueIdx >= 0 ? parseFloat(row[currentValueIdx]) || (quantity * currentPrice) : (quantity * currentPrice),
+                    pnl: parseFloat(row[pnlIdx]) || 0,
+                    pnlPercent: parseFloat(row[pnlPctIdx]) || 0,
+                    type: typeIdx >= 0 ? (String(row[typeIdx] || '').toLowerCase().includes('mutual') ? 'mutualfund' : 'equity') : determineHoldingType(String(symbol)),
+                    broker: 'groww'
+                };
+
+                if (holding.pnl === 0 && holding.investedValue > 0) {
+                    holding.pnl = holding.currentValue - holding.investedValue;
+                    holding.pnlPercent = (holding.pnl / holding.investedValue) * 100;
+                }
+
+                if (holding.quantity > 0) {
+                    holdings.push(holding);
+                }
+            });
+
+            return holdings;
         }
 
         function parseCSVByBroker(csvText, broker) {
-            const lines = csvText.split('\\n').map(line => line.trim()).filter(line => line);
+            const lines = csvText.split('\n').map(line => line.trim()).filter(line => line);
             if (lines.length < 2) return [];
 
             const headerLine = lines[0].toLowerCase();
