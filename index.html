@@ -1036,6 +1036,86 @@
             color: var(--text-secondary);
         }
 
+        /* Donut Chart */
+        .donut-chart-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .donut-chart {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            flex-shrink: 0;
+        }
+
+        .donut-chart svg {
+            transform: rotate(-90deg);
+        }
+
+        .donut-chart-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .donut-chart-center .value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .donut-chart-center .label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .donut-legend {
+            flex: 1;
+        }
+
+        .donut-legend-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .donut-legend-item:last-child {
+            border-bottom: none;
+        }
+
+        .legend-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-text {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .legend-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
         /* Toast Messages */
         .toast-message {
             position: fixed;
@@ -3316,6 +3396,57 @@
                                         `}
                                     </div>
 
+                                    ${financialData.totalAssets > 0 || financialData.totalLoans > 0 ? `
+                                    <!-- Assets vs Liabilities Donut Chart -->
+                                    <div class="donut-chart-container">
+                                        <div class="donut-chart">
+                                            ${(() => {
+                                                const total = financialData.totalAssets + financialData.totalLoans;
+                                                const assetPercent = total > 0 ? (financialData.totalAssets / total) * 100 : 0;
+                                                const liabilityPercent = total > 0 ? (financialData.totalLoans / total) * 100 : 0;
+                                                const assetDash = (assetPercent / 100) * 314;
+                                                const liabilityDash = (liabilityPercent / 100) * 314;
+                                                return \`
+                                                    <svg width="160" height="160" viewBox="0 0 160 160">
+                                                        <circle cx="80" cy="80" r="50" fill="none" stroke="#e5e7eb" stroke-width="20"/>
+                                                        <circle cx="80" cy="80" r="50" fill="none" stroke="#10b981" stroke-width="20"
+                                                            stroke-dasharray="\${assetDash} 314" stroke-dashoffset="0"/>
+                                                        <circle cx="80" cy="80" r="50" fill="none" stroke="#ef4444" stroke-width="20"
+                                                            stroke-dasharray="\${liabilityDash} 314" stroke-dashoffset="-\${assetDash}"/>
+                                                    </svg>
+                                                \`;
+                                            })()}
+                                            <div class="donut-chart-center">
+                                                <div class="value">${Math.round((financialData.totalAssets / (financialData.totalAssets + financialData.totalLoans || 1)) * 100)}%</div>
+                                                <div class="label">Assets</div>
+                                            </div>
+                                        </div>
+                                        <div class="donut-legend">
+                                            <div class="donut-legend-item">
+                                                <div class="legend-label">
+                                                    <span class="legend-dot" style="background: #10b981;"></span>
+                                                    <span class="legend-text">Total Assets</span>
+                                                </div>
+                                                <span class="legend-value">${formatCurrency(financialData.totalAssets)}</span>
+                                            </div>
+                                            <div class="donut-legend-item">
+                                                <div class="legend-label">
+                                                    <span class="legend-dot" style="background: #ef4444;"></span>
+                                                    <span class="legend-text">Total Liabilities</span>
+                                                </div>
+                                                <span class="legend-value">${formatCurrency(financialData.totalLoans)}</span>
+                                            </div>
+                                            <div class="donut-legend-item" style="border-top: 2px solid var(--border); margin-top: 0.5rem; padding-top: 1rem;">
+                                                <div class="legend-label">
+                                                    <span class="legend-dot" style="background: linear-gradient(135deg, #10b981, #059669);"></span>
+                                                    <span class="legend-text" style="font-weight: 600;">Net Worth</span>
+                                                </div>
+                                                <span class="legend-value" style="color: var(--success);">${formatCurrency(financialData.netWorth)}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    ` : ''}
+
                                     <div class="dashboard-cards" style="grid-template-columns: repeat(3, 1fr);">
                                         <div class="dashboard-card" onclick="openBankAccounts()" style="cursor: pointer;">
                                             <div class="card-header">
@@ -3968,65 +4099,6 @@
                                 </div>
                             </div>
 
-                            <div class="profile-details-section">
-                                <div class="profile-details-grid">
-                                    <div class="profile-form-card">
-                                        <h3>Complete Your Profile</h3>
-                                        <p>Share a few details to personalise your insights and have them show up instantly.</p>
-                                        <form id="profileDetailsForm" class="profile-form">
-                                            <div class="form-row">
-                                                <label for="profileFullName">Full Name</label>
-                                                <input type="text" id="profileFullName" name="fullName" placeholder="John Doe" required>
-                                            </div>
-                                            <div class="form-row">
-                                                <label for="profileEmail">Email</label>
-                                                <input type="email" id="profileEmail" name="email" placeholder="john@example.com">
-                                            </div>
-                                            <div class="form-row">
-                                                <label for="profilePhone">Mobile Number</label>
-                                                <input type="tel" id="profilePhone" name="phone" placeholder="+91 98765 43210" required>
-                                            </div>
-                                            <div class="form-row">
-                                                <label for="profileCity">City</label>
-                                                <input type="text" id="profileCity" name="city" placeholder="Mumbai">
-                                            </div>
-                                            <div class="form-row">
-                                                <label for="profileOccupation">Occupation</label>
-                                                <input type="text" id="profileOccupation" name="occupation" placeholder="e.g., Product Manager">
-                                            </div>
-                                            <div class="form-row">
-                                                <label for="profileIncome">Monthly Income</label>
-                                                <select id="profileIncome" name="income">
-                                                    <option value="">Select range</option>
-                                                    <option value="Below ₹50K">Below ₹50K</option>
-                                                    <option value="₹50K - ₹1L">₹50K - ₹1L</option>
-                                                    <option value="₹1L - ₹2L">₹1L - ₹2L</option>
-                                                    <option value="₹2L+">₹2L+</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-row">
-                                                <label for="profileGoals">Primary Financial Goal</label>
-                                                <textarea id="profileGoals" name="goals" placeholder="Tell us what you are working towards"></textarea>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">
-                                                <i class="fas fa-save"></i> Save Details
-                                            </button>
-                                            <p class="form-hint">Saved securely on this device for a personalised experience.</p>
-                                        </form>
-                                    </div>
-                                    <div class="profile-summary-card">
-                                        <h3>Saved Details</h3>
-                                        <p>We use these details to tailor recommendations.</p>
-                                        <div id="profileDetailsDisplay" class="profile-details-display empty">
-                                            <p>No details yet. Fill the form to see them here.</p>
-                                        </div>
-                                        <button type="button" class="btn btn-secondary profile-clear-btn" onclick="clearProfileDetails()">
-                                            <i class="fas fa-trash"></i> Clear Details
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- Settings Card as part of account management -->
                             <div class="account-grid-header">
                                 <h2>My Account</h2>
@@ -4483,6 +4555,11 @@
                 form.reset();
                 if (editIndexField) editIndexField.value = -1;
                 showSuccessMessage(editIndex >= 0 ? 'Details updated' : 'Details saved');
+
+                // Refresh dashboard for financial sections
+                if (['bankAccounts', 'investments', 'realEstateGold', 'loans'].includes(sectionKey)) {
+                    setTimeout(() => loadDashboard(), 500);
+                }
             });
         }
 
@@ -6397,7 +6474,90 @@
         }
 
         function openMyProfile() {
-            focusProfileDetailsSection();
+            const profile = getUserProfile() || {};
+            const modal = document.getElementById('serviceModal');
+            const title = document.getElementById('serviceModalTitle');
+            const subtitle = document.getElementById('serviceModalSubtitle');
+            const body = document.getElementById('serviceModalBody');
+
+            title.textContent = 'My Profile';
+            subtitle.textContent = 'Personal details & preferences';
+            body.innerHTML = `
+                <form id="myProfileForm" class="profile-form" style="max-width: 100%;">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="mpFullName" value="${profile.name || ''}" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" value="${currentUser || ''}" disabled style="background: var(--light);">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="mpPhone" value="${profile.phone || ''}" placeholder="+91 98765 43210">
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" id="mpDOB" value="${profile.dateOfBirth || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select id="mpGender">
+                            <option value="">Select</option>
+                            <option value="male" ${profile.gender === 'male' ? 'selected' : ''}>Male</option>
+                            <option value="female" ${profile.gender === 'female' ? 'selected' : ''}>Female</option>
+                            <option value="other" ${profile.gender === 'other' ? 'selected' : ''}>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Employment Status</label>
+                        <select id="mpEmployment">
+                            <option value="">Select</option>
+                            <option value="salaried" ${profile.employment === 'salaried' ? 'selected' : ''}>Salaried</option>
+                            <option value="self-employed" ${profile.employment === 'self-employed' ? 'selected' : ''}>Self Employed</option>
+                            <option value="business" ${profile.employment === 'business' ? 'selected' : ''}>Business Owner</option>
+                            <option value="freelancer" ${profile.employment === 'freelancer' ? 'selected' : ''}>Freelancer</option>
+                            <option value="student" ${profile.employment === 'student' ? 'selected' : ''}>Student</option>
+                            <option value="retired" ${profile.employment === 'retired' ? 'selected' : ''}>Retired</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Income Range</label>
+                        <select id="mpIncome">
+                            <option value="">Select</option>
+                            <option value="0-25000" ${profile.incomeRange === '0-25000' ? 'selected' : ''}>Below ₹25,000</option>
+                            <option value="25000-50000" ${profile.incomeRange === '25000-50000' ? 'selected' : ''}>₹25,000 - ₹50,000</option>
+                            <option value="50000-100000" ${profile.incomeRange === '50000-100000' ? 'selected' : ''}>₹50,000 - ₹1,00,000</option>
+                            <option value="100000-250000" ${profile.incomeRange === '100000-250000' ? 'selected' : ''}>₹1,00,000 - ₹2,50,000</option>
+                            <option value="250000+" ${profile.incomeRange === '250000+' ? 'selected' : ''}>Above ₹2,50,000</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-save"></i> Save Profile
+                    </button>
+                </form>
+            `;
+
+            document.getElementById('myProfileForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const updatedProfile = {
+                    ...profile,
+                    name: document.getElementById('mpFullName').value,
+                    phone: document.getElementById('mpPhone').value,
+                    dateOfBirth: document.getElementById('mpDOB').value,
+                    gender: document.getElementById('mpGender').value,
+                    employment: document.getElementById('mpEmployment').value,
+                    incomeRange: document.getElementById('mpIncome').value,
+                    onboardingComplete: true,
+                    updatedAt: new Date().toISOString()
+                };
+                saveUserProfile(updatedProfile);
+                closeServiceModal();
+                showMessage('Profile saved!', 'success');
+                loadDashboard();
+            });
+
+            modal.style.display = 'block';
         }
 
         function openInsurance() {
