@@ -1804,31 +1804,129 @@
             transition: box-shadow 0.4s ease;
         }
 
-        .management-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 1.5rem;
+        /* Management Modal - Clean Table Design */
+        .management-container {
+            padding: 0.5rem 0;
         }
 
-        .management-form-card,
-        .management-records-card {
+        .management-records {
+            margin-bottom: 1.5rem;
+        }
+
+        .records-table {
+            width: 100%;
+            border-collapse: collapse;
             background: var(--white);
-            border-radius: 20px;
-            padding: 1.75rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .records-table th {
+            background: var(--light);
+            padding: 0.875rem 1rem;
+            text-align: left;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .records-table td {
+            padding: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .records-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .records-table tbody tr:hover {
+            background: var(--light);
+        }
+
+        .actions-cell {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .icon-btn.edit {
+            background: #e0e7ff;
+            color: #4f46e5;
+        }
+
+        .icon-btn.edit:hover {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .icon-btn.delete {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .icon-btn.delete:hover {
+            background: #dc2626;
+            color: white;
+        }
+
+        .add-entry-btn {
+            width: 100%;
+            padding: 0.875rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .management-form-wrapper {
+            background: var(--light);
+            border-radius: 16px;
+            padding: 1.5rem;
             border: 1px solid var(--border);
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+        }
+
+        .management-form h4 {
+            margin: 0 0 1.25rem 0;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .form-fields-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-fields-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .management-field {
             display: flex;
             flex-direction: column;
             gap: 0.35rem;
-            margin-bottom: 1rem;
         }
 
         .management-field label {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--text-primary);
         }
@@ -1839,9 +1937,10 @@
             padding: 0.75rem;
             border: 1px solid var(--border);
             border-radius: 10px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
             font-family: inherit;
+            background: var(--white);
         }
 
         .management-field input:focus,
@@ -1853,86 +1952,33 @@
         }
 
         .management-field textarea {
-            min-height: 90px;
+            min-height: 80px;
             resize: vertical;
         }
 
-        .record-list {
-            display: grid;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .record-card {
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 1rem;
-            background: var(--light);
-        }
-
-        .record-row {
+        .form-actions-row {
             display: flex;
-            justify-content: space-between;
             gap: 1rem;
-            padding: 0.35rem 0;
-            border-bottom: 1px solid var(--border-light);
-            font-size: 0.95rem;
+            margin-top: 1.5rem;
+            justify-content: flex-end;
         }
 
-        .record-row:last-child {
-            border-bottom: none;
-        }
-
-        .record-row span {
-            color: var(--text-secondary);
-        }
-
-        .record-row strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .record-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
-        }
-
-        .record-actions button {
-            flex: 1;
-            border: none;
-            border-radius: 8px;
-            padding: 0.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            background: white;
-            border: 1px solid var(--border);
-            transition: all 0.2s ease;
-        }
-
-        .record-actions button:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .record-actions .danger {
-            background: #fee2e2;
-            border-color: #fecaca;
-            color: var(--danger);
-        }
-
-        .record-actions .danger:hover {
-            background: var(--danger);
-            color: white;
-            border-color: var(--danger);
+        .form-actions-row .btn {
+            min-width: 100px;
         }
 
         .management-empty-state {
             text-align: center;
-            padding: 1.5rem;
-            border: 1px dashed var(--border);
+            padding: 3rem 2rem;
+            background: var(--light);
             border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .management-empty-state p {
+            margin: 0;
             color: var(--text-secondary);
         }
 
@@ -4467,27 +4513,49 @@
             const formId = `${sectionKey}ManagementForm`;
             const recordsId = `${sectionKey}Records`;
             const editFieldId = `${sectionKey}EditIndex`;
-            
+
             const fieldsHtml = config.fields.map(field => buildManagementField(field, sectionKey)).join('');
-            
+
             return `
-                <div class="management-grid">
-                    <div class="management-form-card">
-                        <h3>${config.formTitle || 'Add Entry'}</h3>
-                        <form id="${formId}">
-                            ${fieldsHtml}
+                <div class="management-container">
+                    <div id="${recordsId}" class="management-records"></div>
+                    <button type="button" class="btn btn-primary add-entry-btn" onclick="toggleManagementForm('${sectionKey}')">
+                        <i class="fas fa-plus"></i> Add New
+                    </button>
+                    <div class="management-form-wrapper" id="${sectionKey}FormWrapper" style="display: none;">
+                        <form id="${formId}" class="management-form">
+                            <h4 id="${sectionKey}FormTitle">${config.formTitle || 'Add Entry'}</h4>
+                            <div class="form-fields-grid">
+                                ${fieldsHtml}
+                            </div>
                             <input type="hidden" id="${editFieldId}" value="-1">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> ${config.ctaText || 'Save'}
-                            </button>
+                            <div class="form-actions-row">
+                                <button type="button" class="btn btn-secondary" onclick="toggleManagementForm('${sectionKey}', false)">Cancel</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> ${config.ctaText || 'Save'}
+                                </button>
+                            </div>
                         </form>
-                    </div>
-                    <div class="management-records-card">
-                        <h3>${config.listTitle || 'Saved Entries'}</h3>
-                        <div id="${recordsId}" class="record-list"></div>
                     </div>
                 </div>
             `;
+        }
+
+        function toggleManagementForm(sectionKey, show = true) {
+            const wrapper = document.getElementById(sectionKey + 'FormWrapper');
+            const form = document.getElementById(sectionKey + 'ManagementForm');
+            const editField = document.getElementById(sectionKey + 'EditIndex');
+            const titleEl = document.getElementById(sectionKey + 'FormTitle');
+            const config = ACCOUNT_MANAGEMENT_SECTIONS[sectionKey];
+
+            if (wrapper) {
+                wrapper.style.display = show ? 'block' : 'none';
+                if (!show && form) {
+                    form.reset();
+                    if (editField) editField.value = '-1';
+                    if (titleEl && config) titleEl.textContent = config.formTitle || 'Add Entry';
+                }
+            }
         }
 
         function buildManagementField(field, sectionKey) {
@@ -4560,6 +4628,7 @@
                 renderManagementRecords(sectionKey);
                 form.reset();
                 if (editIndexField) editIndexField.value = -1;
+                toggleManagementForm(sectionKey, false);
                 showSuccessMessage(editIndex >= 0 ? 'Details updated' : 'Details saved');
 
                 // Refresh dashboard for financial sections
@@ -4593,39 +4662,38 @@
         function renderManagementRecords(sectionKey) {
             const config = ACCOUNT_MANAGEMENT_SECTIONS[sectionKey];
             if (!config) return;
-            
+
             const container = document.getElementById(`${sectionKey}Records`);
             if (!container) return;
-            
+
             const data = getAccountManagementData(sectionKey);
             if (!data.length) {
-                container.innerHTML = `<div class="management-empty-state">${config.emptyState}</div>`;
+                container.innerHTML = '<div class="management-empty-state"><i class="fas fa-inbox" style="font-size: 2rem; color: var(--text-secondary); margin-bottom: 1rem;"></i><p>' + config.emptyState + '</p></div>';
                 return;
             }
-            
-            container.innerHTML = data.map((entry, index) => `
-                <div class="record-card">
-                    ${config.fields.map(field => {
-                        const value = entry[field.name];
-                        if (!value) return '';
-                        return `
-                            <div class="record-row">
-                                <span>${field.label}</span>
-                                <strong>${formatManagementValue(field, value)}</strong>
-                            </div>
-                        `;
-                    }).join('')}
-                    <div class="record-actions">
-                        <button type="button" data-section="${sectionKey}" data-index="${index}" data-action="edit">
-                            <i class="fas fa-pen"></i> Edit
-                        </button>
-                        <button type="button" class="danger" data-section="${sectionKey}" data-index="${index}" data-action="delete">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-            
+
+            // Get key display fields (first 3 non-notes fields)
+            const displayFields = config.fields.filter(f => f.name !== 'notes').slice(0, 4);
+
+            let html = '<table class="records-table"><thead><tr>';
+            displayFields.forEach(f => { html += '<th>' + f.label + '</th>'; });
+            html += '<th style="width: 120px;">Actions</th></tr></thead><tbody>';
+
+            data.forEach((entry, index) => {
+                html += '<tr>';
+                displayFields.forEach(field => {
+                    const value = entry[field.name] || '-';
+                    html += '<td>' + formatManagementValue(field, value) + '</td>';
+                });
+                html += '<td class="actions-cell">' +
+                    '<button type="button" class="icon-btn edit" data-section="' + sectionKey + '" data-index="' + index + '" data-action="edit" title="Edit"><i class="fas fa-pen"></i></button>' +
+                    '<button type="button" class="icon-btn delete" data-section="' + sectionKey + '" data-index="' + index + '" data-action="delete" title="Delete"><i class="fas fa-trash"></i></button>' +
+                '</td></tr>';
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+
             container.querySelectorAll('button[data-action]').forEach(button => {
                 button.addEventListener('click', function() {
                     handleManagementRecordAction(this.dataset.section, this.dataset.action, parseInt(this.dataset.index, 10));
@@ -4679,17 +4747,24 @@
             if (action === 'edit') {
                 const form = document.getElementById(`${sectionKey}ManagementForm`);
                 const editIndexField = document.getElementById(`${sectionKey}EditIndex`);
+                const titleEl = document.getElementById(`${sectionKey}FormTitle`);
                 if (!form) return;
-                
+
+                // Show the form
+                toggleManagementForm(sectionKey, true);
+
+                // Update title to "Edit"
+                if (titleEl) titleEl.textContent = 'Edit Entry';
+
+                // Fill form with existing data
                 config.fields.forEach(field => {
                     const element = form.elements[field.name];
                     if (element) {
                         element.value = data[index][field.name] || '';
                     }
                 });
-                
+
                 if (editIndexField) editIndexField.value = index;
-                showSuccessMessage('Loaded entry for editing');
             }
         }
 
