@@ -3943,8 +3943,7 @@
                             <div class="dashboard-header">
                                 <div class="dashboard-welcome">
                                     <div>
-                                        <h2 style="margin-bottom: 0.5rem; color: #1e3a5f;">Welcome to Fintpe! 👋</h2>
-                                        <p style="color: #424242; margin: 0;">${currentUser || ''}</p>
+                                        <h2 style="margin-bottom: 0.25rem; color: #1e3a5f;">Hi ${getUserFirstName()}, Welcome to Fintpe</h2>
                                     </div>
                                     <button onclick="toggleDashboardFamilyView()" id="dashboardFamilyToggle" style="padding: 0.4rem 0.75rem; font-size: 0.8rem; background: transparent; border: 1px solid var(--border); border-radius: 6px; color: #424242; cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
                                         <i class="fas fa-users"></i> Family
@@ -3965,7 +3964,7 @@
                                         </div>
                                         <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;">
                                             <div style="font-size: 0.8rem; color: #424242; margin-bottom: 0.5rem;">Liabilities</div>
-                                            <div style="font-size: 1.5rem; font-weight: 700; color: ${financialData.totalLoans > 0 ? '#ef4444' : '#424242'};" data-private="${formatCurrency(financialData.totalLoans)}" data-placeholder="₹••••••">${formatCurrency(financialData.totalLoans)}</div>
+                                            <div style="font-size: 1.5rem; font-weight: 700; color: ${financialData.totalLoans > 0 ? '#b87070' : '#424242'};" data-private="${formatCurrency(financialData.totalLoans)}" data-placeholder="₹••••••">${formatCurrency(financialData.totalLoans)}</div>
                                         </div>
                                     </div>
 
@@ -4015,9 +4014,9 @@
                                         <div class="dashboard-card" onclick="loadPage('account'); setTimeout(() => loadAccountSection('loans'), 300);" style="cursor: pointer;">
                                             <div class="card-header">
                                                 <span class="card-title">Loans</span>
-                                                <i class="fas fa-hand-holding-usd" style="color: #ef4444;"></i>
+                                                <i class="fas fa-hand-holding-usd" style="color: #b87070;"></i>
                                             </div>
-                                            <div class="card-amount" style="color: ${financialData.totalLoans > 0 ? '#ef4444' : 'inherit'};" data-private="${formatCurrency(financialData.totalLoans)}" data-placeholder="₹••••••">${formatCurrency(financialData.totalLoans)}</div>
+                                            <div class="card-amount" style="color: ${financialData.totalLoans > 0 ? '#b87070' : 'inherit'};" data-private="${formatCurrency(financialData.totalLoans)}" data-placeholder="₹••••••">${formatCurrency(financialData.totalLoans)}</div>
                                         </div>
                                     </div>
 
@@ -4735,6 +4734,10 @@
                                             <div class="card-icon" style="color: #6b8e7d;"><i class="fas fa-university"></i></div>
                                             <div class="card-content"><h3>Bank Accounts</h3></div>
                                         </div>
+                                        <div class="account-card" data-section="cards" onclick="loadAccountSection('cards')">
+                                            <div class="card-icon" style="color: #6366f1;"><i class="fas fa-credit-card"></i></div>
+                                            <div class="card-content"><h3>Cards</h3></div>
+                                        </div>
                                         <div class="account-card" data-section="investments" onclick="loadAccountSection('investments')">
                                             <div class="card-icon" style="color: #9b8bb8;"><i class="fas fa-chart-line"></i></div>
                                             <div class="card-content"><h3>Investments</h3></div>
@@ -4821,6 +4824,7 @@
                 myProfile: { title: 'My Profile', subtitle: 'Personal details and contact information', key: null },
                 preferences: { title: 'Preferences', subtitle: 'Customize your app experience', key: null },
                 bankAccounts: { title: 'Bank Accounts', subtitle: 'Manage your linked bank accounts and balances', key: 'bankAccounts' },
+                cards: { title: 'Cards', subtitle: 'Manage your debit and credit cards', key: 'cards' },
                 investments: { title: 'Investments', subtitle: 'Upload broker files to track your portfolio', key: 'investments' },
                 realEstateGold: { title: 'Real Estate & Gold', subtitle: 'Property and gold investment tracking', key: 'realEstateGold' },
                 loans: { title: 'Loans & EMIs', subtitle: 'Track your loans, EMIs and outstanding balances', key: 'loans' },
@@ -5288,6 +5292,15 @@
         function getUserDisplayName() {
             const profile = JSON.parse(localStorage.getItem('fintpe_profile_details') || '{}');
             return profile.fullName || currentUser.split('@')[0];
+        }
+
+        function getUserFirstName() {
+            const profile = JSON.parse(localStorage.getItem('fintpe_profile_details') || '{}');
+            if (profile.fullName) {
+                return profile.fullName.split(' ')[0];
+            }
+            const emailName = currentUser ? currentUser.split('@')[0] : 'User';
+            return emailName.charAt(0).toUpperCase() + emailName.slice(1).split('.')[0];
         }
 
         function renderFamilyPendingInvites() {
@@ -5817,6 +5830,25 @@
                     { name: 'ifsc', label: 'IFSC Code', type: 'text', placeholder: 'SBIN0001234' },
                     { name: 'balance', label: 'Current Balance', type: 'number', placeholder: '98500', prefix: '₹' },
                     { name: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Primary salary account' }
+                ]
+            },
+            cards: {
+                title: 'Cards',
+                subtitle: 'Manage your debit and credit cards.',
+                storageKey: 'fintpe_cards',
+                formTitle: 'Add Card',
+                listTitle: 'Saved Cards',
+                emptyState: 'No cards added yet. Add your debit or credit cards.',
+                ctaText: 'Save Card',
+                fields: [
+                    { name: 'cardType', label: 'Card Type', type: 'select', required: true, options: ['Credit Card', 'Debit Card'] },
+                    { name: 'bankName', label: 'Bank/Issuer', type: 'text', placeholder: 'HDFC Bank', required: true },
+                    { name: 'cardName', label: 'Card Name', type: 'text', placeholder: 'Regalia, Millennia, etc.', required: true },
+                    { name: 'lastFourDigits', label: 'Last 4 Digits', type: 'text', placeholder: '1234', required: true, maxlength: 4 },
+                    { name: 'creditLimit', label: 'Credit Limit (for credit cards)', type: 'number', placeholder: '300000', prefix: '₹' },
+                    { name: 'billingDate', label: 'Billing Date', type: 'number', placeholder: '15', min: 1, max: 31 },
+                    { name: 'dueDate', label: 'Due Date', type: 'number', placeholder: '5', min: 1, max: 31 },
+                    { name: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Primary card for travel' }
                 ]
             },
             insurance: {
