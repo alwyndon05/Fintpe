@@ -2967,122 +2967,119 @@
                                             <span class="card-title" style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">YOUR NET WORTH</span>
                                             <div style="display: flex; align-items: center; gap: 1rem;">
                                                 <i class="fas fa-user-crown" style="color: #fbbf24; font-size: 1.5rem;"></i>
-                                                <button onclick="openIndividualNetWorthInsights()" class="insight-arrow-btn" style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white;" title="View your net worth breakdown">
+                                                <button onclick="loadPage('account')" class="insight-arrow-btn" style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white;" title="Add your financial details">
                                                     <i class="fas fa-arrow-right"></i>
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="card-amount" style="font-size: 2.5rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);" data-private="₹1,25,85,920" data-placeholder="₹••••••••••">₹1,25,85,920</div>
-                                        <div class="card-change positive" style="color: #10f981; font-size: 1rem; margin-top: 1rem;">
-                                            <i class="fas fa-trending-up"></i>
-                                            +₹2,15,450 this quarter (+1.8%)
+                                        <div class="card-amount" style="font-size: 2.5rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">${formatCurrency(financialData.netWorth)}</div>
+                                        ${financialData.netWorth === 0 ? `
+                                        <div style="margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.8);">
+                                            <i class="fas fa-info-circle"></i> Go to My Account to add your financial details
                                         </div>
+                                        ` : `
                                         <div style="margin-top: 1.5rem; font-size: 0.85rem; color: rgba(255,255,255,0.8);">
-                                            Assets: ₹1,42,50,920 | Liabilities: ₹16,65,000 | Your contribution: 51% of family wealth
+                                            Assets: ${formatCurrency(financialData.totalAssets)} | Liabilities: ${formatCurrency(financialData.totalLoans)}
                                         </div>
+                                        `}
                                     </div>
 
                                     <div class="dashboard-cards" style="grid-template-columns: repeat(3, 1fr);">
-                                        <div class="dashboard-card">
+                                        <div class="dashboard-card" onclick="openBankAccounts()" style="cursor: pointer;">
                                             <div class="card-header">
                                                 <span class="card-title">LIQUID BALANCE</span>
                                                 <div style="display: flex; align-items: center; gap: 1rem;">
                                                     <i class="fas fa-wallet" style="color: var(--primary);"></i>
-                                                    <button onclick="openIndividualBalanceInsights()" class="insight-arrow-btn" title="View balance details">
+                                                    <button onclick="event.stopPropagation(); openBankAccounts()" class="insight-arrow-btn" title="Add bank accounts">
                                                         <i class="fas fa-arrow-right"></i>
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="card-amount" data-private="₹9,85,920" data-placeholder="₹•••••••">₹9,85,920</div>
-                                            <div class="card-change positive">
-                                                <i class="fas fa-arrow-up"></i>
-                                                +₹18,450 this month
+                                            <div class="card-amount">${formatCurrency(financialData.liquidBalance)}</div>
+                                            <div class="card-change ${financialData.liquidBalance > 0 ? 'positive' : ''}">
+                                                ${financialData.liquidBalance === 0 ? '<i class="fas fa-plus-circle"></i> Add bank accounts' : '<i class="fas fa-university"></i> From bank accounts'}
                                             </div>
                                         </div>
 
-                                        <div class="dashboard-card">
+                                        <div class="dashboard-card" onclick="openInvestments()" style="cursor: pointer;">
                                             <div class="card-header">
                                                 <span class="card-title">INVESTMENTS</span>
                                                 <div style="display: flex; align-items: center; gap: 1rem;">
                                                     <i class="fas fa-chart-line" style="color: var(--success);"></i>
-                                                    <button onclick="openIndividualInvestmentInsights()" class="insight-arrow-btn" title="View portfolio analysis">
+                                                    <button onclick="event.stopPropagation(); openInvestments()" class="insight-arrow-btn" title="Add investments">
                                                         <i class="fas fa-arrow-right"></i>
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="card-amount" data-private="₹65,85,000" data-placeholder="₹••••••••">₹65,85,000</div>
-                                            <div class="card-change positive">
-                                                <i class="fas fa-arrow-up"></i>
-                                                +14.2% returns (YTD)
+                                            <div class="card-amount">${formatCurrency(financialData.totalInvestments)}</div>
+                                            <div class="card-change ${financialData.totalInvestments > 0 ? 'positive' : ''}">
+                                                ${financialData.totalInvestments === 0 ? '<i class="fas fa-plus-circle"></i> Add investments' : '<i class="fas fa-briefcase"></i> Portfolio value'}
                                             </div>
                                         </div>
 
-                                        <div class="dashboard-card">
+                                        <div class="dashboard-card" onclick="openRealEstateGold()" style="cursor: pointer;">
                                             <div class="card-header">
                                                 <span class="card-title">REAL ESTATE</span>
                                                 <div style="display: flex; align-items: center; gap: 1rem;">
                                                     <i class="fas fa-home" style="color: #f59e0b;"></i>
-                                                    <button onclick="openIndividualRealEstateInsights()" class="insight-arrow-btn" title="View property details">
+                                                    <button onclick="event.stopPropagation(); openRealEstateGold()" class="insight-arrow-btn" title="Add property">
                                                         <i class="fas fa-arrow-right"></i>
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="card-amount" data-private="₹45,50,000" data-placeholder="₹••••••••">₹45,50,000</div>
-                                            <div class="card-change positive">
-                                                <i class="fas fa-arrow-up"></i>
-                                                +7.2% appreciation
+                                            <div class="card-amount">${formatCurrency(financialData.realEstateValue)}</div>
+                                            <div class="card-change ${financialData.realEstateValue > 0 ? 'positive' : ''}">
+                                                ${financialData.realEstateValue === 0 ? '<i class="fas fa-plus-circle"></i> Add property' : '<i class="fas fa-building"></i> Property value'}
                                             </div>
                                         </div>
 
-                                        <div class="dashboard-card">
+                                        <div class="dashboard-card" onclick="openRealEstateGold()" style="cursor: pointer;">
                                             <div class="card-header">
                                                 <span class="card-title">GOLD HOLDINGS</span>
                                                 <div style="display: flex; align-items: center; gap: 1rem;">
                                                     <i class="fas fa-coins" style="color: #fbbf24;"></i>
-                                                    <button onclick="openIndividualGoldInsights()" class="insight-arrow-btn" title="View gold portfolio">
+                                                    <button onclick="event.stopPropagation(); openRealEstateGold()" class="insight-arrow-btn" title="Add gold">
                                                         <i class="fas fa-arrow-right"></i>
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="card-amount" data-private="₹6,85,000" data-placeholder="₹•••••••">₹6,85,000</div>
-                                            <div class="card-change positive">
-                                                <i class="fas fa-arrow-up"></i>
-                                                +11.5% vs purchase
+                                            <div class="card-amount">${formatCurrency(financialData.goldValue)}</div>
+                                            <div class="card-change ${financialData.goldValue > 0 ? 'positive' : ''}">
+                                                ${financialData.goldValue === 0 ? '<i class="fas fa-plus-circle"></i> Add gold' : '<i class="fas fa-gem"></i> Gold value'}
                                             </div>
                                         </div>
 
-                                        <div class="dashboard-card">
-                                            <div class="card-header">
-                                                <span class="card-title">YOUR SPENDING</span>
-                                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                                    <i class="fas fa-credit-card" style="color: var(--danger);"></i>
-                                                    <button onclick="openIndividualSpendingInsights()" class="insight-arrow-btn" title="View spending breakdown">
-                                                        <i class="fas fa-arrow-right"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-amount" data-private="₹35,450" data-placeholder="₹••••••">₹35,450</div>
-                                            <div class="card-change negative">
-                                                <i class="fas fa-arrow-down"></i>
-                                                -₹2,100 vs last month
-                                            </div>
-                                        </div>
-
-                                        <div class="dashboard-card">
+                                        <div class="dashboard-card" onclick="openLoans()" style="cursor: pointer;">
                                             <div class="card-header">
                                                 <span class="card-title">LOANS & EMIs</span>
                                                 <div style="display: flex; align-items: center; gap: 1rem;">
                                                     <i class="fas fa-hand-holding-usd" style="color: #dc2626;"></i>
-                                                    <button onclick="openIndividualLoansInsights()" class="insight-arrow-btn" title="View loan details">
+                                                    <button onclick="event.stopPropagation(); openLoans()" class="insight-arrow-btn" title="Add loans">
                                                         <i class="fas fa-arrow-right"></i>
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="card-amount" data-private="₹16,65,000" data-placeholder="₹••••••••">₹16,65,000</div>
-                                            <div class="card-change negative">
-                                                <i class="fas fa-calendar-minus"></i>
-                                                ₹28,450 monthly EMI
+                                            <div class="card-amount">${formatCurrency(financialData.totalLoans)}</div>
+                                            <div class="card-change ${financialData.totalLoans > 0 ? 'negative' : ''}">
+                                                ${financialData.totalLoans === 0 ? '<i class="fas fa-plus-circle"></i> Add loans' : '<i class="fas fa-calendar-check"></i> ' + formatCurrency(financialData.monthlyEmi) + ' monthly EMI'}
                                             </div>
+                                        </div>
+
+                                        <div class="dashboard-card" style="background: linear-gradient(135deg, #f8fafc, #f1f5f9);">
+                                            <div class="card-header">
+                                                <span class="card-title">QUICK TIPS</span>
+                                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                                    <i class="fas fa-lightbulb" style="color: #8b5cf6;"></i>
+                                                </div>
+                                            </div>
+                                            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+                                                ${financialData.netWorth === 0 ?
+                                                    'Start by adding your bank accounts and investments to see your net worth.' :
+                                                    'Keep your financial data updated for accurate tracking.'}
+                                            </div>
+                                            <button onclick="loadPage('account')" class="btn btn-secondary" style="margin-top: 1rem; width: 100%;">
+                                                <i class="fas fa-cog"></i> Manage Account
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -3808,6 +3805,16 @@
                                         <p>ITR filing, tax planning & CA consultation</p>
                                     </div>
                                 </div>
+
+                                <div class="account-card" onclick="openLoans()">
+                                    <div class="card-icon" style="color: #dc2626;">
+                                        <i class="fas fa-hand-holding-usd"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h3>Loans & EMIs</h3>
+                                        <p>Track loans, EMIs & outstanding balances</p>
+                                    </div>
+                                </div>
                             </div>
                              
                             <div class="quick-actions">
@@ -4005,6 +4012,26 @@
                     { name: 'status', label: 'Status', type: 'select', required: true, options: ['Active', 'Needs Update', 'Expired'] },
                     { name: 'lastUpdated', label: 'Last Updated On', type: 'date' },
                     { name: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Rotate every 90 days' }
+                ]
+            },
+            loans: {
+                title: 'Loans & EMIs',
+                subtitle: 'Track your loans, EMIs and outstanding balances.',
+                storageKey: 'fintpe_loans',
+                formTitle: 'Add Loan',
+                listTitle: 'Your Loans',
+                emptyState: 'No loans added yet.',
+                ctaText: 'Save Loan',
+                fields: [
+                    { name: 'loanName', label: 'Loan Name', type: 'text', placeholder: 'Home Loan - HDFC', required: true },
+                    { name: 'loanType', label: 'Loan Type', type: 'select', required: true, options: ['Home Loan', 'Car Loan', 'Personal Loan', 'Education Loan', 'Credit Card', 'Gold Loan', 'Other'] },
+                    { name: 'lender', label: 'Lender', type: 'text', placeholder: 'HDFC Bank' },
+                    { name: 'outstandingAmount', label: 'Outstanding Amount', type: 'number', placeholder: '1500000', prefix: '₹', required: true },
+                    { name: 'emiAmount', label: 'Monthly EMI', type: 'number', placeholder: '28500', prefix: '₹' },
+                    { name: 'interestRate', label: 'Interest Rate (%)', type: 'number', placeholder: '8.5' },
+                    { name: 'emiDate', label: 'EMI Date (Day of Month)', type: 'number', placeholder: '5' },
+                    { name: 'endDate', label: 'Loan End Date', type: 'date' },
+                    { name: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Auto-debit from salary account' }
                 ]
             }
         };
@@ -4460,14 +4487,49 @@
         }
 
         // Utility Functions
+        function formatCurrency(amount) {
+            if (amount === 0) return '₹0';
+            return '₹' + amount.toLocaleString('en-IN');
+        }
+
         function getFinancialData() {
+            // Calculate liquid balance from bank accounts
+            const bankAccounts = JSON.parse(localStorage.getItem('fintpe_bank_accounts') || '[]');
+            const liquidBalance = bankAccounts.reduce((sum, acc) => sum + (parseFloat(acc.balance) || 0), 0);
+
+            // Calculate investments total
+            const investments = JSON.parse(localStorage.getItem('fintpe_investments') || '[]');
+            const totalInvestments = investments.reduce((sum, inv) => sum + (parseFloat(inv.holding) || 0), 0);
+
+            // Calculate real estate and gold from assets
+            const assets = JSON.parse(localStorage.getItem('fintpe_realestate_gold') || '[]');
+            const realEstateValue = assets
+                .filter(a => a.assetType === 'Real Estate')
+                .reduce((sum, a) => sum + (parseFloat(a.currentValue) || 0), 0);
+            const goldValue = assets
+                .filter(a => a.assetType === 'Gold')
+                .reduce((sum, a) => sum + (parseFloat(a.currentValue) || 0), 0);
+
+            // Calculate total loans/liabilities
+            const loans = JSON.parse(localStorage.getItem('fintpe_loans') || '[]');
+            const totalLoans = loans.reduce((sum, loan) => sum + (parseFloat(loan.outstandingAmount) || 0), 0);
+            const monthlyEmi = loans.reduce((sum, loan) => sum + (parseFloat(loan.emiAmount) || 0), 0);
+
+            // Total assets
+            const totalAssets = liquidBalance + totalInvestments + realEstateValue + goldValue;
+
+            // Net worth = Assets - Liabilities
+            const netWorth = totalAssets - totalLoans;
+
             return {
-                totalBalance: 349904,
-                totalInvestments: 185920,
-                monthlyInvestment: 15000,
-                monthlyExpenses: 32450,
-                monthlyIncome: 85000,
-                creditScore: 785
+                liquidBalance,
+                totalInvestments,
+                realEstateValue,
+                goldValue,
+                totalLoans,
+                monthlyEmi,
+                totalAssets,
+                netWorth
             };
         }
 
@@ -6020,6 +6082,10 @@
 
         function openTaxServices() {
             openAccountManagementSection('taxServices');
+        }
+
+        function openLoans() {
+            openAccountManagementSection('loans');
         }
 
         function exportAccountData() {
