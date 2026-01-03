@@ -755,16 +755,249 @@
             color: var(--text-secondary);
         }
 
-        /* Onboarding Styles */
-        .step-indicator {
-            font-size: 0.8rem;
-            font-weight: 600;
+        /* Onboarding Modal Styles */
+        .onboarding-modal {
+            max-width: 580px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .onboarding-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 2rem;
+        }
+
+        .onboarding-progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .progress-step span {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+        }
+
+        .progress-step.active span,
+        .progress-step.completed span {
+            color: white;
+        }
+
+        .step-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active .step-circle {
+            background: white;
+            border-color: white;
             color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .progress-step.completed .step-circle {
+            background: #10b981;
+            border-color: #10b981;
+            color: white;
+        }
+
+        .progress-line {
+            width: 60px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 0 0.5rem;
             margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
+            border-radius: 2px;
+            transition: background 0.3s ease;
+        }
+
+        .progress-line.active {
+            background: #10b981;
+        }
+
+        .step-header {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .step-header h3 {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .onboarding-next-btn {
+            width: 100%;
+            justify-content: center;
+            padding: 1rem;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .btn-ghost:hover {
+            background: var(--light);
+            color: var(--text-primary);
+        }
+
+        .btn-success-gradient {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .btn-success-gradient:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+        /* Goals Grid */
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .goal-card {
+            cursor: pointer;
+        }
+
+        .goal-card input {
+            display: none;
+        }
+
+        .goal-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: var(--light);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .goal-content i {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .goal-content span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .goal-card input:checked + .goal-content {
+            background: rgba(2, 3, 71, 0.05);
+            border-color: var(--primary);
+        }
+
+        .goal-card input:checked + .goal-content i {
+            color: var(--primary);
+        }
+
+        .goal-card input:checked + .goal-content span {
+            color: var(--primary);
+        }
+
+        .goal-card:hover .goal-content {
+            border-color: var(--border);
+        }
+
+        /* Risk Options */
+        .risk-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .risk-option {
+            cursor: pointer;
+        }
+
+        .risk-option input {
+            display: none;
+        }
+
+        .risk-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .risk-icon {
+            font-size: 1.5rem;
+        }
+
+        .risk-content strong {
+            display: block;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .risk-content p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .risk-option input:checked + .risk-content {
+            background: rgba(2, 3, 71, 0.05);
+            border-color: var(--primary);
+        }
+
+        .risk-option:hover .risk-content {
+            border-color: var(--border);
+        }
+
+        @media (max-width: 500px) {
+            .goals-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .progress-line {
+                width: 30px;
+            }
+
+            .step-circle {
+                width: 36px;
+                height: 36px;
+                font-size: 0.85rem;
+            }
         }
 
         .form-row {
@@ -790,40 +1023,9 @@
             flex: 1;
         }
 
-        .checkbox-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            margin-top: 0.5rem;
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            background: var(--light);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
+        .form-group label i {
+            margin-right: 0.5rem;
             color: var(--text-secondary);
-        }
-
-        .checkbox-label:hover {
-            background: var(--border);
-        }
-
-        .checkbox-label input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--primary);
-        }
-
-        .checkbox-label input[type="checkbox"]:checked + span,
-        .checkbox-label:has(input:checked) {
-            color: var(--text-primary);
-            font-weight: 500;
         }
 
         /* Toast Messages */
@@ -2396,7 +2598,7 @@
                         <label>Password</label>
                         <input type="password" id="loginPassword" placeholder="Enter your password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="handleLogin(event)">
                         <i class="fas fa-sign-in-alt"></i>
                         Login
                     </button>
@@ -2416,7 +2618,7 @@
                         <label>Confirm Password</label>
                         <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="handleSignup(event)">
                         <i class="fas fa-user-plus"></i>
                         Create Account
                     </button>
@@ -2432,27 +2634,47 @@
 
     <!-- Onboarding Modal -->
     <div id="onboardingModal" class="modal">
-        <div class="modal-content" style="max-width: 600px;">
-            <div class="modal-header">
-                <h2 id="onboardingTitle">Let's set up your profile</h2>
-                <p id="onboardingSubtitle">This helps us personalize your experience</p>
+        <div class="modal-content onboarding-modal">
+            <!-- Progress Header -->
+            <div class="onboarding-header">
+                <div class="onboarding-progress">
+                    <div class="progress-step active" id="progressStep1">
+                        <div class="step-circle"><i class="fas fa-user"></i></div>
+                        <span>Profile</span>
+                    </div>
+                    <div class="progress-line" id="progressLine1"></div>
+                    <div class="progress-step" id="progressStep2">
+                        <div class="step-circle"><i class="fas fa-briefcase"></i></div>
+                        <span>Financial</span>
+                    </div>
+                    <div class="progress-line" id="progressLine2"></div>
+                    <div class="progress-step" id="progressStep3">
+                        <div class="step-circle"><i class="fas fa-bullseye"></i></div>
+                        <span>Goals</span>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
+
+            <div class="modal-body" style="padding: 2rem;">
                 <form id="onboardingForm" onsubmit="handleOnboarding(event)">
                     <!-- Step 1: Basic Info -->
                     <div class="onboarding-step" id="onboardingStep1">
-                        <div class="step-indicator">Step 1 of 3 — Basic Info</div>
+                        <div class="step-header">
+                            <h3><i class="fas fa-user-circle" style="color: var(--primary); margin-right: 0.5rem;"></i> Tell us about yourself</h3>
+                            <p class="step-subtitle">This helps personalize your Fintpe experience</p>
+                        </div>
+
                         <div class="form-group">
-                            <label>Full Name</label>
+                            <label><i class="fas fa-id-card"></i> Full Name</label>
                             <input type="text" id="profileName" placeholder="Enter your full name" required>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label>Date of Birth</label>
+                                <label><i class="fas fa-calendar-alt"></i> Date of Birth</label>
                                 <input type="date" id="profileDOB" required>
                             </div>
                             <div class="form-group">
-                                <label>Gender</label>
+                                <label><i class="fas fa-venus-mars"></i> Gender</label>
                                 <select id="profileGender">
                                     <option value="">Select</option>
                                     <option value="male">Male</option>
@@ -2463,26 +2685,30 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Phone Number (Optional)</label>
+                            <label><i class="fas fa-phone"></i> Phone Number <span style="color: var(--text-secondary); font-weight: 400;">(Optional)</span></label>
                             <input type="tel" id="profilePhone" placeholder="+91 98765 43210">
                         </div>
-                        <button type="button" class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="nextOnboardingStep(2)">
+                        <button type="button" class="btn btn-primary onboarding-next-btn" onclick="nextOnboardingStep(2)">
                             Continue
-                            <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
+                            <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
 
                     <!-- Step 2: Financial Profile -->
                     <div class="onboarding-step" id="onboardingStep2" style="display: none;">
-                        <div class="step-indicator">Step 2 of 3 — Financial Profile</div>
+                        <div class="step-header">
+                            <h3><i class="fas fa-wallet" style="color: var(--success); margin-right: 0.5rem;"></i> Your financial profile</h3>
+                            <p class="step-subtitle">Helps us provide relevant insights and recommendations</p>
+                        </div>
+
                         <div class="form-group">
-                            <label>Employment Status</label>
+                            <label><i class="fas fa-briefcase"></i> Employment Status</label>
                             <select id="profileEmployment" required>
-                                <option value="">Select</option>
-                                <option value="salaried">Salaried</option>
+                                <option value="">Select your status</option>
+                                <option value="salaried">Salaried Employee</option>
                                 <option value="self-employed">Self Employed</option>
                                 <option value="business">Business Owner</option>
-                                <option value="freelancer">Freelancer</option>
+                                <option value="freelancer">Freelancer / Consultant</option>
                                 <option value="student">Student</option>
                                 <option value="retired">Retired</option>
                                 <option value="homemaker">Homemaker</option>
@@ -2490,9 +2716,9 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Monthly Income Range</label>
+                            <label><i class="fas fa-rupee-sign"></i> Monthly Income Range</label>
                             <select id="profileIncome" required>
-                                <option value="">Select</option>
+                                <option value="">Select income range</option>
                                 <option value="0-25000">Below ₹25,000</option>
                                 <option value="25000-50000">₹25,000 - ₹50,000</option>
                                 <option value="50000-100000">₹50,000 - ₹1,00,000</option>
@@ -2503,17 +2729,17 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Primary Currency</label>
+                            <label><i class="fas fa-globe"></i> Primary Currency</label>
                             <select id="profileCurrency" required>
-                                <option value="INR">₹ Indian Rupee (INR)</option>
-                                <option value="USD">$ US Dollar (USD)</option>
-                                <option value="EUR">€ Euro (EUR)</option>
-                                <option value="GBP">£ British Pound (GBP)</option>
-                                <option value="AED">د.إ UAE Dirham (AED)</option>
+                                <option value="INR">🇮🇳 Indian Rupee (₹)</option>
+                                <option value="USD">🇺🇸 US Dollar ($)</option>
+                                <option value="EUR">🇪🇺 Euro (€)</option>
+                                <option value="GBP">🇬🇧 British Pound (£)</option>
+                                <option value="AED">🇦🇪 UAE Dirham (د.إ)</option>
                             </select>
                         </div>
                         <div class="form-actions">
-                            <button type="button" class="btn btn-tertiary" onclick="prevOnboardingStep(1)">
+                            <button type="button" class="btn btn-ghost" onclick="prevOnboardingStep(1)">
                                 <i class="fas fa-arrow-left"></i> Back
                             </button>
                             <button type="button" class="btn btn-primary" onclick="nextOnboardingStep(3)">
@@ -2524,44 +2750,99 @@
 
                     <!-- Step 3: Goals & Preferences -->
                     <div class="onboarding-step" id="onboardingStep3" style="display: none;">
-                        <div class="step-indicator">Step 3 of 3 — Goals & Preferences</div>
+                        <div class="step-header">
+                            <h3><i class="fas fa-flag-checkered" style="color: #f59e0b; margin-right: 0.5rem;"></i> Set your goals</h3>
+                            <p class="step-subtitle">What would you like to achieve with Fintpe?</p>
+                        </div>
+
                         <div class="form-group">
-                            <label>What are your financial goals? (Select all that apply)</label>
-                            <div class="checkbox-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="goals" value="track-expenses"> Track daily expenses
+                            <label style="margin-bottom: 1rem;"><i class="fas fa-bullseye"></i> Financial Goals <span style="color: var(--text-secondary); font-weight: 400;">(Select all that apply)</span></label>
+                            <div class="goals-grid">
+                                <label class="goal-card">
+                                    <input type="checkbox" name="goals" value="track-expenses">
+                                    <div class="goal-content">
+                                        <i class="fas fa-receipt"></i>
+                                        <span>Track Expenses</span>
+                                    </div>
                                 </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="goals" value="build-savings"> Build emergency savings
+                                <label class="goal-card">
+                                    <input type="checkbox" name="goals" value="build-savings">
+                                    <div class="goal-content">
+                                        <i class="fas fa-piggy-bank"></i>
+                                        <span>Build Savings</span>
+                                    </div>
                                 </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="goals" value="invest"> Start/grow investments
+                                <label class="goal-card">
+                                    <input type="checkbox" name="goals" value="invest">
+                                    <div class="goal-content">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Grow Investments</span>
+                                    </div>
                                 </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="goals" value="debt-free"> Become debt-free
+                                <label class="goal-card">
+                                    <input type="checkbox" name="goals" value="debt-free">
+                                    <div class="goal-content">
+                                        <i class="fas fa-hand-holding-usd"></i>
+                                        <span>Pay Off Debt</span>
+                                    </div>
                                 </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="goals" value="retirement"> Plan for retirement
+                                <label class="goal-card">
+                                    <input type="checkbox" name="goals" value="retirement">
+                                    <div class="goal-content">
+                                        <i class="fas fa-umbrella-beach"></i>
+                                        <span>Plan Retirement</span>
+                                    </div>
                                 </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="goals" value="net-worth"> Track net worth
+                                <label class="goal-card">
+                                    <input type="checkbox" name="goals" value="net-worth">
+                                    <div class="goal-content">
+                                        <i class="fas fa-balance-scale"></i>
+                                        <span>Track Net Worth</span>
+                                    </div>
                                 </label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Risk Tolerance</label>
-                            <select id="profileRiskTolerance">
-                                <option value="conservative">Conservative — Prefer safety over returns</option>
-                                <option value="moderate">Moderate — Balance of safety and growth</option>
-                                <option value="aggressive">Aggressive — Higher risk for higher returns</option>
-                            </select>
+                            <label><i class="fas fa-shield-alt"></i> Risk Tolerance</label>
+                            <div class="risk-options">
+                                <label class="risk-option">
+                                    <input type="radio" name="riskTolerance" value="conservative">
+                                    <div class="risk-content">
+                                        <span class="risk-icon" style="color: #10b981;">🛡️</span>
+                                        <div>
+                                            <strong>Conservative</strong>
+                                            <p>Prefer safety over returns</p>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="risk-option">
+                                    <input type="radio" name="riskTolerance" value="moderate" checked>
+                                    <div class="risk-content">
+                                        <span class="risk-icon" style="color: #f59e0b;">⚖️</span>
+                                        <div>
+                                            <strong>Moderate</strong>
+                                            <p>Balance safety and growth</p>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="risk-option">
+                                    <input type="radio" name="riskTolerance" value="aggressive">
+                                    <div class="risk-content">
+                                        <span class="risk-icon" style="color: #ef4444;">🚀</span>
+                                        <div>
+                                            <strong>Aggressive</strong>
+                                            <p>Higher risk for higher returns</p>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
                         </div>
                         <div class="form-actions">
-                            <button type="button" class="btn btn-tertiary" onclick="prevOnboardingStep(2)">
+                            <button type="button" class="btn btn-ghost" onclick="prevOnboardingStep(2)">
                                 <i class="fas fa-arrow-left"></i> Back
                             </button>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-check"></i> Complete Setup
+                            <button type="submit" class="btn btn-primary btn-success-gradient">
+                                <i class="fas fa-rocket"></i> Get Started
                             </button>
                         </div>
                     </div>
@@ -2723,17 +3004,27 @@
             const email = document.getElementById('loginEmail').value.trim().toLowerCase();
             const password = document.getElementById('loginPassword').value;
 
+            // Debug: Check if function is called
+            console.log('=== LOGIN ATTEMPT ===');
+            console.log('Email:', email);
+            console.log('Password length:', password.length);
+
             const users = getUsers();
+            console.log('Registered users:', Object.keys(users));
 
             if (!users[email]) {
                 showMessage('No account found with this email. Please sign up first.', 'error');
+                console.log('User not found:', email);
                 return;
             }
 
             if (users[email].password !== password) {
                 showMessage('Incorrect password. Please try again.', 'error');
+                console.log('Password mismatch for:', email);
                 return;
             }
+
+            console.log('Login successful for:', email);
 
             // Successful login
             isLoggedIn = true;
@@ -2759,6 +3050,8 @@
             const password = document.getElementById('signupPassword').value;
             const confirmPassword = document.getElementById('signupConfirmPassword').value;
 
+            console.log('Signup attempt for:', email);
+
             if (password !== confirmPassword) {
                 showMessage('Passwords do not match', 'error');
                 return;
@@ -2783,6 +3076,9 @@
                 profile: null
             };
             saveUsers(users);
+
+            console.log('User created:', email);
+            console.log('Stored users:', Object.keys(getUsers()));
 
             // Auto-login after signup
             isLoggedIn = true;
@@ -2811,10 +3107,34 @@
         }
 
         function showOnboardingStep(step) {
+            // Update step content visibility
             for (let i = 1; i <= 3; i++) {
                 const stepEl = document.getElementById(`onboardingStep${i}`);
                 if (stepEl) {
                     stepEl.style.display = i === step ? 'block' : 'none';
+                }
+
+                // Update progress indicator
+                const progressStep = document.getElementById(`progressStep${i}`);
+                if (progressStep) {
+                    progressStep.classList.remove('active', 'completed');
+                    if (i < step) {
+                        progressStep.classList.add('completed');
+                    } else if (i === step) {
+                        progressStep.classList.add('active');
+                    }
+                }
+
+                // Update progress lines
+                if (i < 3) {
+                    const progressLine = document.getElementById(`progressLine${i}`);
+                    if (progressLine) {
+                        if (i < step) {
+                            progressLine.classList.add('active');
+                        } else {
+                            progressLine.classList.remove('active');
+                        }
+                    }
                 }
             }
         }
@@ -2853,6 +3173,10 @@
                 goals.push(cb.value);
             });
 
+            // Get risk tolerance from radio buttons
+            const riskRadio = document.querySelector('input[name="riskTolerance"]:checked');
+            const riskTolerance = riskRadio ? riskRadio.value : 'moderate';
+
             const profile = {
                 name: document.getElementById('profileName').value,
                 dateOfBirth: document.getElementById('profileDOB').value,
@@ -2862,7 +3186,7 @@
                 incomeRange: document.getElementById('profileIncome').value,
                 currency: document.getElementById('profileCurrency').value,
                 goals: goals,
-                riskTolerance: document.getElementById('profileRiskTolerance').value,
+                riskTolerance: riskTolerance,
                 onboardingComplete: true,
                 updatedAt: new Date().toISOString()
             };
@@ -2941,7 +3265,7 @@
                                 <div class="dashboard-welcome">
                                     <div>
                                         <h2 style="margin-bottom: 0.5rem;">Welcome to Fintpe! 👋</h2>
-                                        <p style="color: var(--text-secondary); margin: 0;">${userEmail}</p>
+                                        <p style="color: var(--text-secondary); margin: 0;">${currentUser || ''}</p>
                                     </div>
                                     <div style="display: flex; gap: 1rem; align-items: center;">
                                         <button onclick="toggleDashboardFamilyView()" class="btn btn-secondary" id="dashboardFamilyToggle">
@@ -4353,8 +4677,8 @@
                 } else {
                     initials = displayName.charAt(0).toUpperCase();
                 }
-            } else if (userEmail) {
-                const emailName = userEmail.split('@')[0];
+            } else if (currentUser) {
+                const emailName = currentUser.split('@')[0];
                 displayName = emailName.charAt(0).toUpperCase() + emailName.slice(1);
                 initials = emailName.charAt(0).toUpperCase();
             }
@@ -4391,8 +4715,8 @@
                 const storedValue = userProfileData ? userProfileData[field] : '';
                 if (storedValue) {
                     element.value = storedValue;
-                } else if (field === 'email' && userEmail) {
-                    element.value = userEmail;
+                } else if (field === 'email' && currentUser) {
+                    element.value = currentUser;
                 }
             });
 
@@ -4464,8 +4788,8 @@
             const form = document.getElementById('profileDetailsForm');
             if (form) {
                 form.reset();
-                if (userEmail && form.elements['email']) {
-                    form.elements['email'].value = userEmail;
+                if (currentUser && form.elements['email']) {
+                    form.elements['email'].value = currentUser;
                 }
             }
 
@@ -4534,8 +4858,8 @@
         }
 
         function saveSession() {
-            if (userEmail) {
-                localStorage.setItem('fintpe_user_email', userEmail);
+            if (currentUser) {
+                localStorage.setItem('fintpe_user_email', currentUser);
             }
         }
 
@@ -4567,7 +4891,7 @@
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
                 isLoggedIn = false;
-                userEmail = '';
+                currentUser = null;
                 clearSession();
                 loadPage('landing');
                 
