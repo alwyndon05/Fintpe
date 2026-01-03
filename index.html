@@ -758,8 +758,16 @@
         /* Onboarding Modal Styles */
         .onboarding-modal {
             max-width: 580px;
+            max-height: 90vh;
             border-radius: 20px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .onboarding-modal .modal-body {
+            overflow-y: auto;
+            flex: 1;
         }
 
         .onboarding-header {
