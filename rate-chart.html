@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Chart - Fintpe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a7c59;
+            --primary-dark: #3d6b4a;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --light: #f9fafb;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .coming-soon-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* Main Content */
+        .page-section {
+            padding: 6rem 2rem 2rem 2rem;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Rate Sections */
+        .rate-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .rate-table {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rate-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 80px;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+        }
+
+        .rate-row:last-child {
+            border-bottom: none;
+        }
+
+        .rate-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .rate-unit {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .rate-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: right;
+        }
+
+        .rate-change {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .rate-change.positive { color: var(--success); }
+        .rate-change.negative { color: var(--danger); }
+        .rate-change.neutral { color: var(--text-secondary); }
+
+        .page-footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .rate-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+            .rate-unit { display: none; }
+            .page-header { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo">Fintpe</a>
+                <span class="coming-soon-badge">Coming Soon</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-section">
+        <div class="page-container">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Rate Chart</h1>
+                    <p class="page-subtitle">Market rates and bank interest rates</p>
+                </div>
+            </div>
+
+            <!-- Commodities -->
+            <div class="rate-section">
+                <h3 class="section-title"><i class="fas fa-coins"></i> Commodities</h3>
+                <div class="rate-table">
+                    <div class="rate-row">
+                        <span class="rate-name">Gold (24K)</span>
+                        <span class="rate-unit">per 10g</span>
+                        <span class="rate-value">₹78,450</span>
+                        <span class="rate-change positive">+0.45%</span>
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-name">Gold (22K)</span>
+                        <span class="rate-unit">per 10g</span>
+                        <span class="rate-value">₹71,880</span>
+                        <span class="rate-change positive">+0.42%</span>
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-name">Silver</span>
+                        <span class="rate-unit">per kg</span>
+                        <span class="rate-value">₹92,500</span>
+                        <span class="rate-change positive">+0.32%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Currency Rates -->
+            <div class="rate-section">
+                <h3 class="section-title"><i class="fas fa-exchange-alt"></i> Currency Rates</h3>
+                <div class="rate-table">
+                    <div class="rate-row">
+                        <span class="rate-name">US Dollar (USD)</span>
+                        <span class="rate-unit">1 USD</span>
+                        <span class="rate-value">₹83.42</span>
+                        <span class="rate-change positive">+0.12%</span>
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-name">Euro (EUR)</span>
+                        <span class="rate-unit">1 EUR</span>
+                        <span class="rate-value">₹90.15</span>
+                        <span class="rate-change negative">-0.08%</span>
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-name">British Pound (GBP)</span>
+                        <span class="rate-unit">1 GBP</span>
+                        <span class="rate-value">₹105.20</span>
+                        <span class="rate-change positive">+0.15%</span>
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-name">Japanese Yen (JPY)</span>
+                        <span class="rate-unit">100 JPY</span>
+                        <span class="rate-value">₹55.80</span>
+                        <span class="rate-change negative">-0.22%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bank Rates -->
+            <div class="rate-section">
+                <h3 class="section-title"><i class="fas fa-university"></i> Bank Interest Rates</h3>
+                <div class="rate-table">
+                    <div class="rate-row">
+                        <span class="rate-name">SBI FD Rate</span>
+                        <span class="rate-unit">1 Year</span>
+                        <span class="rate-value">7.10%</span>
+                        <span class="rate-change neutral">-</span>
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-name">HDFC FD Rate</span>
+                        <span class="rate-unit">1 Year</span>
+                        <span class="rate-value">7.25%</span>
+                        <span class="rate-change neutral">-</span>
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-name">ICICI FD Rate</span>
+                        <span class="rate-unit">1 Year</span>
+                        <span class="rate-value">7.20%</span>
+                        <span class="rate-change neutral">-</span>
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-name">PPF Rate</span>
+                        <span class="rate-unit">Current</span>
+                        <span class="rate-value">7.10%</span>
+                        <span class="rate-change neutral">-</span>
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-name">NSC Rate</span>
+                        <span class="rate-unit">5 Year</span>
+                        <span class="rate-value">7.70%</span>
+                        <span class="rate-change neutral">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Indices -->
+            <div class="rate-section">
+                <h3 class="section-title"><i class="fas fa-chart-line"></i> Market Indices</h3>
+                <div class="rate-table">
+                    <div class="rate-row">
+                        <span class="rate-name">SENSEX</span>
+                        <span class="rate-unit">BSE</span>
+                        <span class="rate-value">72,568.45</span>
+                        <span class="rate-change positive">+1.25%</span>
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-name">NIFTY 50</span>
+                        <span class="rate-unit">NSE</span>
+                        <span class="rate-value">21,845.30</span>
+                        <span class="rate-change positive">+1.18%</span>
+                    </div>
+                    <div class="rate-row">
+                        <span class="rate-name">NIFTY Bank</span>
+                        <span class="rate-unit">NSE</span>
+                        <span class="rate-value">46,125.80</span>
+                        <span class="rate-change positive">+0.95%</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="page-footer">
+                <i class="fas fa-info-circle"></i> Rates are indicative and may vary. Last updated: Today
+            </p>
+        </div>
+    </section>
+</body>
+</html>

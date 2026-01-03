@@ -1779,7 +1779,7 @@
 
         /* Account Section */
         .account-section {
-            padding: 2rem;
+            padding: 6rem 2rem 2rem 2rem;
             background: var(--light);
             min-height: 100vh;
         }
@@ -3988,12 +3988,12 @@
 
         // Open Rate Chart page
         function openRateChart() {
-            loadPage('rate-chart');
+            window.location.href = 'rate-chart.html';
         }
 
         // Open Calculators page
         function openCalculators() {
-            loadPage('calculators');
+            window.location.href = 'calculators.html';
         }
 
         // Load Dashboard with Family View Support
@@ -4546,237 +4546,10 @@
                 loadAccountPageContent();
             } else if (pageName === 'landing') {
                 loadLandingPageContent();
-            } else if (pageName === 'rate-chart') {
-                loadRateChartPage();
-            } else if (pageName === 'calculators') {
-                loadCalculatorsPage();
             } else {
                 loadLandingPageContent();
             }
         }
-
-        // Load Rate Chart Page
-        function loadRateChartPage() {
-            const mainContent = document.getElementById('main-content');
-            if (!mainContent) return;
-
-            mainContent.innerHTML = `
-                <section class="account-section">
-                    <div class="account-container">
-                        <div class="profile-header">
-                            <div class="profile-info" style="flex: 1;">
-                                <h1 class="profile-name" style="margin-bottom: 0;">Rate Chart</h1>
-                                <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">Market rates and bank interest rates</p>
-                            </div>
-                            <button onclick="loadDashboard()" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
-                                <i class="fas fa-arrow-left"></i> Dashboard
-                            </button>
-                        </div>
-
-                        <div style="margin-top: 1.5rem;">
-                                <!-- Commodities -->
-                                <div class="settings-section">
-                                    <h3 class="settings-section-title"><i class="fas fa-coins"></i> Commodities</h3>
-                                    <div class="rate-table">
-                                        <div class="rate-row">
-                                            <span class="rate-name">Gold (24K)</span>
-                                            <span class="rate-unit">per 10g</span>
-                                            <span class="rate-value">₹78,450</span>
-                                            <span class="rate-change positive">+0.45%</span>
-                                        </div>
-                                        <div class="rate-row">
-                                            <span class="rate-name">Gold (22K)</span>
-                                            <span class="rate-unit">per 10g</span>
-                                            <span class="rate-value">₹71,880</span>
-                                            <span class="rate-change positive">+0.42%</span>
-                                        </div>
-                                        <div class="rate-row">
-                                            <span class="rate-name">Silver</span>
-                                            <span class="rate-unit">per kg</span>
-                                            <span class="rate-value">₹92,500</span>
-                                            <span class="rate-change positive">+0.32%</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Currency Rates -->
-                                <div class="settings-section">
-                                    <h3 class="settings-section-title"><i class="fas fa-exchange-alt"></i> Currency Rates</h3>
-                                    <div class="rate-table">
-                                        <div class="rate-row">
-                                            <span class="rate-name">US Dollar (USD)</span>
-                                            <span class="rate-unit">1 USD</span>
-                                            <span class="rate-value">₹83.42</span>
-                                            <span class="rate-change positive">+0.12%</span>
-                                        </div>
-                                        <div class="rate-row">
-                                            <span class="rate-name">Euro (EUR)</span>
-                                            <span class="rate-unit">1 EUR</span>
-                                            <span class="rate-value">₹90.15</span>
-                                            <span class="rate-change negative">-0.08%</span>
-                                        </div>
-                                        <div class="rate-row">
-                                            <span class="rate-name">British Pound (GBP)</span>
-                                            <span class="rate-unit">1 GBP</span>
-                                            <span class="rate-value">₹105.20</span>
-                                            <span class="rate-change positive">+0.15%</span>
-                                        </div>
-                                        <div class="rate-row">
-                                            <span class="rate-name">Japanese Yen (JPY)</span>
-                                            <span class="rate-unit">100 JPY</span>
-                                            <span class="rate-value">₹55.80</span>
-                                            <span class="rate-change negative">-0.22%</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Bank Rates -->
-                                <div class="settings-section">
-                                    <h3 class="settings-section-title"><i class="fas fa-university"></i> Bank Interest Rates</h3>
-                                    <div class="rate-table">
-                                        <div class="rate-row">
-                                            <span class="rate-name">SBI FD Rate</span>
-                                            <span class="rate-unit">1 Year</span>
-                                            <span class="rate-value">7.10%</span>
-                                            <span class="rate-change neutral">-</span>
-                                        </div>
-                                        <div class="rate-row">
-                                            <span class="rate-name">HDFC FD Rate</span>
-                                            <span class="rate-unit">1 Year</span>
-                                            <span class="rate-value">7.25%</span>
-                                            <span class="rate-change neutral">-</span>
-                                        </div>
-                                        <div class="rate-row">
-                                            <span class="rate-name">ICICI FD Rate</span>
-                                            <span class="rate-unit">1 Year</span>
-                                            <span class="rate-value">7.20%</span>
-                                            <span class="rate-change neutral">-</span>
-                                        </div>
-                                        <div class="rate-row">
-                                            <span class="rate-name">PPF Rate</span>
-                                            <span class="rate-unit">Current</span>
-                                            <span class="rate-value">7.10%</span>
-                                            <span class="rate-change neutral">-</span>
-                                        </div>
-                                        <div class="rate-row">
-                                            <span class="rate-name">NSC Rate</span>
-                                            <span class="rate-unit">5 Year</span>
-                                            <span class="rate-value">7.70%</span>
-                                            <span class="rate-change neutral">-</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Market Indices -->
-                                <div class="settings-section">
-                                    <h3 class="settings-section-title"><i class="fas fa-chart-line"></i> Market Indices</h3>
-                                    <div class="rate-table">
-                                        <div class="rate-row">
-                                            <span class="rate-name">SENSEX</span>
-                                            <span class="rate-unit">BSE</span>
-                                            <span class="rate-value">72,568.45</span>
-                                            <span class="rate-change positive">+1.25%</span>
-                                        </div>
-                                        <div class="rate-row">
-                                            <span class="rate-name">NIFTY 50</span>
-                                            <span class="rate-unit">NSE</span>
-                                            <span class="rate-value">21,845.30</span>
-                                            <span class="rate-change positive">+1.18%</span>
-                                        </div>
-                                        <div class="rate-row">
-                                            <span class="rate-name">NIFTY Bank</span>
-                                            <span class="rate-unit">NSE</span>
-                                            <span class="rate-value">46,125.80</span>
-                                            <span class="rate-change positive">+0.95%</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <p style="text-align: center; color: var(--text-secondary); font-size: 0.85rem; margin-top: 1.5rem;">
-                                    <i class="fas fa-info-circle"></i> Rates are indicative and may vary. Last updated: Today
-                                </p>
-                        </div>
-                    </div>
-                </section>
-            `;
-        }
-
-        // Load Calculators Page
-        function loadCalculatorsPage() {
-            const mainContent = document.getElementById('main-content');
-            if (!mainContent) return;
-
-            mainContent.innerHTML = `
-                <section class="account-section">
-                    <div class="account-container">
-                        <div class="profile-header">
-                            <div class="profile-info" style="flex: 1;">
-                                <h1 class="profile-name" style="margin-bottom: 0;">Calculators</h1>
-                                <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">Financial planning tools</p>
-                            </div>
-                            <button onclick="loadDashboard()" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
-                                <i class="fas fa-arrow-left"></i> Dashboard
-                            </button>
-                        </div>
-
-                        <div style="margin-top: 1.5rem;">
-                                <div class="settings-section">
-                                    <div class="rate-table">
-                                        <div class="rate-row" onclick="openSIPCalculator()" style="cursor: pointer;">
-                                            <span class="rate-name"><i class="fas fa-chart-line" style="color: var(--primary); margin-right: 0.5rem;"></i> SIP Calculator</span>
-                                            <span class="rate-unit">Mutual Funds</span>
-                                            <span class="rate-value" style="color: var(--text-secondary);">Calculate returns</span>
-                                            <span class="rate-change"><i class="fas fa-chevron-right"></i></span>
-                                        </div>
-                                        <div class="rate-row" onclick="openEMICalculator()" style="cursor: pointer;">
-                                            <span class="rate-name"><i class="fas fa-home" style="color: var(--primary); margin-right: 0.5rem;"></i> EMI Calculator</span>
-                                            <span class="rate-unit">Loans</span>
-                                            <span class="rate-value" style="color: var(--text-secondary);">Calculate EMI</span>
-                                            <span class="rate-change"><i class="fas fa-chevron-right"></i></span>
-                                        </div>
-                                        <div class="rate-row" onclick="openFDCalculator()" style="cursor: pointer;">
-                                            <span class="rate-name"><i class="fas fa-university" style="color: var(--primary); margin-right: 0.5rem;"></i> FD Calculator</span>
-                                            <span class="rate-unit">Fixed Deposit</span>
-                                            <span class="rate-value" style="color: var(--text-secondary);">Calculate maturity</span>
-                                            <span class="rate-change"><i class="fas fa-chevron-right"></i></span>
-                                        </div>
-                                        <div class="rate-row" onclick="openPPFCalculator()" style="cursor: pointer;">
-                                            <span class="rate-name"><i class="fas fa-piggy-bank" style="color: var(--primary); margin-right: 0.5rem;"></i> PPF Calculator</span>
-                                            <span class="rate-unit">Public Provident Fund</span>
-                                            <span class="rate-value" style="color: var(--text-secondary);">Calculate returns</span>
-                                            <span class="rate-change"><i class="fas fa-chevron-right"></i></span>
-                                        </div>
-                                        <div class="rate-row" onclick="openRetirementCalculator()" style="cursor: pointer;">
-                                            <span class="rate-name"><i class="fas fa-umbrella-beach" style="color: var(--primary); margin-right: 0.5rem;"></i> Retirement Calculator</span>
-                                            <span class="rate-unit">Planning</span>
-                                            <span class="rate-value" style="color: var(--text-secondary);">Plan corpus</span>
-                                            <span class="rate-change"><i class="fas fa-chevron-right"></i></span>
-                                        </div>
-                                        <div class="rate-row" onclick="openTaxCalculator()" style="cursor: pointer;">
-                                            <span class="rate-name"><i class="fas fa-receipt" style="color: var(--primary); margin-right: 0.5rem;"></i> Tax Calculator</span>
-                                            <span class="rate-unit">Income Tax</span>
-                                            <span class="rate-value" style="color: var(--text-secondary);">Old vs New regime</span>
-                                            <span class="rate-change"><i class="fas fa-chevron-right"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <p style="text-align: center; color: var(--text-secondary); font-size: 0.85rem; margin-top: 1.5rem;">
-                                    <i class="fas fa-info-circle"></i> Calculators coming soon! Stay tuned.
-                                </p>
-                        </div>
-                    </div>
-                </section>
-            `;
-        }
-
-        // Placeholder calculator functions
-        function openSIPCalculator() { showMessage('SIP Calculator coming soon!', 'info'); }
-        function openEMICalculator() { showMessage('EMI Calculator coming soon!', 'info'); }
-        function openFDCalculator() { showMessage('FD Calculator coming soon!', 'info'); }
-        function openPPFCalculator() { showMessage('PPF Calculator coming soon!', 'info'); }
-        function openRetirementCalculator() { showMessage('Retirement Calculator coming soon!', 'info'); }
-        function openTaxCalculator() { showMessage('Tax Calculator coming soon!', 'info'); }
 
         // Load Landing Page
         function loadLandingPageContent() {
