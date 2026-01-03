@@ -1640,26 +1640,34 @@
         }
 
         .account-status-alert {
-            background: #fef3c7;
-            border: 1px solid #fbbf24;
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
-            display: flex;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            display: inline-flex;
             align-items: center;
-            gap: 1rem;
-            color: #92400e;
-            font-size: 0.9rem;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        .account-status-alert i {
+            color: #c9a86c;
+            font-size: 0.75rem;
         }
 
         .btn-complete {
-            background: #f59e0b;
-            color: white;
+            background: transparent;
+            color: #8b7355;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
+            padding: 0;
+            border-radius: 0;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            text-decoration: underline;
+            font-size: 0.85rem;
         }
 
         .profile-details-section {
@@ -2400,16 +2408,42 @@
             color: var(--success);
         }
 
-        /* Account Management - Clean List Style like Claude Settings */
-        .account-management-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            margin-bottom: 2rem;
+        /* Account Settings - Two Panel Layout */
+        .account-settings-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .account-settings-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .account-sidebar {
             background: var(--white);
             border-radius: 12px;
             border: 1px solid var(--border);
             overflow: hidden;
+            height: fit-content;
+        }
+
+        .account-sidebar-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .account-management-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
         }
 
         .account-card {
@@ -2417,12 +2451,13 @@
             border: none;
             border-bottom: 1px solid var(--border);
             border-radius: 0;
-            padding: 1rem 1.25rem;
+            padding: 0.875rem 1.25rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
             cursor: pointer;
-            transition: background 0.15s ease;
+            transition: all 0.15s ease;
+            border-left: 3px solid transparent;
         }
 
         .account-card:last-child {
@@ -2431,30 +2466,32 @@
 
         .account-card:hover {
             background: var(--light);
-            border-color: var(--border);
-            box-shadow: none;
-            transform: none;
         }
 
-        .account-card:hover .card-content h3 {
-            color: var(--accent);
+        .account-card.active {
+            background: var(--light);
+            border-left-color: #8b7355;
+        }
+
+        .account-card.active .card-content h3 {
+            color: #8b7355;
+            font-weight: 600;
         }
 
         .card-icon {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 0;
             background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             flex-shrink: 0;
-            color: var(--text-secondary) !important;
         }
 
         .card-content h3 {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 500;
             color: var(--text-primary);
             margin-bottom: 0;
@@ -2465,11 +2502,37 @@
             display: none;
         }
 
-        .account-grid-header h2 {
+        .account-content-panel {
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            min-height: 400px;
+        }
+
+        .account-content-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .account-content-header h3 {
             font-size: 1.1rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 1rem;
+            margin: 0 0 0.25rem 0;
+        }
+
+        .account-content-header p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .account-content-body {
+            padding: 1.5rem;
+        }
+
+        .account-grid-header {
+            display: none;
         }
 
         /* Quick Actions - Minimal Style */
@@ -2972,9 +3035,18 @@
             }
 
             .account-status-alert {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .account-settings-layout {
+                grid-template-columns: 1fr;
+            }
+            .account-sidebar {
+                order: 2;
+            }
+            .account-content-panel {
+                order: 1;
             }
         }
     </style>
@@ -4433,13 +4505,15 @@
         }
 
         // Load Account Page
+        let activeAccountSection = 'bankAccounts';
+
         function loadAccountPageContent() {
             const mainContent = document.getElementById('main-content');
             if (mainContent) {
                 mainContent.innerHTML = `
                     <section class="account-section">
                         <div class="account-container">
-                            <div class="profile-header">
+                            <div class="profile-header" style="margin-bottom: 0;">
                                 <div class="profile-avatar">
                                     <div class="avatar-circle" id="userAvatar">
                                         <span id="avatarInitials">U</span>
@@ -4448,150 +4522,58 @@
                                 <div class="profile-info">
                                     <h1 class="profile-name" id="profileDisplayName">Hi, User</h1>
                                     <div class="account-status-alert">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                        <span>Complete your financial profile to unlock all investment and banking features.</span>
-                                        <button onclick="openProfileSetupModal()" class="btn-complete">Complete Setup</button>
+                                        <i class="fas fa-info-circle"></i>
+                                        <button onclick="openProfileSetupModal()" class="btn-complete">Complete your profile</button>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Settings Card as part of account management -->
-                            <div class="account-grid-header">
-                                <h2>My Account</h2>
-                            </div>
-
-                            <div class="account-management-grid">
-                                <!-- Row 1 -->
-                                <div class="account-card" onclick="openBankAccounts()">
-                                    <div class="card-icon" style="color: #6b8e7d;">
-                                        <i class="fas fa-university"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>Bank Accounts</h3>
-                                        <p>Manage linked bank accounts & balances</p>
-                                    </div>
-                                </div>
-
-                                <div class="account-card" onclick="openMyProfile()">
-                                    <div class="card-icon" style="color: #8b7355;">
-                                        <i class="fas fa-user-circle"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>My Profile</h3>
-                                        <p>Personal details, contact & address</p>
-                                    </div>
-                                </div>
-
-                                <!-- Row 2 -->
-                                <div class="account-card" onclick="openSettingsPreferences()">
-                                    <div class="card-icon" style="color: #9b8bb8;">
-                                        <i class="fas fa-cog"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>Settings & Preferences</h3>
-                                        <p>Privacy mode, themes, notifications</p>
-                                    </div>
-                                </div>
-
-                                <div class="account-card" onclick="openInsurance()">
-                                    <div class="card-icon" style="color: #6b8e7d;">
-                                        <i class="fas fa-shield-alt"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>Insurance</h3>
-                                        <p>Health, Life, Motor insurance policies</p>
+                            <div class="account-settings-layout">
+                                <div class="account-sidebar">
+                                    <div class="account-sidebar-header">Settings</div>
+                                    <div class="account-management-grid">
+                                        <div class="account-card" data-section="bankAccounts" onclick="loadAccountSection('bankAccounts')">
+                                            <div class="card-icon" style="color: #6b8e7d;"><i class="fas fa-university"></i></div>
+                                            <div class="card-content"><h3>Bank Accounts</h3></div>
+                                        </div>
+                                        <div class="account-card" data-section="myProfile" onclick="loadAccountSection('myProfile')">
+                                            <div class="card-icon" style="color: #8b7355;"><i class="fas fa-user-circle"></i></div>
+                                            <div class="card-content"><h3>My Profile</h3></div>
+                                        </div>
+                                        <div class="account-card" data-section="investments" onclick="loadAccountSection('investments')">
+                                            <div class="card-icon" style="color: #9b8bb8;"><i class="fas fa-chart-line"></i></div>
+                                            <div class="card-content"><h3>Investments</h3></div>
+                                        </div>
+                                        <div class="account-card" data-section="realEstateGold" onclick="loadAccountSection('realEstateGold')">
+                                            <div class="card-icon" style="color: #c9a86c;"><i class="fas fa-gem"></i></div>
+                                            <div class="card-content"><h3>Real Estate & Gold</h3></div>
+                                        </div>
+                                        <div class="account-card" data-section="loans" onclick="loadAccountSection('loans')">
+                                            <div class="card-icon" style="color: #b87070;"><i class="fas fa-hand-holding-usd"></i></div>
+                                            <div class="card-content"><h3>Loans & EMIs</h3></div>
+                                        </div>
+                                        <div class="account-card" data-section="insurance" onclick="loadAccountSection('insurance')">
+                                            <div class="card-icon" style="color: #6b8e7d;"><i class="fas fa-shield-alt"></i></div>
+                                            <div class="card-content"><h3>Insurance</h3></div>
+                                        </div>
+                                        <div class="account-card" data-section="calendarReminders" onclick="loadAccountSection('calendarReminders')">
+                                            <div class="card-icon" style="color: #8aa876;"><i class="fas fa-calendar-alt"></i></div>
+                                            <div class="card-content"><h3>Calendar & Reminders</h3></div>
+                                        </div>
+                                        <div class="account-card" data-section="taxServices" onclick="loadAccountSection('taxServices')">
+                                            <div class="card-icon" style="color: #c9a86c;"><i class="fas fa-file-invoice-dollar"></i></div>
+                                            <div class="card-content"><h3>Tax Services</h3></div>
+                                        </div>
                                     </div>
                                 </div>
-
-                                <!-- Row 3 -->
-                                <div class="account-card" onclick="openRealEstateGold()">
-                                    <div class="card-icon" style="color: #c9a86c;">
-                                        <i class="fas fa-home"></i>
+                                <div class="account-content-panel" id="accountContentPanel">
+                                    <div class="account-content-header">
+                                        <h3 id="accountPanelTitle">Bank Accounts</h3>
+                                        <p id="accountPanelSubtitle">Manage your linked bank accounts and balances</p>
                                     </div>
-                                    <div class="card-content">
-                                        <h3>Real Estate & Gold</h3>
-                                        <p>Property & gold investment tracking</p>
+                                    <div class="account-content-body" id="accountPanelBody">
+                                        <!-- Content loads here -->
                                     </div>
-                                </div>
-
-                                <div class="account-card" onclick="openPasswordSecurity()">
-                                    <div class="card-icon" style="color: #b87070;">
-                                        <i class="fas fa-lock"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>Password & Security</h3>
-                                        <p>Change password, 2FA & security settings</p>
-                                    </div>
-                                </div>
-
-                                <!-- Row 4 -->
-                                <div class="account-card" onclick="openInvestments()">
-                                    <div class="card-icon" style="color: #9b8bb8;">
-                                        <i class="fas fa-chart-line"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>Investments</h3>
-                                        <p>Mutual funds, SIPs & portfolio tracking</p>
-                                    </div>
-                                </div>
-
-                                <div class="account-card" onclick="openAuthorizations()">
-                                    <div class="card-icon" style="color: #7ba3a8;">
-                                        <i class="fas fa-key"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>Authorizations</h3>
-                                        <p>API access, third-party permissions</p>
-                                    </div>
-                                </div>
-
-                                <!-- Row 5 -->
-                                <div class="account-card" onclick="openCalendarReminders()">
-                                    <div class="card-icon" style="color: #8aa876;">
-                                        <i class="fas fa-calendar-alt"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>Calendar & Reminders</h3>
-                                        <p>SIP dates, bill payments & notifications</p>
-                                    </div>
-                                </div>
-
-                                <div class="account-card" onclick="openTaxServices()">
-                                    <div class="card-icon" style="color: #c9a86c;">
-                                        <i class="fas fa-file-invoice-dollar"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>Tax Services</h3>
-                                        <p>ITR filing, tax planning & CA consultation</p>
-                                    </div>
-                                </div>
-
-                                <div class="account-card" onclick="openLoans()">
-                                    <div class="card-icon" style="color: #b87070;">
-                                        <i class="fas fa-hand-holding-usd"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>Loans & EMIs</h3>
-                                        <p>Track loans, EMIs & outstanding balances</p>
-                                    </div>
-                                </div>
-                            </div>
-                             
-                            <div class="quick-actions">
-                                <h3>Quick Actions</h3>
-                                <div class="quick-actions-grid">
-                                    <button onclick="loadDashboard()" class="quick-action-btn">
-                                        <i class="fas fa-chart-line"></i>
-                                        <span>Dashboard</span>
-                                    </button>
-                                    <button onclick="exportAccountData()" class="quick-action-btn">
-                                        <i class="fas fa-download"></i>
-                                        <span>Export Data</span>
-                                    </button>
-                                    <button onclick="logout()" class="quick-action-btn danger">
-                                        <i class="fas fa-sign-out-alt"></i>
-                                        <span>Logout</span>
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -4603,8 +4585,224 @@
                     setUserInfo();
                     setupProfileDetailsForm();
                     initializeEnhancedFeatures();
+                    loadAccountSection('bankAccounts');
                 }, 100);
             }
+        }
+
+        function loadAccountSection(sectionKey) {
+            activeAccountSection = sectionKey;
+
+            // Update active state in sidebar
+            document.querySelectorAll('.account-card').forEach(card => {
+                card.classList.toggle('active', card.dataset.section === sectionKey);
+            });
+
+            const titleEl = document.getElementById('accountPanelTitle');
+            const subtitleEl = document.getElementById('accountPanelSubtitle');
+            const bodyEl = document.getElementById('accountPanelBody');
+
+            const sectionInfo = {
+                bankAccounts: { title: 'Bank Accounts', subtitle: 'Manage your linked bank accounts and balances', key: 'bankAccounts' },
+                myProfile: { title: 'My Profile', subtitle: 'Personal details, contact information', key: null },
+                investments: { title: 'Investments', subtitle: 'Upload broker files to track your portfolio', key: 'investments' },
+                realEstateGold: { title: 'Real Estate & Gold', subtitle: 'Property and gold investment tracking', key: 'realEstateGold' },
+                loans: { title: 'Loans & EMIs', subtitle: 'Track your loans, EMIs and outstanding balances', key: 'loans' },
+                insurance: { title: 'Insurance', subtitle: 'Health, life and motor insurance policies', key: 'insurance' },
+                calendarReminders: { title: 'Calendar & Reminders', subtitle: 'SIP dates, bill payments and notifications', key: 'calendarReminders' },
+                taxServices: { title: 'Tax Services', subtitle: 'ITR filing and tax planning', key: 'taxServices' }
+            };
+
+            const info = sectionInfo[sectionKey];
+            if (titleEl) titleEl.textContent = info.title;
+            if (subtitleEl) subtitleEl.textContent = info.subtitle;
+
+            // Load content based on section
+            if (sectionKey === 'investments') {
+                loadInvestmentPanelContent(bodyEl);
+            } else if (sectionKey === 'myProfile') {
+                loadProfilePanelContent(bodyEl);
+            } else if (info.key && ACCOUNT_MANAGEMENT_SECTIONS[info.key]) {
+                loadManagementPanelContent(bodyEl, info.key);
+            }
+        }
+
+        function loadManagementPanelContent(container, sectionKey) {
+            const config = ACCOUNT_MANAGEMENT_SECTIONS[sectionKey];
+            if (!config) return;
+
+            const formId = sectionKey + 'InlineForm';
+            const recordsId = sectionKey + 'InlineRecords';
+
+            const fieldsHtml = config.fields.map(function(field) {
+                return buildManagementField(field, sectionKey);
+            }).join('');
+
+            container.innerHTML = '<div id="' + recordsId + '" class="management-records" style="margin-bottom: 1rem;"></div>' +
+                '<button type="button" class="btn btn-primary" style="margin-bottom: 1rem;" onclick="toggleInlineForm(\'' + sectionKey + '\')">' +
+                '<i class="fas fa-plus"></i> Add New</button>' +
+                '<div id="' + sectionKey + 'InlineFormWrapper" style="display: none;">' +
+                '<form id="' + formId + '" class="management-form" style="background: var(--light); padding: 1.25rem; border-radius: 12px;">' +
+                '<h4 id="' + sectionKey + 'InlineFormTitle" style="margin: 0 0 1rem 0; font-size: 1rem;">' + config.formTitle + '</h4>' +
+                '<div class="form-fields-grid">' + fieldsHtml + '</div>' +
+                '<input type="hidden" id="' + sectionKey + 'InlineEditIndex" value="-1">' +
+                '<div class="form-actions-row">' +
+                '<button type="button" class="btn btn-secondary" onclick="toggleInlineForm(\'' + sectionKey + '\', false)">Cancel</button>' +
+                '<button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>' +
+                '</div></form></div>';
+
+            renderInlineRecords(sectionKey);
+            attachInlineForm(sectionKey);
+        }
+
+        function toggleInlineForm(sectionKey, show) {
+            if (show === undefined) show = true;
+            const wrapper = document.getElementById(sectionKey + 'InlineFormWrapper');
+            const form = document.getElementById(sectionKey + 'InlineForm');
+            const editField = document.getElementById(sectionKey + 'InlineEditIndex');
+            if (wrapper) {
+                wrapper.style.display = show ? 'block' : 'none';
+                if (!show && form) {
+                    form.reset();
+                    if (editField) editField.value = '-1';
+                }
+            }
+        }
+
+        function renderInlineRecords(sectionKey) {
+            const config = ACCOUNT_MANAGEMENT_SECTIONS[sectionKey];
+            if (!config) return;
+            const container = document.getElementById(sectionKey + 'InlineRecords');
+            if (!container) return;
+
+            const data = getAccountManagementData(sectionKey);
+            if (!data.length) {
+                container.innerHTML = '<div class="management-empty-state"><i class="fas fa-inbox" style="font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 0.75rem;"></i><p style="font-size: 0.9rem;">' + config.emptyState + '</p></div>';
+                return;
+            }
+
+            const displayFields = config.fields.filter(function(f) { return f.name !== 'notes'; }).slice(0, 4);
+            let html = '<table class="records-table"><thead><tr>';
+            displayFields.forEach(function(f) { html += '<th>' + f.label + '</th>'; });
+            html += '<th style="width: 100px;">Actions</th></tr></thead><tbody>';
+
+            data.forEach(function(entry, index) {
+                html += '<tr>';
+                displayFields.forEach(function(field) {
+                    html += '<td>' + formatManagementValue(field, entry[field.name] || '-') + '</td>';
+                });
+                html += '<td class="actions-cell">' +
+                    '<button type="button" class="icon-btn edit" onclick="editInlineRecord(\'' + sectionKey + '\', ' + index + ')" title="Edit"><i class="fas fa-pen"></i></button>' +
+                    '<button type="button" class="icon-btn delete" onclick="deleteInlineRecord(\'' + sectionKey + '\', ' + index + ')" title="Delete"><i class="fas fa-trash"></i></button>' +
+                '</td></tr>';
+            });
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function attachInlineForm(sectionKey) {
+            const form = document.getElementById(sectionKey + 'InlineForm');
+            if (!form) return;
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const config = ACCOUNT_MANAGEMENT_SECTIONS[sectionKey];
+                const editIndexField = document.getElementById(sectionKey + 'InlineEditIndex');
+                const editIndex = editIndexField ? parseInt(editIndexField.value, 10) : -1;
+
+                const formData = {};
+                config.fields.forEach(function(field) {
+                    const element = form.elements[field.name];
+                    if (element) formData[field.name] = element.value;
+                });
+
+                const data = getAccountManagementData(sectionKey);
+                if (editIndex >= 0 && data[editIndex]) {
+                    data[editIndex] = formData;
+                } else {
+                    data.push(formData);
+                }
+                saveAccountManagementData(sectionKey, data);
+                renderInlineRecords(sectionKey);
+                form.reset();
+                if (editIndexField) editIndexField.value = -1;
+                toggleInlineForm(sectionKey, false);
+                showSuccessMessage(editIndex >= 0 ? 'Updated' : 'Saved');
+                setTimeout(function() { loadDashboard(); }, 500);
+            });
+        }
+
+        function editInlineRecord(sectionKey, index) {
+            const config = ACCOUNT_MANAGEMENT_SECTIONS[sectionKey];
+            const data = getAccountManagementData(sectionKey);
+            if (!data[index]) return;
+
+            toggleInlineForm(sectionKey, true);
+            const form = document.getElementById(sectionKey + 'InlineForm');
+            const editField = document.getElementById(sectionKey + 'InlineEditIndex');
+
+            config.fields.forEach(function(field) {
+                const element = form.elements[field.name];
+                if (element) element.value = data[index][field.name] || '';
+            });
+            if (editField) editField.value = index;
+        }
+
+        function deleteInlineRecord(sectionKey, index) {
+            if (!confirm('Delete this entry?')) return;
+            const data = getAccountManagementData(sectionKey);
+            data.splice(index, 1);
+            saveAccountManagementData(sectionKey, data);
+            renderInlineRecords(sectionKey);
+            showSuccessMessage('Deleted');
+        }
+
+        function loadInvestmentPanelContent(container) {
+            selectedBroker = null;
+            currentPortfolioTab = 'all';
+
+            container.innerHTML = '<div class="broker-upload-section" style="margin-bottom: 1.5rem;">' +
+                '<p style="margin: 0 0 1rem 0; font-weight: 500; font-size: 0.9rem;">Select broker and upload holdings:</p>' +
+                '<div class="broker-selection" style="margin-bottom: 1rem;">' +
+                    '<button type="button" class="broker-btn" data-broker="zerodha" onclick="selectBroker(\'zerodha\')">' +
+                        '<span class="broker-icon zerodha">Z</span>Zerodha</button>' +
+                    '<button type="button" class="broker-btn" data-broker="groww" onclick="selectBroker(\'groww\')">' +
+                        '<span class="broker-icon groww">G</span>Groww</button>' +
+                '</div>' +
+                '<div class="file-upload-area" id="fileUploadArea" style="padding: 1.5rem;">' +
+                    '<i class="fas fa-cloud-upload-alt" style="font-size: 2rem;"></i>' +
+                    '<p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Drop Excel file or <span class="browse-link">browse</span></p>' +
+                    '<input type="file" id="csvFileInput" accept=".xlsx,.xls,.csv" />' +
+                '</div>' +
+            '</div>' +
+            '<div id="portfolioDataSection"></div>';
+
+            attachPortfolioEventListeners();
+            renderPortfolioData();
+        }
+
+        function loadProfilePanelContent(container) {
+            const profile = JSON.parse(localStorage.getItem('fintpe_profile_details') || '{}');
+            container.innerHTML = '<form id="inlineProfileForm">' +
+                '<div class="form-fields-grid">' +
+                    '<div class="management-field"><label>Full Name</label><input type="text" name="fullName" value="' + (profile.fullName || '') + '"></div>' +
+                    '<div class="management-field"><label>Email</label><input type="email" name="email" value="' + (currentUser || '') + '" readonly style="background: var(--light);"></div>' +
+                    '<div class="management-field"><label>Phone</label><input type="tel" name="phone" value="' + (profile.phone || '') + '"></div>' +
+                    '<div class="management-field"><label>Date of Birth</label><input type="date" name="dob" value="' + (profile.dob || '') + '"></div>' +
+                    '<div class="management-field"><label>PAN Number</label><input type="text" name="pan" value="' + (profile.pan || '') + '" placeholder="ABCDE1234F"></div>' +
+                    '<div class="management-field"><label>Occupation</label><input type="text" name="occupation" value="' + (profile.occupation || '') + '"></div>' +
+                '</div>' +
+                '<div style="margin-top: 1.5rem;"><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Profile</button></div>' +
+            '</form>';
+
+            document.getElementById('inlineProfileForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const data = {};
+                formData.forEach(function(value, key) { data[key] = value; });
+                localStorage.setItem('fintpe_profile_details', JSON.stringify(data));
+                showSuccessMessage('Profile saved');
+            });
         }
 
         // Services Modal
