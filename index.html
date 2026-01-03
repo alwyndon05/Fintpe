@@ -9,24 +9,26 @@
     <style>
         /* Include your main.css styles here */
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --primary-light: #3b82f6;
+            --primary: #020347;
+            --primary-dark: #010225;
+            --primary-light: #0a0f6a;
+            --accent: #4f46e5;
             --secondary: #059669;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #dc2626;
-            --dark: #0f172a;
+            --dark: #020347;
             --light: #f8fafc;
             --white: #ffffff;
-            --text-primary: #0f172a;
-            --text-secondary: #64748b;
+            --text-primary: #020347;
+            --text-secondary: #475569;
             --text-muted: #94a3b8;
             --border: #e2e8f0;
             --border-light: #f1f5f9;
 
             /* Modern additions */
-            --gradient-primary: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            --gradient-primary: linear-gradient(135deg, #020347 0%, #1e1b4b 100%);
+            --gradient-accent: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
             --gradient-subtle: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -39,7 +41,101 @@
             --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
             --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
             --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
         }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes textReveal {
+            from {
+                clip-path: inset(0 100% 0 0);
+            }
+            to {
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @keyframes draw-line {
+            from { stroke-dashoffset: 1000; }
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* Scroll-triggered animation classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-stagger > * {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .animate-stagger.visible > *:nth-child(1) { animation: fadeInUp 0.6s var(--ease-out-expo) 0.1s forwards; }
+        .animate-stagger.visible > *:nth-child(2) { animation: fadeInUp 0.6s var(--ease-out-expo) 0.2s forwards; }
+        .animate-stagger.visible > *:nth-child(3) { animation: fadeInUp 0.6s var(--ease-out-expo) 0.3s forwards; }
+        .animate-stagger.visible > *:nth-child(4) { animation: fadeInUp 0.6s var(--ease-out-expo) 0.4s forwards; }
+        .animate-stagger.visible > *:nth-child(5) { animation: fadeInUp 0.6s var(--ease-out-expo) 0.5s forwards; }
+        .animate-stagger.visible > *:nth-child(6) { animation: fadeInUp 0.6s var(--ease-out-expo) 0.6s forwards; }
 
         /* Dark Mode Variables */
         [data-theme="dark"] {
@@ -176,42 +272,70 @@
 
         /* Hero Section */
         .hero {
-            padding: 10rem 2rem 8rem;
+            padding: 12rem 2rem 8rem;
             text-align: center;
             background: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            background: radial-gradient(ellipse at top, rgba(2, 3, 71, 0.03) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .hero-content {
-            max-width: 680px;
+            max-width: 720px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-eyebrow {
-            font-size: 0.875rem;
-            font-weight: 500;
+            font-size: 0.8rem;
+            font-weight: 600;
             color: var(--primary);
-            letter-spacing: 0.05em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
             margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--ease-out-expo) 0.2s forwards;
         }
 
         .hero-title {
-            font-size: clamp(3rem, 8vw, 4.5rem);
-            font-weight: 600;
+            font-size: clamp(2.75rem, 7vw, 4.25rem);
+            font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--text-primary);
-            line-height: 1.1;
+            line-height: 1.08;
             letter-spacing: -0.03em;
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--ease-out-expo) 0.35s forwards;
+        }
+
+        .hero-title-line {
+            display: block;
+            overflow: hidden;
         }
 
         .hero-subtitle {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             margin-bottom: 2.5rem;
             color: var(--text-secondary);
-            line-height: 1.6;
-            max-width: 540px;
+            line-height: 1.7;
+            max-width: 520px;
             margin-left: auto;
             margin-right: auto;
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--ease-out-expo) 0.5s forwards;
         }
 
         .cta-buttons {
@@ -219,51 +343,105 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--ease-out-expo) 0.65s forwards;
         }
 
         /* Buttons */
         .btn {
-            padding: 1rem 2rem;
+            padding: 0.95rem 1.75rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: 600;
+            font-size: 0.95rem;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
             background: var(--primary);
             color: white;
+            box-shadow: 0 2px 8px rgba(2, 3, 71, 0.2);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
             transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(2, 3, 71, 0.25);
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary i {
+            transition: transform 0.3s var(--ease-out-expo);
+        }
+
+        .btn-primary:hover i {
+            transform: translateX(3px);
         }
 
         .btn-secondary {
-            background: white;
+            background: transparent;
             color: var(--primary);
-            border: 2px solid var(--primary);
+            border: 1.5px solid var(--primary);
         }
 
         .btn-secondary:hover {
             background: var(--primary);
             color: white;
+            box-shadow: 0 4px 12px rgba(2, 3, 71, 0.15);
         }
 
         .btn-tertiary {
             background: transparent;
             color: var(--text-secondary);
-            padding: 1rem 1.5rem;
+            padding: 0.95rem 1.25rem;
+            position: relative;
+        }
+
+        .btn-tertiary::after {
+            content: '';
+            position: absolute;
+            bottom: 0.7rem;
+            left: 1.25rem;
+            right: 1.25rem;
+            height: 1px;
+            background: currentColor;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s var(--ease-out-expo);
         }
 
         .btn-tertiary:hover {
-            color: var(--text-primary);
+            color: var(--primary);
+        }
+
+        .btn-tertiary:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
         /* Modals */
@@ -445,71 +623,122 @@
 
         /* Features */
         .features-section {
-            padding: 6rem 2rem;
+            padding: 8rem 2rem;
             background: var(--white);
             border-top: 1px solid var(--border);
         }
 
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
         .section-title {
             text-align: center;
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
             color: var(--text-primary);
-            letter-spacing: -0.02em;
+            letter-spacing: -0.025em;
         }
 
         .section-subtitle {
             text-align: center;
             font-size: 1.1rem;
             color: var(--text-secondary);
-            margin-bottom: 4rem;
-            max-width: 500px;
+            margin-bottom: 0;
+            max-width: 480px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.7;
         }
 
         .features-grid {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .feature-card {
-            padding: 1.75rem;
-            border-radius: 8px;
+            padding: 2rem;
+            border-radius: 12px;
             background: var(--light);
+            border: 1px solid transparent;
+            transition: all 0.5s var(--ease-out-expo);
+            position: relative;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            padding: 1px;
+            background: linear-gradient(135deg, transparent 0%, rgba(2, 3, 71, 0.1) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s var(--ease-out-expo);
+        }
+
+        .feature-card:hover {
+            background: var(--white);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(2, 3, 71, 0.1);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
         }
 
         .feature-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 8px;
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            margin-bottom: 1.25rem;
+            transition: transform 0.5s var(--ease-out-expo);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.05);
         }
 
         .feature-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
             color: var(--text-primary);
         }
 
         .feature-description {
             color: var(--text-secondary);
-            line-height: 1.6;
-            font-size: 0.95rem;
+            line-height: 1.65;
+            font-size: 0.9rem;
         }
 
         /* Security Features */
         .security-section {
-            padding: 6rem 2rem;
+            padding: 8rem 2rem;
             background: var(--light);
             border-top: 1px solid var(--border);
         }
@@ -2404,12 +2633,14 @@
                     </section>
 
                     <section class="features-section">
-                        <h2 class="section-title">Everything in one place</h2>
-                        <p class="section-subtitle">Track all your finances without the noise. No ads, no upsells, no distractions.</p>
+                        <div class="section-header animate-on-scroll">
+                            <h2 class="section-title">Everything in one place</h2>
+                            <p class="section-subtitle">Track all your finances without the noise. No ads, no upsells, no distractions.</p>
+                        </div>
 
-                        <div class="features-grid">
+                        <div class="features-grid animate-stagger">
                             <div class="feature-card">
-                                <div class="feature-icon" style="background: #dbeafe; color: var(--primary);">
+                                <div class="feature-icon" style="background: rgba(2, 3, 71, 0.08); color: var(--primary);">
                                     <i class="fas fa-coins"></i>
                                 </div>
                                 <h3 class="feature-title">Net Worth Dashboard</h3>
@@ -2417,7 +2648,7 @@
                             </div>
 
                             <div class="feature-card">
-                                <div class="feature-icon" style="background: #d1fae5; color: var(--success);">
+                                <div class="feature-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
                                     <i class="fas fa-university"></i>
                                 </div>
                                 <h3 class="feature-title">All Accounts Together</h3>
@@ -2425,7 +2656,7 @@
                             </div>
 
                             <div class="feature-card">
-                                <div class="feature-icon" style="background: #fef3c7; color: var(--warning);">
+                                <div class="feature-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">
                                     <i class="fas fa-chart-line"></i>
                                 </div>
                                 <h3 class="feature-title">Investment Tracker</h3>
@@ -2433,7 +2664,7 @@
                             </div>
 
                             <div class="feature-card">
-                                <div class="feature-icon" style="background: #e0e7ff; color: #6366f1;">
+                                <div class="feature-icon" style="background: rgba(2, 3, 71, 0.06); color: var(--primary);">
                                     <i class="fas fa-receipt"></i>
                                 </div>
                                 <h3 class="feature-title">Expense Insights</h3>
@@ -2441,7 +2672,7 @@
                             </div>
 
                             <div class="feature-card">
-                                <div class="feature-icon" style="background: #fce7f3; color: #ec4899;">
+                                <div class="feature-icon" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">
                                     <i class="fas fa-bell"></i>
                                 </div>
                                 <h3 class="feature-title">Bill Reminders</h3>
@@ -2449,7 +2680,7 @@
                             </div>
 
                             <div class="feature-card">
-                                <div class="feature-icon" style="background: #ccfbf1; color: #14b8a6;">
+                                <div class="feature-icon" style="background: rgba(20, 184, 166, 0.1); color: #14b8a6;">
                                     <i class="fas fa-history"></i>
                                 </div>
                                 <h3 class="feature-title">Wealth Timeline</h3>
@@ -2460,32 +2691,34 @@
 
                     <!-- Goals & Planning Section -->
                     <section class="features-section" id="goals">
-                        <h2 class="section-title">Plan Your Financial Future</h2>
-                        <p class="section-subtitle">Set goals, track progress, and build wealth on your own terms. No advisors pushing products.</p>
-                        <div class="features-grid">
+                        <div class="section-header animate-on-scroll">
+                            <h2 class="section-title">Plan Your Financial Future</h2>
+                            <p class="section-subtitle">Set goals, track progress, and build wealth on your own terms. No advisors pushing products.</p>
+                        </div>
+                        <div class="features-grid animate-stagger">
                             <div class="feature-card">
-                                <div class="feature-icon" style="background: #dbeafe; color: var(--primary);">
+                                <div class="feature-icon" style="background: rgba(2, 3, 71, 0.08); color: var(--primary);">
                                     <i class="fas fa-bullseye"></i>
                                 </div>
                                 <h3 class="feature-title">Goal Tracking</h3>
                                 <p class="feature-description">Set savings goals, debt payoff targets, and investment milestones. Visual progress bars show exactly where you stand.</p>
                             </div>
                             <div class="feature-card">
-                                <div class="feature-icon" style="background: #d1fae5; color: var(--success);">
+                                <div class="feature-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
                                     <i class="fas fa-piggy-bank"></i>
                                 </div>
                                 <h3 class="feature-title">Budget Templates</h3>
                                 <p class="feature-description">Choose from 50/30/20, zero-based, or envelope budgeting. Or create your own custom budget that fits your life.</p>
                             </div>
                             <div class="feature-card">
-                                <div class="feature-icon" style="background: #fef3c7; color: var(--warning);">
+                                <div class="feature-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">
                                     <i class="fas fa-chart-area"></i>
                                 </div>
                                 <h3 class="feature-title">Net Worth History</h3>
                                 <p class="feature-description">Track your net worth over time with interactive charts. See trends, milestones, and growth at a glance.</p>
                             </div>
                             <div class="feature-card">
-                                <div class="feature-icon" style="background: #e0e7ff; color: #6366f1;">
+                                <div class="feature-icon" style="background: rgba(2, 3, 71, 0.06); color: var(--primary);">
                                     <i class="fas fa-plus-circle"></i>
                                 </div>
                                 <h3 class="feature-title">Manual Entry</h3>
@@ -4884,6 +5117,39 @@
                     closeServiceModal();
                 }
             }
+
+            // Scroll-triggered animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -80px 0px',
+                threshold: 0.1
+            };
+
+            const animationObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+
+                        // Stagger children animations
+                        if (entry.target.classList.contains('animate-stagger')) {
+                            const children = entry.target.children;
+                            Array.from(children).forEach((child, index) => {
+                                child.style.animationDelay = `${0.1 + index * 0.1}s`;
+                            });
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            // Initialize scroll animations
+            function initScrollAnimations() {
+                document.querySelectorAll('.animate-on-scroll, .animate-stagger').forEach(el => {
+                    animationObserver.observe(el);
+                });
+            }
+
+            // Re-initialize on page load
+            setTimeout(initScrollAnimations, 100);
         });
     </script>
 </body>
