@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculators - Fintpe</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Financial Calculators - Fintpe | SIP, EMI, FD, PPF Calculator</title>
+    <meta name="description" content="Free financial calculators for SIP, EMI, FD, PPF, and more. Plan your investments and loans with easy-to-use tools.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --primary: #1e3a5f;
-            --primary-dark: #152a45;
+            --primary-light: #2d4a6f;
             --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
             --text-primary: #1e3a5f;
-            --text-secondary: #4a6fa5;
+            --text-secondary: #424242;
+            --text-muted: #6b7280;
             --border: #e5e7eb;
-            --light: #f9fafb;
+            --bg-light: #f8fafc;
             --white: #ffffff;
         }
 
@@ -27,12 +27,12 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: var(--light);
-            color: var(--text-primary);
             line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-light);
         }
 
-        /* Navbar */
+        /* Navigation */
         .navbar {
             position: fixed;
             top: 0;
@@ -41,290 +41,1255 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: var(--primary);
             text-decoration: none;
         }
 
-        .coming-soon-badge {
-            background: var(--primary);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .nav-menu {
+        .nav-links {
             display: flex;
-            align-items: center;
-            gap: 1rem;
+            gap: 2rem;
             list-style: none;
         }
 
-        .btn {
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            font-size: 0.9rem;
+        .nav-links a {
+            color: var(--text-secondary);
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 0.95rem;
+            transition: color 0.2s;
         }
 
-        .btn-secondary {
-            background: var(--light);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background: var(--border);
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
         }
 
         /* Main Content */
-        .page-section {
-            padding: 6rem 2rem 2rem 2rem;
-            min-height: 100vh;
+        .main-content {
+            padding-top: 80px;
         }
 
-        .page-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .page-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+        /* Hero Section */
+        .page-hero {
             background: var(--white);
-            border-radius: 12px;
-            padding: 1.5rem 2rem;
-            border: 1px solid var(--border);
-        }
-
-        .page-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .page-subtitle {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* Calculator List */
-        .calc-section {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--border);
-        }
-
-        .calc-list {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .calc-item {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 40px;
-            gap: 1rem;
-            padding: 1rem 0;
+            padding: 3rem 2rem;
+            text-align: center;
             border-bottom: 1px solid var(--border);
-            align-items: center;
+        }
+
+        .page-hero h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-hero p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Calculator Grid */
+        .calculator-nav {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .calc-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .calc-tab {
+            padding: 0.75rem 1.5rem;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
             transition: all 0.2s;
         }
 
-        .calc-item:last-child {
+        .calc-tab:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .calc-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Calculator Container */
+        .calculator-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .calculator-card {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            display: none;
+        }
+
+        .calculator-card.active {
+            display: block;
+        }
+
+        .calc-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .calc-header h2 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .calc-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .calc-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .calc-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Input Section */
+        .calc-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .input-field {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            color: var(--text-primary);
+            background: var(--bg-light);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .input-suffix {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            min-width: 60px;
+        }
+
+        /* Range Slider */
+        .range-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border);
+            outline: none;
+            -webkit-appearance: none;
+            margin-top: 0.5rem;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .range-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: none;
+        }
+
+        /* Results Section */
+        .calc-results {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .result-chart {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .result-chart canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .chart-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .chart-center .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .chart-center .value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .result-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-item:last-child {
             border-bottom: none;
         }
 
-        .calc-item:hover {
-            background: var(--light);
-            margin: 0 -1rem;
-            padding: 1rem;
-            border-radius: 8px;
-        }
-
-        .calc-name {
-            font-weight: 500;
-            color: var(--text-primary);
+        .result-item .label {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-        }
-
-        .calc-name i {
-            color: var(--primary);
-            width: 20px;
-        }
-
-        .calc-category {
+            gap: 0.5rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            font-size: 0.85rem;
         }
 
-        .calc-desc {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
+        .result-item .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
         }
 
-        .calc-arrow {
-            color: var(--text-secondary);
-            text-align: right;
+        .result-item .dot.primary { background: var(--primary); }
+        .result-item .dot.success { background: var(--success); }
+        .result-item .dot.muted { background: #9ca3af; }
+
+        .result-item .value {
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
-        .page-footer {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-top: 1.5rem;
-        }
-
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--text-primary);
+        .result-highlight {
+            background: linear-gradient(135deg, var(--success), #059669);
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity 0.3s;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            text-align: center;
         }
 
-        .toast.show {
-            opacity: 1;
+        .result-highlight .label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-bottom: 0.25rem;
         }
 
-        @media (max-width: 600px) {
-            .calc-item {
-                grid-template-columns: 1fr 40px;
+        .result-highlight .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--white);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Mobile Nav */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
             }
-            .calc-category, .calc-desc { display: none; }
-            .page-header { flex-direction: column; align-items: flex-start; }
+            .calc-tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                padding-bottom: 0.5rem;
+            }
+            .calc-tab {
+                white-space: nowrap;
+            }
+            .page-hero h1 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo-container">
-                <a href="index.html" class="logo">Fintpe</a>
-                <span class="coming-soon-badge">Coming Soon</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a></li>
+            <a href="index.html" class="logo">Fintpe</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calculators.html" class="active">Calculators</a></li>
+                <li><a href="rate-chart.html">Rate Chart</a></li>
             </ul>
         </div>
     </nav>
 
-    <section class="page-section">
-        <div class="page-container">
-            <div class="page-header">
-                <div>
-                    <h1 class="page-title">Calculators</h1>
-                    <p class="page-subtitle">Financial planning tools</p>
-                </div>
-            </div>
+    <main class="main-content">
+        <section class="page-hero">
+            <h1>Financial Calculators</h1>
+            <p>Plan your investments and loans with easy-to-use tools</p>
+        </section>
 
-            <div class="calc-section">
-                <div class="calc-list">
-                    <div class="calc-item" onclick="showToast('SIP Calculator coming soon!')">
-                        <span class="calc-name"><i class="fas fa-chart-line"></i> SIP Calculator</span>
-                        <span class="calc-category">Mutual Funds</span>
-                        <span class="calc-desc">Calculate returns</span>
-                        <span class="calc-arrow"><i class="fas fa-chevron-right"></i></span>
-                    </div>
-                    <div class="calc-item" onclick="showToast('EMI Calculator coming soon!')">
-                        <span class="calc-name"><i class="fas fa-home"></i> EMI Calculator</span>
-                        <span class="calc-category">Loans</span>
-                        <span class="calc-desc">Calculate EMI</span>
-                        <span class="calc-arrow"><i class="fas fa-chevron-right"></i></span>
-                    </div>
-                    <div class="calc-item" onclick="showToast('FD Calculator coming soon!')">
-                        <span class="calc-name"><i class="fas fa-university"></i> FD Calculator</span>
-                        <span class="calc-category">Fixed Deposit</span>
-                        <span class="calc-desc">Calculate maturity</span>
-                        <span class="calc-arrow"><i class="fas fa-chevron-right"></i></span>
-                    </div>
-                    <div class="calc-item" onclick="showToast('PPF Calculator coming soon!')">
-                        <span class="calc-name"><i class="fas fa-piggy-bank"></i> PPF Calculator</span>
-                        <span class="calc-category">Provident Fund</span>
-                        <span class="calc-desc">Calculate returns</span>
-                        <span class="calc-arrow"><i class="fas fa-chevron-right"></i></span>
-                    </div>
-                    <div class="calc-item" onclick="showToast('Retirement Calculator coming soon!')">
-                        <span class="calc-name"><i class="fas fa-umbrella-beach"></i> Retirement Calculator</span>
-                        <span class="calc-category">Planning</span>
-                        <span class="calc-desc">Plan corpus</span>
-                        <span class="calc-arrow"><i class="fas fa-chevron-right"></i></span>
-                    </div>
-                    <div class="calc-item" onclick="showToast('Tax Calculator coming soon!')">
-                        <span class="calc-name"><i class="fas fa-receipt"></i> Tax Calculator</span>
-                        <span class="calc-category">Income Tax</span>
-                        <span class="calc-desc">Old vs New regime</span>
-                        <span class="calc-arrow"><i class="fas fa-chevron-right"></i></span>
-                    </div>
-                </div>
+        <div class="calculator-nav">
+            <div class="calc-tabs">
+                <button class="calc-tab active" data-calc="sip">SIP</button>
+                <button class="calc-tab" data-calc="emi">EMI</button>
+                <button class="calc-tab" data-calc="fd">FD</button>
+                <button class="calc-tab" data-calc="ppf">PPF</button>
+                <button class="calc-tab" data-calc="lumpsum">Lumpsum</button>
+                <button class="calc-tab" data-calc="stepup">Step-up SIP</button>
+                <button class="calc-tab" data-calc="retirement">Retirement</button>
+                <button class="calc-tab" data-calc="tax">Tax</button>
             </div>
-
-            <p class="page-footer">
-                <i class="fas fa-info-circle"></i> Calculators coming soon! Stay tuned.
-            </p>
         </div>
-    </section>
+
+        <div class="calculator-container">
+            <!-- SIP Calculator -->
+            <div class="calculator-card active" id="sip-calc">
+                <div class="calc-header">
+                    <h2>SIP Calculator</h2>
+                    <p>Calculate returns on your monthly SIP investments</p>
+                </div>
+                <div class="calc-body">
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label>Monthly Investment</label>
+                            <div class="input-row">
+                                <span style="color: var(--text-muted);">₹</span>
+                                <input type="number" class="input-field" id="sip-amount" value="10000" min="500" max="1000000">
+                            </div>
+                            <input type="range" class="range-slider" id="sip-amount-range" min="500" max="100000" value="10000" step="500">
+                        </div>
+                        <div class="input-group">
+                            <label>Expected Return Rate (p.a.)</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="sip-rate" value="12" min="1" max="30" step="0.1">
+                                <span class="input-suffix">%</span>
+                            </div>
+                            <input type="range" class="range-slider" id="sip-rate-range" min="1" max="30" value="12" step="0.5">
+                        </div>
+                        <div class="input-group">
+                            <label>Time Period</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="sip-years" value="10" min="1" max="40">
+                                <span class="input-suffix">Years</span>
+                            </div>
+                            <input type="range" class="range-slider" id="sip-years-range" min="1" max="40" value="10">
+                        </div>
+                    </div>
+                    <div class="calc-results">
+                        <div class="result-chart">
+                            <canvas id="sip-chart"></canvas>
+                            <div class="chart-center">
+                                <div class="label">Total Value</div>
+                                <div class="value" id="sip-total-center">₹23.2L</div>
+                            </div>
+                        </div>
+                        <div class="result-items">
+                            <div class="result-item">
+                                <span class="label"><span class="dot primary"></span> Invested Amount</span>
+                                <span class="value" id="sip-invested">₹12,00,000</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label"><span class="dot success"></span> Est. Returns</span>
+                                <span class="value" id="sip-returns">₹11,23,391</span>
+                            </div>
+                        </div>
+                        <div class="result-highlight">
+                            <div class="label">Total Value</div>
+                            <div class="value" id="sip-total">₹23,23,391</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EMI Calculator -->
+            <div class="calculator-card" id="emi-calc">
+                <div class="calc-header">
+                    <h2>EMI Calculator</h2>
+                    <p>Calculate your monthly loan EMI</p>
+                </div>
+                <div class="calc-body">
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label>Loan Amount</label>
+                            <div class="input-row">
+                                <span style="color: var(--text-muted);">₹</span>
+                                <input type="number" class="input-field" id="emi-principal" value="1000000" min="10000" max="100000000">
+                            </div>
+                            <input type="range" class="range-slider" id="emi-principal-range" min="100000" max="10000000" value="1000000" step="50000">
+                        </div>
+                        <div class="input-group">
+                            <label>Interest Rate (p.a.)</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="emi-rate" value="8.5" min="1" max="20" step="0.1">
+                                <span class="input-suffix">%</span>
+                            </div>
+                            <input type="range" class="range-slider" id="emi-rate-range" min="5" max="20" value="8.5" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label>Loan Tenure</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="emi-years" value="20" min="1" max="30">
+                                <span class="input-suffix">Years</span>
+                            </div>
+                            <input type="range" class="range-slider" id="emi-years-range" min="1" max="30" value="20">
+                        </div>
+                    </div>
+                    <div class="calc-results">
+                        <div class="result-chart">
+                            <canvas id="emi-chart"></canvas>
+                            <div class="chart-center">
+                                <div class="label">Total Payment</div>
+                                <div class="value" id="emi-total-center">₹20.7L</div>
+                            </div>
+                        </div>
+                        <div class="result-items">
+                            <div class="result-item">
+                                <span class="label"><span class="dot primary"></span> Principal</span>
+                                <span class="value" id="emi-principal-display">₹10,00,000</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label"><span class="dot muted"></span> Total Interest</span>
+                                <span class="value" id="emi-interest">₹10,67,389</span>
+                            </div>
+                        </div>
+                        <div class="result-highlight">
+                            <div class="label">Monthly EMI</div>
+                            <div class="value" id="emi-monthly">₹8,678</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lumpsum Calculator -->
+            <div class="calculator-card" id="lumpsum-calc">
+                <div class="calc-header">
+                    <h2>Lumpsum Calculator</h2>
+                    <p>Calculate returns on one-time investments</p>
+                </div>
+                <div class="calc-body">
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label>Investment Amount</label>
+                            <div class="input-row">
+                                <span style="color: var(--text-muted);">₹</span>
+                                <input type="number" class="input-field" id="lumpsum-amount" value="500000" min="1000" max="100000000">
+                            </div>
+                            <input type="range" class="range-slider" id="lumpsum-amount-range" min="10000" max="5000000" value="500000" step="10000">
+                        </div>
+                        <div class="input-group">
+                            <label>Expected Return Rate (p.a.)</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="lumpsum-rate" value="12" min="1" max="30" step="0.1">
+                                <span class="input-suffix">%</span>
+                            </div>
+                            <input type="range" class="range-slider" id="lumpsum-rate-range" min="1" max="30" value="12" step="0.5">
+                        </div>
+                        <div class="input-group">
+                            <label>Time Period</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="lumpsum-years" value="10" min="1" max="40">
+                                <span class="input-suffix">Years</span>
+                            </div>
+                            <input type="range" class="range-slider" id="lumpsum-years-range" min="1" max="40" value="10">
+                        </div>
+                    </div>
+                    <div class="calc-results">
+                        <div class="result-chart">
+                            <canvas id="lumpsum-chart"></canvas>
+                            <div class="chart-center">
+                                <div class="label">Total Value</div>
+                                <div class="value" id="lumpsum-total-center">₹15.5L</div>
+                            </div>
+                        </div>
+                        <div class="result-items">
+                            <div class="result-item">
+                                <span class="label"><span class="dot primary"></span> Invested Amount</span>
+                                <span class="value" id="lumpsum-invested">₹5,00,000</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label"><span class="dot success"></span> Est. Returns</span>
+                                <span class="value" id="lumpsum-returns">₹10,53,470</span>
+                            </div>
+                        </div>
+                        <div class="result-highlight">
+                            <div class="label">Total Value</div>
+                            <div class="value" id="lumpsum-total">₹15,53,470</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FD Calculator -->
+            <div class="calculator-card" id="fd-calc">
+                <div class="calc-header">
+                    <h2>FD Calculator</h2>
+                    <p>Calculate maturity value of your Fixed Deposit</p>
+                </div>
+                <div class="calc-body">
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label>Deposit Amount</label>
+                            <div class="input-row">
+                                <span style="color: var(--text-muted);">₹</span>
+                                <input type="number" class="input-field" id="fd-amount" value="100000" min="1000" max="100000000">
+                            </div>
+                            <input type="range" class="range-slider" id="fd-amount-range" min="10000" max="1000000" value="100000" step="5000">
+                        </div>
+                        <div class="input-group">
+                            <label>Interest Rate (p.a.)</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="fd-rate" value="7" min="1" max="15" step="0.1">
+                                <span class="input-suffix">%</span>
+                            </div>
+                            <input type="range" class="range-slider" id="fd-rate-range" min="3" max="10" value="7" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label>Tenure</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="fd-years" value="5" min="1" max="10">
+                                <span class="input-suffix">Years</span>
+                            </div>
+                            <input type="range" class="range-slider" id="fd-years-range" min="1" max="10" value="5">
+                        </div>
+                    </div>
+                    <div class="calc-results">
+                        <div class="result-chart">
+                            <canvas id="fd-chart"></canvas>
+                            <div class="chart-center">
+                                <div class="label">Maturity</div>
+                                <div class="value" id="fd-total-center">₹1.4L</div>
+                            </div>
+                        </div>
+                        <div class="result-items">
+                            <div class="result-item">
+                                <span class="label"><span class="dot primary"></span> Principal</span>
+                                <span class="value" id="fd-principal">₹1,00,000</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label"><span class="dot success"></span> Interest Earned</span>
+                                <span class="value" id="fd-interest">₹40,255</span>
+                            </div>
+                        </div>
+                        <div class="result-highlight">
+                            <div class="label">Maturity Value</div>
+                            <div class="value" id="fd-total">₹1,40,255</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PPF Calculator -->
+            <div class="calculator-card" id="ppf-calc">
+                <div class="calc-header">
+                    <h2>PPF Calculator</h2>
+                    <p>Calculate your Public Provident Fund returns</p>
+                </div>
+                <div class="calc-body">
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label>Yearly Investment</label>
+                            <div class="input-row">
+                                <span style="color: var(--text-muted);">₹</span>
+                                <input type="number" class="input-field" id="ppf-amount" value="150000" min="500" max="150000">
+                            </div>
+                            <input type="range" class="range-slider" id="ppf-amount-range" min="500" max="150000" value="150000" step="500">
+                        </div>
+                        <div class="input-group">
+                            <label>Interest Rate (Current: 7.1%)</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="ppf-rate" value="7.1" min="6" max="9" step="0.1">
+                                <span class="input-suffix">%</span>
+                            </div>
+                            <input type="range" class="range-slider" id="ppf-rate-range" min="6" max="9" value="7.1" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label>Time Period (Min 15 years)</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="ppf-years" value="15" min="15" max="50">
+                                <span class="input-suffix">Years</span>
+                            </div>
+                            <input type="range" class="range-slider" id="ppf-years-range" min="15" max="50" value="15">
+                        </div>
+                    </div>
+                    <div class="calc-results">
+                        <div class="result-chart">
+                            <canvas id="ppf-chart"></canvas>
+                            <div class="chart-center">
+                                <div class="label">Maturity</div>
+                                <div class="value" id="ppf-total-center">₹40.7L</div>
+                            </div>
+                        </div>
+                        <div class="result-items">
+                            <div class="result-item">
+                                <span class="label"><span class="dot primary"></span> Total Investment</span>
+                                <span class="value" id="ppf-invested">₹22,50,000</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label"><span class="dot success"></span> Interest Earned</span>
+                                <span class="value" id="ppf-interest">₹18,18,209</span>
+                            </div>
+                        </div>
+                        <div class="result-highlight">
+                            <div class="label">Maturity Value</div>
+                            <div class="value" id="ppf-total">₹40,68,209</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step-up SIP Calculator -->
+            <div class="calculator-card" id="stepup-calc">
+                <div class="calc-header">
+                    <h2>Step-up SIP Calculator</h2>
+                    <p>Calculate returns with annual SIP increase</p>
+                </div>
+                <div class="calc-body">
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label>Monthly Investment</label>
+                            <div class="input-row">
+                                <span style="color: var(--text-muted);">₹</span>
+                                <input type="number" class="input-field" id="stepup-amount" value="10000" min="500" max="1000000">
+                            </div>
+                            <input type="range" class="range-slider" id="stepup-amount-range" min="500" max="100000" value="10000" step="500">
+                        </div>
+                        <div class="input-group">
+                            <label>Annual Step-up</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="stepup-increase" value="10" min="0" max="50">
+                                <span class="input-suffix">%</span>
+                            </div>
+                            <input type="range" class="range-slider" id="stepup-increase-range" min="0" max="50" value="10" step="1">
+                        </div>
+                        <div class="input-group">
+                            <label>Expected Return Rate (p.a.)</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="stepup-rate" value="12" min="1" max="30" step="0.1">
+                                <span class="input-suffix">%</span>
+                            </div>
+                            <input type="range" class="range-slider" id="stepup-rate-range" min="1" max="30" value="12" step="0.5">
+                        </div>
+                        <div class="input-group">
+                            <label>Time Period</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="stepup-years" value="10" min="1" max="40">
+                                <span class="input-suffix">Years</span>
+                            </div>
+                            <input type="range" class="range-slider" id="stepup-years-range" min="1" max="40" value="10">
+                        </div>
+                    </div>
+                    <div class="calc-results">
+                        <div class="result-chart">
+                            <canvas id="stepup-chart"></canvas>
+                            <div class="chart-center">
+                                <div class="label">Total Value</div>
+                                <div class="value" id="stepup-total-center">₹35.1L</div>
+                            </div>
+                        </div>
+                        <div class="result-items">
+                            <div class="result-item">
+                                <span class="label"><span class="dot primary"></span> Invested Amount</span>
+                                <span class="value" id="stepup-invested">₹19,12,493</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label"><span class="dot success"></span> Est. Returns</span>
+                                <span class="value" id="stepup-returns">₹15,94,987</span>
+                            </div>
+                        </div>
+                        <div class="result-highlight">
+                            <div class="label">Total Value</div>
+                            <div class="value" id="stepup-total">₹35,07,480</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Retirement Calculator -->
+            <div class="calculator-card" id="retirement-calc">
+                <div class="calc-header">
+                    <h2>Retirement Calculator</h2>
+                    <p>Calculate how much you need to retire comfortably</p>
+                </div>
+                <div class="calc-body">
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label>Current Age</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="retire-current-age" value="30" min="18" max="60">
+                                <span class="input-suffix">Years</span>
+                            </div>
+                            <input type="range" class="range-slider" id="retire-current-age-range" min="18" max="60" value="30">
+                        </div>
+                        <div class="input-group">
+                            <label>Retirement Age</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="retire-age" value="60" min="40" max="70">
+                                <span class="input-suffix">Years</span>
+                            </div>
+                            <input type="range" class="range-slider" id="retire-age-range" min="40" max="70" value="60">
+                        </div>
+                        <div class="input-group">
+                            <label>Monthly Expenses (Current)</label>
+                            <div class="input-row">
+                                <span style="color: var(--text-muted);">₹</span>
+                                <input type="number" class="input-field" id="retire-expenses" value="50000" min="10000" max="1000000">
+                            </div>
+                            <input type="range" class="range-slider" id="retire-expenses-range" min="10000" max="500000" value="50000" step="5000">
+                        </div>
+                        <div class="input-group">
+                            <label>Expected Inflation</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="retire-inflation" value="6" min="3" max="12" step="0.5">
+                                <span class="input-suffix">%</span>
+                            </div>
+                            <input type="range" class="range-slider" id="retire-inflation-range" min="3" max="12" value="6" step="0.5">
+                        </div>
+                        <div class="input-group">
+                            <label>Expected Returns (Post-Retirement)</label>
+                            <div class="input-row">
+                                <input type="number" class="input-field" id="retire-returns" value="8" min="4" max="15" step="0.5">
+                                <span class="input-suffix">%</span>
+                            </div>
+                            <input type="range" class="range-slider" id="retire-returns-range" min="4" max="15" value="8" step="0.5">
+                        </div>
+                    </div>
+                    <div class="calc-results">
+                        <div class="result-items" style="margin-top: 1rem;">
+                            <div class="result-item">
+                                <span class="label">Years to Retirement</span>
+                                <span class="value" id="retire-years-left">30 years</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label">Monthly Expense at Retirement</span>
+                                <span class="value" id="retire-future-expense">₹2,87,175</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label">Life Expectancy (80 years)</span>
+                                <span class="value" id="retire-post-years">20 years</span>
+                            </div>
+                        </div>
+                        <div class="result-highlight">
+                            <div class="label">Retirement Corpus Needed</div>
+                            <div class="value" id="retire-corpus">₹5.2 Cr</div>
+                        </div>
+                        <div style="margin-top: 1rem; padding: 1rem; background: #fff; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem;">Monthly SIP Required</div>
+                            <div style="font-size: 1.25rem; font-weight: 700; color: var(--primary);" id="retire-sip">₹28,500</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">at 12% annual returns</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tax Calculator -->
+            <div class="calculator-card" id="tax-calc">
+                <div class="calc-header">
+                    <h2>Income Tax Calculator</h2>
+                    <p>Calculate your income tax under new & old regime (FY 2024-25)</p>
+                </div>
+                <div class="calc-body">
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label>Annual Income</label>
+                            <div class="input-row">
+                                <span style="color: var(--text-muted);">₹</span>
+                                <input type="number" class="input-field" id="tax-income" value="1200000" min="100000" max="100000000">
+                            </div>
+                            <input type="range" class="range-slider" id="tax-income-range" min="300000" max="5000000" value="1200000" step="50000">
+                        </div>
+                        <div class="input-group">
+                            <label>Deductions (80C, 80D, HRA etc.) - Old Regime Only</label>
+                            <div class="input-row">
+                                <span style="color: var(--text-muted);">₹</span>
+                                <input type="number" class="input-field" id="tax-deductions" value="150000" min="0" max="500000">
+                            </div>
+                            <input type="range" class="range-slider" id="tax-deductions-range" min="0" max="500000" value="150000" step="10000">
+                        </div>
+                        <div class="input-group">
+                            <label>Age Group</label>
+                            <div class="input-row">
+                                <select class="input-field" id="tax-age">
+                                    <option value="general">Below 60 years</option>
+                                    <option value="senior">60-80 years (Senior)</option>
+                                    <option value="supersenior">Above 80 years (Super Senior)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calc-results">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="background: #fff; border-radius: 10px; padding: 1rem; text-align: center; border: 2px solid var(--border);">
+                                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Old Regime Tax</div>
+                                <div style="font-size: 1.25rem; font-weight: 700; color: var(--primary);" id="tax-old">₹1,17,000</div>
+                                <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem;">Taxable: <span id="tax-old-taxable">₹10,50,000</span></div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, var(--success), #059669); border-radius: 10px; padding: 1rem; text-align: center; color: white;">
+                                <div style="font-size: 0.75rem; opacity: 0.9; margin-bottom: 0.5rem;">New Regime Tax</div>
+                                <div style="font-size: 1.25rem; font-weight: 700;" id="tax-new">₹93,600</div>
+                                <div style="font-size: 0.7rem; opacity: 0.8; margin-top: 0.25rem;">Taxable: <span id="tax-new-taxable">₹12,00,000</span></div>
+                            </div>
+                        </div>
+                        <div class="result-highlight" id="tax-recommendation" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
+                            <div class="label">Recommendation</div>
+                            <div class="value" style="font-size: 1rem;">New Regime saves ₹23,400</div>
+                        </div>
+                        <div style="margin-top: 1rem; font-size: 0.75rem; color: var(--text-muted); text-align: center;">
+                            * Includes 4% Health & Education Cess
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 <a href="index.html">Fintpe</a>. All rights reserved.</p>
+    </footer>
 
     <script>
-        function showToast(message) {
-            const existing = document.querySelector('.toast');
-            if (existing) existing.remove();
-
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-
-            setTimeout(() => toast.classList.add('show'), 10);
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
-            }, 2000);
+        // Format currency
+        function formatCurrency(amount) {
+            if (amount >= 10000000) {
+                return '₹' + (amount / 10000000).toFixed(1) + 'Cr';
+            } else if (amount >= 100000) {
+                return '₹' + (amount / 100000).toFixed(1) + 'L';
+            } else {
+                return '₹' + amount.toLocaleString('en-IN');
+            }
         }
+
+        function formatFullCurrency(amount) {
+            return '₹' + Math.round(amount).toLocaleString('en-IN');
+        }
+
+        // Draw donut chart
+        function drawDonutChart(canvasId, invested, returns) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const total = invested + returns;
+            const investedAngle = (invested / total) * 2 * Math.PI;
+
+            const size = 180;
+            canvas.width = size;
+            canvas.height = size;
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const radius = 70;
+            const lineWidth = 20;
+
+            ctx.clearRect(0, 0, size, size);
+
+            // Returns (green)
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, -Math.PI / 2, -Math.PI / 2 + 2 * Math.PI);
+            ctx.strokeStyle = '#10b981';
+            ctx.lineWidth = lineWidth;
+            ctx.stroke();
+
+            // Invested (navy)
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, -Math.PI / 2, -Math.PI / 2 + investedAngle);
+            ctx.strokeStyle = '#1e3a5f';
+            ctx.lineWidth = lineWidth;
+            ctx.stroke();
+        }
+
+        // Calculator functions
+        function calculateSIP() {
+            const P = parseFloat(document.getElementById('sip-amount').value) || 0;
+            const r = (parseFloat(document.getElementById('sip-rate').value) || 0) / 100 / 12;
+            const n = (parseFloat(document.getElementById('sip-years').value) || 0) * 12;
+
+            const invested = P * n;
+            const total = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+            const returns = total - invested;
+
+            document.getElementById('sip-invested').textContent = formatFullCurrency(invested);
+            document.getElementById('sip-returns').textContent = formatFullCurrency(returns);
+            document.getElementById('sip-total').textContent = formatFullCurrency(total);
+            document.getElementById('sip-total-center').textContent = formatCurrency(total);
+
+            drawDonutChart('sip-chart', invested, returns);
+        }
+
+        function calculateEMI() {
+            const P = parseFloat(document.getElementById('emi-principal').value) || 0;
+            const r = (parseFloat(document.getElementById('emi-rate').value) || 0) / 100 / 12;
+            const n = (parseFloat(document.getElementById('emi-years').value) || 0) * 12;
+
+            const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+            const totalPayment = emi * n;
+            const totalInterest = totalPayment - P;
+
+            document.getElementById('emi-principal-display').textContent = formatFullCurrency(P);
+            document.getElementById('emi-interest').textContent = formatFullCurrency(totalInterest);
+            document.getElementById('emi-monthly').textContent = formatFullCurrency(emi);
+            document.getElementById('emi-total-center').textContent = formatCurrency(totalPayment);
+
+            drawDonutChart('emi-chart', P, totalInterest);
+        }
+
+        function calculateLumpsum() {
+            const P = parseFloat(document.getElementById('lumpsum-amount').value) || 0;
+            const r = (parseFloat(document.getElementById('lumpsum-rate').value) || 0) / 100;
+            const n = parseFloat(document.getElementById('lumpsum-years').value) || 0;
+
+            const total = P * Math.pow(1 + r, n);
+            const returns = total - P;
+
+            document.getElementById('lumpsum-invested').textContent = formatFullCurrency(P);
+            document.getElementById('lumpsum-returns').textContent = formatFullCurrency(returns);
+            document.getElementById('lumpsum-total').textContent = formatFullCurrency(total);
+            document.getElementById('lumpsum-total-center').textContent = formatCurrency(total);
+
+            drawDonutChart('lumpsum-chart', P, returns);
+        }
+
+        function calculateFD() {
+            const P = parseFloat(document.getElementById('fd-amount').value) || 0;
+            const r = (parseFloat(document.getElementById('fd-rate').value) || 0) / 100;
+            const n = parseFloat(document.getElementById('fd-years').value) || 0;
+
+            // Quarterly compounding
+            const total = P * Math.pow(1 + r / 4, n * 4);
+            const interest = total - P;
+
+            document.getElementById('fd-principal').textContent = formatFullCurrency(P);
+            document.getElementById('fd-interest').textContent = formatFullCurrency(interest);
+            document.getElementById('fd-total').textContent = formatFullCurrency(total);
+            document.getElementById('fd-total-center').textContent = formatCurrency(total);
+
+            drawDonutChart('fd-chart', P, interest);
+        }
+
+        function calculatePPF() {
+            const yearly = parseFloat(document.getElementById('ppf-amount').value) || 0;
+            const r = (parseFloat(document.getElementById('ppf-rate').value) || 0) / 100;
+            const n = parseFloat(document.getElementById('ppf-years').value) || 0;
+
+            let total = 0;
+            for (let i = 0; i < n; i++) {
+                total = (total + yearly) * (1 + r);
+            }
+            const invested = yearly * n;
+            const interest = total - invested;
+
+            document.getElementById('ppf-invested').textContent = formatFullCurrency(invested);
+            document.getElementById('ppf-interest').textContent = formatFullCurrency(interest);
+            document.getElementById('ppf-total').textContent = formatFullCurrency(total);
+            document.getElementById('ppf-total-center').textContent = formatCurrency(total);
+
+            drawDonutChart('ppf-chart', invested, interest);
+        }
+
+        function calculateStepUp() {
+            const initialMonthly = parseFloat(document.getElementById('stepup-amount').value) || 0;
+            const stepUpRate = (parseFloat(document.getElementById('stepup-increase').value) || 0) / 100;
+            const annualReturn = (parseFloat(document.getElementById('stepup-rate').value) || 0) / 100;
+            const years = parseFloat(document.getElementById('stepup-years').value) || 0;
+            const monthlyReturn = annualReturn / 12;
+
+            let total = 0;
+            let invested = 0;
+            let currentMonthly = initialMonthly;
+
+            for (let year = 0; year < years; year++) {
+                for (let month = 0; month < 12; month++) {
+                    total = (total + currentMonthly) * (1 + monthlyReturn);
+                    invested += currentMonthly;
+                }
+                currentMonthly = currentMonthly * (1 + stepUpRate);
+            }
+
+            const returns = total - invested;
+
+            document.getElementById('stepup-invested').textContent = formatFullCurrency(invested);
+            document.getElementById('stepup-returns').textContent = formatFullCurrency(returns);
+            document.getElementById('stepup-total').textContent = formatFullCurrency(total);
+            document.getElementById('stepup-total-center').textContent = formatCurrency(total);
+
+            drawDonutChart('stepup-chart', invested, returns);
+        }
+
+        function calculateRetirement() {
+            const currentAge = parseFloat(document.getElementById('retire-current-age').value) || 30;
+            const retireAge = parseFloat(document.getElementById('retire-age').value) || 60;
+            const monthlyExpense = parseFloat(document.getElementById('retire-expenses').value) || 50000;
+            const inflation = (parseFloat(document.getElementById('retire-inflation').value) || 6) / 100;
+            const postRetireReturn = (parseFloat(document.getElementById('retire-returns').value) || 8) / 100;
+            const lifeExpectancy = 80;
+            const preRetireReturn = 0.12; // 12% returns during accumulation
+
+            const yearsToRetire = retireAge - currentAge;
+            const yearsPostRetire = lifeExpectancy - retireAge;
+
+            // Future monthly expense at retirement (inflation adjusted)
+            const futureMonthlyExpense = monthlyExpense * Math.pow(1 + inflation, yearsToRetire);
+            const futureAnnualExpense = futureMonthlyExpense * 12;
+
+            // Corpus needed using present value of annuity formula
+            // Considering inflation during retirement too
+            const realReturn = (postRetireReturn - inflation) / (1 + inflation);
+            let corpus = 0;
+            if (realReturn > 0) {
+                corpus = futureAnnualExpense * (1 - Math.pow(1 + realReturn, -yearsPostRetire)) / realReturn;
+            } else {
+                corpus = futureAnnualExpense * yearsPostRetire;
+            }
+
+            // Monthly SIP needed
+            const monthlyReturn = preRetireReturn / 12;
+            const months = yearsToRetire * 12;
+            const sipNeeded = corpus * monthlyReturn / ((Math.pow(1 + monthlyReturn, months) - 1) * (1 + monthlyReturn));
+
+            document.getElementById('retire-years-left').textContent = yearsToRetire + ' years';
+            document.getElementById('retire-future-expense').textContent = formatFullCurrency(futureMonthlyExpense);
+            document.getElementById('retire-post-years').textContent = yearsPostRetire + ' years';
+            document.getElementById('retire-corpus').textContent = formatCurrency(corpus);
+            document.getElementById('retire-sip').textContent = formatFullCurrency(sipNeeded);
+        }
+
+        function calculateTax() {
+            const income = parseFloat(document.getElementById('tax-income').value) || 0;
+            const deductions = parseFloat(document.getElementById('tax-deductions').value) || 0;
+            const ageGroup = document.getElementById('tax-age').value;
+
+            // Old Regime calculation
+            const standardDeductionOld = 50000;
+            const taxableIncomeOld = Math.max(0, income - deductions - standardDeductionOld);
+            let taxOld = 0;
+            let exemptionLimit = 250000;
+
+            if (ageGroup === 'senior') exemptionLimit = 300000;
+            if (ageGroup === 'supersenior') exemptionLimit = 500000;
+
+            if (taxableIncomeOld > exemptionLimit) {
+                // Old regime slabs
+                if (taxableIncomeOld <= 500000) {
+                    taxOld = (taxableIncomeOld - exemptionLimit) * 0.05;
+                } else if (taxableIncomeOld <= 1000000) {
+                    taxOld = (500000 - exemptionLimit) * 0.05 + (taxableIncomeOld - 500000) * 0.2;
+                } else {
+                    taxOld = (500000 - exemptionLimit) * 0.05 + 500000 * 0.2 + (taxableIncomeOld - 1000000) * 0.3;
+                }
+            }
+
+            // Rebate u/s 87A for old regime
+            if (taxableIncomeOld <= 500000) taxOld = 0;
+
+            // New Regime calculation (FY 2024-25)
+            const standardDeductionNew = 75000;
+            const taxableIncomeNew = Math.max(0, income - standardDeductionNew);
+            let taxNew = 0;
+
+            // New regime slabs (FY 2024-25)
+            if (taxableIncomeNew > 300000) {
+                if (taxableIncomeNew <= 700000) {
+                    taxNew = (taxableIncomeNew - 300000) * 0.05;
+                } else if (taxableIncomeNew <= 1000000) {
+                    taxNew = 400000 * 0.05 + (taxableIncomeNew - 700000) * 0.1;
+                } else if (taxableIncomeNew <= 1200000) {
+                    taxNew = 400000 * 0.05 + 300000 * 0.1 + (taxableIncomeNew - 1000000) * 0.15;
+                } else if (taxableIncomeNew <= 1500000) {
+                    taxNew = 400000 * 0.05 + 300000 * 0.1 + 200000 * 0.15 + (taxableIncomeNew - 1200000) * 0.2;
+                } else {
+                    taxNew = 400000 * 0.05 + 300000 * 0.1 + 200000 * 0.15 + 300000 * 0.2 + (taxableIncomeNew - 1500000) * 0.3;
+                }
+            }
+
+            // Rebate u/s 87A for new regime (up to 7L)
+            if (taxableIncomeNew <= 700000) taxNew = 0;
+
+            // Add 4% cess
+            taxOld = taxOld * 1.04;
+            taxNew = taxNew * 1.04;
+
+            document.getElementById('tax-old').textContent = formatFullCurrency(taxOld);
+            document.getElementById('tax-new').textContent = formatFullCurrency(taxNew);
+            document.getElementById('tax-old-taxable').textContent = formatFullCurrency(taxableIncomeOld);
+            document.getElementById('tax-new-taxable').textContent = formatFullCurrency(taxableIncomeNew);
+
+            const savings = Math.abs(taxOld - taxNew);
+            const recommendation = document.getElementById('tax-recommendation');
+            if (taxNew < taxOld) {
+                recommendation.innerHTML = '<div class="label">Recommendation</div><div class="value" style="font-size: 1rem;">New Regime saves ' + formatFullCurrency(savings) + '</div>';
+                recommendation.style.background = 'linear-gradient(135deg, var(--success), #059669)';
+            } else if (taxOld < taxNew) {
+                recommendation.innerHTML = '<div class="label">Recommendation</div><div class="value" style="font-size: 1rem;">Old Regime saves ' + formatFullCurrency(savings) + '</div>';
+                recommendation.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
+            } else {
+                recommendation.innerHTML = '<div class="label">Recommendation</div><div class="value" style="font-size: 1rem;">Both regimes are equal</div>';
+                recommendation.style.background = 'linear-gradient(135deg, #6b7280, #4b5563)';
+            }
+        }
+
+        // Sync sliders with inputs
+        function syncInputs(inputId, rangeId, calcFunction) {
+            const input = document.getElementById(inputId);
+            const range = document.getElementById(rangeId);
+
+            if (input && range) {
+                input.addEventListener('input', () => {
+                    range.value = input.value;
+                    calcFunction();
+                });
+                range.addEventListener('input', () => {
+                    input.value = range.value;
+                    calcFunction();
+                });
+            }
+        }
+
+        // Tab switching
+        document.querySelectorAll('.calc-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.calc-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.calculator-card').forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.calc + '-calc').classList.add('active');
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // SIP
+            syncInputs('sip-amount', 'sip-amount-range', calculateSIP);
+            syncInputs('sip-rate', 'sip-rate-range', calculateSIP);
+            syncInputs('sip-years', 'sip-years-range', calculateSIP);
+            calculateSIP();
+
+            // EMI
+            syncInputs('emi-principal', 'emi-principal-range', calculateEMI);
+            syncInputs('emi-rate', 'emi-rate-range', calculateEMI);
+            syncInputs('emi-years', 'emi-years-range', calculateEMI);
+            calculateEMI();
+
+            // Lumpsum
+            syncInputs('lumpsum-amount', 'lumpsum-amount-range', calculateLumpsum);
+            syncInputs('lumpsum-rate', 'lumpsum-rate-range', calculateLumpsum);
+            syncInputs('lumpsum-years', 'lumpsum-years-range', calculateLumpsum);
+            calculateLumpsum();
+
+            // FD
+            syncInputs('fd-amount', 'fd-amount-range', calculateFD);
+            syncInputs('fd-rate', 'fd-rate-range', calculateFD);
+            syncInputs('fd-years', 'fd-years-range', calculateFD);
+            calculateFD();
+
+            // PPF
+            syncInputs('ppf-amount', 'ppf-amount-range', calculatePPF);
+            syncInputs('ppf-rate', 'ppf-rate-range', calculatePPF);
+            syncInputs('ppf-years', 'ppf-years-range', calculatePPF);
+            calculatePPF();
+
+            // Step-up
+            syncInputs('stepup-amount', 'stepup-amount-range', calculateStepUp);
+            syncInputs('stepup-increase', 'stepup-increase-range', calculateStepUp);
+            syncInputs('stepup-rate', 'stepup-rate-range', calculateStepUp);
+            syncInputs('stepup-years', 'stepup-years-range', calculateStepUp);
+            calculateStepUp();
+
+            // Retirement
+            syncInputs('retire-current-age', 'retire-current-age-range', calculateRetirement);
+            syncInputs('retire-age', 'retire-age-range', calculateRetirement);
+            syncInputs('retire-expenses', 'retire-expenses-range', calculateRetirement);
+            syncInputs('retire-inflation', 'retire-inflation-range', calculateRetirement);
+            syncInputs('retire-returns', 'retire-returns-range', calculateRetirement);
+            calculateRetirement();
+
+            // Tax
+            syncInputs('tax-income', 'tax-income-range', calculateTax);
+            syncInputs('tax-deductions', 'tax-deductions-range', calculateTax);
+            document.getElementById('tax-age').addEventListener('change', calculateTax);
+            calculateTax();
+        });
     </script>
 </body>
 </html>
