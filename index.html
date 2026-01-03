@@ -3396,56 +3396,7 @@
                                         `}
                                     </div>
 
-                                    ${financialData.totalAssets > 0 || financialData.totalLoans > 0 ? `
-                                    <!-- Assets vs Liabilities Donut Chart -->
-                                    <div class="donut-chart-container">
-                                        <div class="donut-chart">
-                                            ${(() => {
-                                                const total = financialData.totalAssets + financialData.totalLoans;
-                                                const assetPercent = total > 0 ? (financialData.totalAssets / total) * 100 : 0;
-                                                const liabilityPercent = total > 0 ? (financialData.totalLoans / total) * 100 : 0;
-                                                const assetDash = (assetPercent / 100) * 314;
-                                                const liabilityDash = (liabilityPercent / 100) * 314;
-                                                return \`
-                                                    <svg width="160" height="160" viewBox="0 0 160 160">
-                                                        <circle cx="80" cy="80" r="50" fill="none" stroke="#e5e7eb" stroke-width="20"/>
-                                                        <circle cx="80" cy="80" r="50" fill="none" stroke="#10b981" stroke-width="20"
-                                                            stroke-dasharray="\${assetDash} 314" stroke-dashoffset="0"/>
-                                                        <circle cx="80" cy="80" r="50" fill="none" stroke="#ef4444" stroke-width="20"
-                                                            stroke-dasharray="\${liabilityDash} 314" stroke-dashoffset="-\${assetDash}"/>
-                                                    </svg>
-                                                \`;
-                                            })()}
-                                            <div class="donut-chart-center">
-                                                <div class="value">${Math.round((financialData.totalAssets / (financialData.totalAssets + financialData.totalLoans || 1)) * 100)}%</div>
-                                                <div class="label">Assets</div>
-                                            </div>
-                                        </div>
-                                        <div class="donut-legend">
-                                            <div class="donut-legend-item">
-                                                <div class="legend-label">
-                                                    <span class="legend-dot" style="background: #10b981;"></span>
-                                                    <span class="legend-text">Total Assets</span>
-                                                </div>
-                                                <span class="legend-value">${formatCurrency(financialData.totalAssets)}</span>
-                                            </div>
-                                            <div class="donut-legend-item">
-                                                <div class="legend-label">
-                                                    <span class="legend-dot" style="background: #ef4444;"></span>
-                                                    <span class="legend-text">Total Liabilities</span>
-                                                </div>
-                                                <span class="legend-value">${formatCurrency(financialData.totalLoans)}</span>
-                                            </div>
-                                            <div class="donut-legend-item" style="border-top: 2px solid var(--border); margin-top: 0.5rem; padding-top: 1rem;">
-                                                <div class="legend-label">
-                                                    <span class="legend-dot" style="background: linear-gradient(135deg, #10b981, #059669);"></span>
-                                                    <span class="legend-text" style="font-weight: 600;">Net Worth</span>
-                                                </div>
-                                                <span class="legend-value" style="color: var(--success);">${formatCurrency(financialData.netWorth)}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    ` : ''}
+                                    <div id="donutChartPlaceholder"></div>
 
                                     <div class="dashboard-cards" style="grid-template-columns: repeat(3, 1fr);">
                                         <div class="dashboard-card" onclick="openBankAccounts()" style="cursor: pointer;">
@@ -3791,7 +3742,62 @@
                         </div>
                     </div>
                 `;
+
+                // Render donut chart if data exists
+                renderDonutChart(financialData);
             }
+        }
+
+        function renderDonutChart(data) {
+            const container = document.getElementById('donutChartPlaceholder');
+            if (!container) return;
+
+            if (data.totalAssets <= 0 && data.totalLoans <= 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            const total = data.totalAssets + data.totalLoans;
+            const assetPercent = total > 0 ? Math.round((data.totalAssets / total) * 100) : 0;
+            const assetDash = (assetPercent / 100) * 314;
+            const liabilityDash = ((100 - assetPercent) / 100) * 314;
+
+            container.innerHTML = '<div class="donut-chart-container">' +
+                '<div class="donut-chart">' +
+                    '<svg width="160" height="160" viewBox="0 0 160 160">' +
+                        '<circle cx="80" cy="80" r="50" fill="none" stroke="#e5e7eb" stroke-width="20"/>' +
+                        '<circle cx="80" cy="80" r="50" fill="none" stroke="#10b981" stroke-width="20" stroke-dasharray="' + assetDash + ' 314" stroke-dashoffset="0"/>' +
+                        '<circle cx="80" cy="80" r="50" fill="none" stroke="#ef4444" stroke-width="20" stroke-dasharray="' + liabilityDash + ' 314" stroke-dashoffset="-' + assetDash + '"/>' +
+                    '</svg>' +
+                    '<div class="donut-chart-center">' +
+                        '<div class="value">' + assetPercent + '%</div>' +
+                        '<div class="label">Assets</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="donut-legend">' +
+                    '<div class="donut-legend-item">' +
+                        '<div class="legend-label">' +
+                            '<span class="legend-dot" style="background: #10b981;"></span>' +
+                            '<span class="legend-text">Total Assets</span>' +
+                        '</div>' +
+                        '<span class="legend-value">' + formatCurrency(data.totalAssets) + '</span>' +
+                    '</div>' +
+                    '<div class="donut-legend-item">' +
+                        '<div class="legend-label">' +
+                            '<span class="legend-dot" style="background: #ef4444;"></span>' +
+                            '<span class="legend-text">Total Liabilities</span>' +
+                        '</div>' +
+                        '<span class="legend-value">' + formatCurrency(data.totalLoans) + '</span>' +
+                    '</div>' +
+                    '<div class="donut-legend-item" style="border-top: 2px solid var(--border); margin-top: 0.5rem; padding-top: 1rem;">' +
+                        '<div class="legend-label">' +
+                            '<span class="legend-dot" style="background: linear-gradient(135deg, #10b981, #059669);"></span>' +
+                            '<span class="legend-text" style="font-weight: 600;">Net Worth</span>' +
+                        '</div>' +
+                        '<span class="legend-value" style="color: var(--success);">' + formatCurrency(data.netWorth) + '</span>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
         }
 
         // Load Page Function
