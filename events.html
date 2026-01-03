@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Events - Fintpe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --primary-dark: #152a45;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #1e3a5f;
+            --text-secondary: #4a6fa5;
+            --border: #e5e7eb;
+            --light: #f9fafb;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .coming-soon-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* Main Content */
+        .page-section {
+            padding: 6rem 2rem 2rem 2rem;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Calendar Section */
+        .calendar-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .calendar-nav button {
+            background: var(--light);
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        .calendar-nav button:hover {
+            background: var(--border);
+        }
+
+        .calendar-month {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            padding: 0.5rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day:hover {
+            background: var(--light);
+        }
+
+        .calendar-day.today {
+            background: var(--primary);
+            color: white;
+        }
+
+        .calendar-day.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--warning);
+        }
+
+        .calendar-day.other-month {
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        /* Events Section */
+        .events-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .event-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-item {
+            display: grid;
+            grid-template-columns: 60px 1fr 100px 100px;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+        }
+
+        .event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-date {
+            text-align: center;
+        }
+
+        .event-date-day {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .event-date-month {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .event-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .event-title {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .event-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .event-type {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .event-type.emi { background: #fef0f0; color: #b87070; }
+        .event-type.sip { background: #d1fae5; color: #059669; }
+        .event-type.insurance { background: #e8eff8; color: #6b7280; }
+        .event-type.bill { background: #fef3c7; color: #f59e0b; }
+
+        .event-amount {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .page-footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .event-item {
+                grid-template-columns: 50px 1fr;
+                gap: 0.75rem;
+            }
+            .event-type, .event-amount { display: none; }
+            .page-header { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo">Fintpe</a>
+                <span class="coming-soon-badge">Coming Soon</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-section">
+        <div class="page-container">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Upcoming Events</h1>
+                    <p class="page-subtitle">Your financial calendar and reminders</p>
+                </div>
+            </div>
+
+            <!-- Upcoming Events -->
+            <div class="events-section">
+                <h3 class="section-title"><i class="fas fa-bell"></i> Due Soon</h3>
+                <div class="event-list">
+                    <div class="event-item">
+                        <div class="event-date">
+                            <div class="event-date-day">25</div>
+                            <div class="event-date-month">Jan</div>
+                        </div>
+                        <div class="event-info">
+                            <span class="event-title">Home Loan EMI</span>
+                            <span class="event-desc">SBI Home Loan</span>
+                        </div>
+                        <span class="event-type emi">EMI Due</span>
+                        <span class="event-amount" style="color: var(--danger);">-22,450</span>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-date">
+                            <div class="event-date-day">28</div>
+                            <div class="event-date-month">Jan</div>
+                        </div>
+                        <div class="event-info">
+                            <span class="event-title">SIP Investment</span>
+                            <span class="event-desc">Axis Bluechip Fund</span>
+                        </div>
+                        <span class="event-type sip">SIP</span>
+                        <span class="event-amount" style="color: var(--success);">15,000</span>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-date">
+                            <div class="event-date-day">02</div>
+                            <div class="event-date-month">Feb</div>
+                        </div>
+                        <div class="event-info">
+                            <span class="event-title">Health Insurance Premium</span>
+                            <span class="event-desc">HDFC ERGO</span>
+                        </div>
+                        <span class="event-type insurance">Insurance</span>
+                        <span class="event-amount" style="color: var(--primary);">8,500</span>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-date">
+                            <div class="event-date-day">05</div>
+                            <div class="event-date-month">Feb</div>
+                        </div>
+                        <div class="event-info">
+                            <span class="event-title">Postpaid Bill</span>
+                            <span class="event-desc">Airtel Mobile</span>
+                        </div>
+                        <span class="event-type bill">Bill</span>
+                        <span class="event-amount" style="color: var(--warning);">1,250</span>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-date">
+                            <div class="event-date-day">10</div>
+                            <div class="event-date-month">Feb</div>
+                        </div>
+                        <div class="event-info">
+                            <span class="event-title">SIP Investment</span>
+                            <span class="event-desc">HDFC Top 100 Fund</span>
+                        </div>
+                        <span class="event-type sip">SIP</span>
+                        <span class="event-amount" style="color: var(--success);">10,000</span>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-date">
+                            <div class="event-date-day">12</div>
+                            <div class="event-date-month">Feb</div>
+                        </div>
+                        <div class="event-info">
+                            <span class="event-title">Car Loan EMI</span>
+                            <span class="event-desc">HDFC Auto Loan</span>
+                        </div>
+                        <span class="event-type emi">EMI Due</span>
+                        <span class="event-amount" style="color: var(--danger);">-8,450</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="page-footer">
+                <i class="fas fa-info-circle"></i> Events are synced from your Calendar & Reminders settings
+            </p>
+        </div>
+    </section>
+</body>
+</html>
