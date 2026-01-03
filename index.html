@@ -264,6 +264,105 @@
             background: var(--primary-dark);
         }
 
+        /* User Menu Dropdown */
+        .user-menu {
+            position: relative;
+        }
+
+        .user-menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .user-menu-btn:hover {
+            background: var(--white);
+            border-color: var(--primary);
+        }
+
+        .user-menu-btn i {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+            z-index: 1001;
+        }
+
+        .user-menu:hover .user-dropdown,
+        .user-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .user-dropdown-item:first-child {
+            border-radius: 12px 12px 0 0;
+        }
+
+        .user-dropdown-item:last-child {
+            border-radius: 0 0 12px 12px;
+        }
+
+        .user-dropdown-item:hover {
+            background: var(--light);
+        }
+
+        .user-dropdown-item i {
+            width: 18px;
+            color: var(--text-secondary);
+        }
+
+        .user-dropdown-item.danger {
+            color: var(--danger);
+        }
+
+        .user-dropdown-item.danger i {
+            color: var(--danger);
+        }
+
+        .user-dropdown-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 0.25rem 0;
+        }
+
         .mobile-toggle {
             display: none;
             background: none;
@@ -3061,7 +3160,35 @@
             </div>
             <ul class="nav-menu" id="nav-menu">
                 <li><button onclick="openProductsModal()" class="nav-link">Products</button></li>
-                <li><button class="login-btn" onclick="openLoginModal()" id="loginBtn">Login</button></li>
+                <li id="loginBtnContainer"><button class="login-btn" onclick="openLoginModal()" id="loginBtn">Login</button></li>
+                <li id="userMenuContainer" style="display: none;">
+                    <div class="user-menu">
+                        <button class="user-menu-btn" id="userMenuBtn">
+                            <i class="fas fa-user-circle"></i>
+                            <span id="userMenuName">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <button class="user-dropdown-item" onclick="loadDashboard()">
+                                <i class="fas fa-chart-pie"></i> My Portfolio
+                            </button>
+                            <button class="user-dropdown-item" onclick="loadPage('account')">
+                                <i class="fas fa-user-cog"></i> My Account
+                            </button>
+                            <div class="user-dropdown-divider"></div>
+                            <button class="user-dropdown-item" onclick="openRateChart()">
+                                <i class="fas fa-chart-bar"></i> Rate Chart
+                            </button>
+                            <button class="user-dropdown-item" onclick="openCalculators()">
+                                <i class="fas fa-calculator"></i> Calculators
+                            </button>
+                            <div class="user-dropdown-divider"></div>
+                            <button class="user-dropdown-item danger" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </div>
+                    </div>
+                </li>
             </ul>
             <button class="mobile-toggle" id="mobile-toggle">
                 <i class="fas fa-bars"></i>
@@ -3732,11 +3859,19 @@
 
         // Update navigation after login
         function updateNavigationForLogin() {
-            const loginBtn = document.getElementById('loginBtn');
+            const loginBtnContainer = document.getElementById('loginBtnContainer');
+            const userMenuContainer = document.getElementById('userMenuContainer');
+            const userMenuName = document.getElementById('userMenuName');
             const profile = getUserProfile();
-            if (loginBtn) {
-                loginBtn.innerHTML = `<i class="fas fa-user"></i> ${profile?.name?.split(' ')[0] || 'Dashboard'}`;
-                loginBtn.onclick = () => loadDashboard();
+
+            if (loginBtnContainer) {
+                loginBtnContainer.style.display = 'none';
+            }
+            if (userMenuContainer) {
+                userMenuContainer.style.display = 'block';
+            }
+            if (userMenuName && profile?.name) {
+                userMenuName.textContent = profile.name.split(' ')[0];
             }
         }
 
@@ -3746,14 +3881,29 @@
             currentUser = null;
             localStorage.removeItem('fintpe_current_user');
 
-            const loginBtn = document.getElementById('loginBtn');
-            if (loginBtn) {
-                loginBtn.innerHTML = '<i class="fas fa-user"></i> Login';
-                loginBtn.onclick = () => openLoginModal();
+            // Hide user menu, show login button
+            const loginBtnContainer = document.getElementById('loginBtnContainer');
+            const userMenuContainer = document.getElementById('userMenuContainer');
+
+            if (loginBtnContainer) {
+                loginBtnContainer.style.display = 'block';
+            }
+            if (userMenuContainer) {
+                userMenuContainer.style.display = 'none';
             }
 
             loadPage('landing');
             showMessage('You have been logged out', 'info');
+        }
+
+        // Open Rate Chart page
+        function openRateChart() {
+            loadPage('rate-chart');
+        }
+
+        // Open Calculators page
+        function openCalculators() {
+            loadPage('calculators');
         }
 
         // Load Dashboard with Family View Support
@@ -3911,9 +4061,9 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="card-amount">${formatCurrency(financialData.esopsValue)}</div>
-                                            <div class="card-change ${financialData.esopsValue > 0 ? 'positive' : ''}">
-                                                ${financialData.esopsValue === 0 ? '<i class="fas fa-plus-circle"></i> Add ESOPs' : '<i class="fas fa-chart-line"></i> Vested value'}
+                                            <div class="card-amount">${formatCurrency(financialData.esopsTotalValue)}</div>
+                                            <div class="card-change ${financialData.esopsTotalValue > 0 ? 'positive' : ''}">
+                                                ${financialData.esopsTotalValue === 0 ? '<i class="fas fa-plus-circle"></i> Add ESOPs' : '<i class="fas fa-unlock"></i> Vested: ' + formatCurrency(financialData.esopsValue)}
                                             </div>
                                         </div>
 
@@ -4301,15 +4451,179 @@
         function loadPage(pageName) {
             const mainContent = document.getElementById('main-content');
             if (!mainContent) return;
-            
+
             if (pageName === 'account') {
                 loadAccountPageContent();
             } else if (pageName === 'landing') {
                 loadLandingPageContent();
+            } else if (pageName === 'rate-chart') {
+                loadRateChartPage();
+            } else if (pageName === 'calculators') {
+                loadCalculatorsPage();
             } else {
                 loadLandingPageContent();
             }
         }
+
+        // Load Rate Chart Page
+        function loadRateChartPage() {
+            const mainContent = document.getElementById('main-content');
+            if (!mainContent) return;
+
+            mainContent.innerHTML = `
+                <div class="dashboard-container" style="display: block;">
+                    <div class="dashboard-content">
+                        <div class="dashboard-header">
+                            <div class="dashboard-welcome">
+                                <div>
+                                    <h2 style="margin-bottom: 0.5rem;">Market Rates</h2>
+                                    <p style="color: var(--text-secondary); margin: 0;">Live market rates and trends</p>
+                                </div>
+                                <button onclick="loadDashboard()" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="market-rates-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                            <div class="rate-card" style="background: linear-gradient(135deg, #FFD700, #FFA500); padding: 1.5rem; border-radius: 16px; color: #333;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 2.5rem;">🥇</span>
+                                    <span style="font-size: 0.9rem; opacity: 0.8;">24K / 10g</span>
+                                </div>
+                                <h3 style="font-size: 1.8rem; margin: 1rem 0 0.5rem;">₹78,450</h3>
+                                <p style="font-size: 0.9rem; margin: 0;">Gold</p>
+                                <div style="margin-top: 1rem; font-size: 0.85rem; color: #059669;">▲ +0.45%</div>
+                            </div>
+
+                            <div class="rate-card" style="background: linear-gradient(135deg, #C0C0C0, #A8A8A8); padding: 1.5rem; border-radius: 16px; color: #333;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 2.5rem;">🥈</span>
+                                    <span style="font-size: 0.9rem; opacity: 0.8;">per kg</span>
+                                </div>
+                                <h3 style="font-size: 1.8rem; margin: 1rem 0 0.5rem;">₹92,500</h3>
+                                <p style="font-size: 0.9rem; margin: 0;">Silver</p>
+                                <div style="margin-top: 1rem; font-size: 0.85rem; color: #059669;">▲ +0.32%</div>
+                            </div>
+
+                            <div class="rate-card" style="background: linear-gradient(135deg, #85bb65, #4a8c3e); padding: 1.5rem; border-radius: 16px; color: white;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 2.5rem;">💵</span>
+                                    <span style="font-size: 0.9rem; opacity: 0.8;">USD/INR</span>
+                                </div>
+                                <h3 style="font-size: 1.8rem; margin: 1rem 0 0.5rem;">₹83.42</h3>
+                                <p style="font-size: 0.9rem; margin: 0;">US Dollar</p>
+                                <div style="margin-top: 1rem; font-size: 0.85rem; color: #fef3c7;">▲ +0.12%</div>
+                            </div>
+
+                            <div class="rate-card" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8); padding: 1.5rem; border-radius: 16px; color: white;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 2.5rem;">🏦</span>
+                                    <span style="font-size: 0.9rem; opacity: 0.8;">1 Year</span>
+                                </div>
+                                <h3 style="font-size: 1.8rem; margin: 1rem 0 0.5rem;">7.25%</h3>
+                                <p style="font-size: 0.9rem; margin: 0;">FD Rate (SBI)</p>
+                                <div style="margin-top: 1rem; font-size: 0.85rem; color: #fef3c7;">No change</div>
+                            </div>
+
+                            <div class="rate-card" style="background: linear-gradient(135deg, #EF4444, #B91C1C); padding: 1.5rem; border-radius: 16px; color: white;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 2.5rem;">📈</span>
+                                    <span style="font-size: 0.9rem; opacity: 0.8;">BSE</span>
+                                </div>
+                                <h3 style="font-size: 1.8rem; margin: 1rem 0 0.5rem;">72,568</h3>
+                                <p style="font-size: 0.9rem; margin: 0;">SENSEX</p>
+                                <div style="margin-top: 1rem; font-size: 0.85rem; color: #fef3c7;">▲ +1.25%</div>
+                            </div>
+
+                            <div class="rate-card" style="background: linear-gradient(135deg, #8B5CF6, #6D28D9); padding: 1.5rem; border-radius: 16px; color: white;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 2.5rem;">📊</span>
+                                    <span style="font-size: 0.9rem; opacity: 0.8;">NSE</span>
+                                </div>
+                                <h3 style="font-size: 1.8rem; margin: 1rem 0 0.5rem;">21,845</h3>
+                                <p style="font-size: 0.9rem; margin: 0;">NIFTY 50</p>
+                                <div style="margin-top: 1rem; font-size: 0.85rem; color: #fef3c7;">▲ +1.18%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load Calculators Page
+        function loadCalculatorsPage() {
+            const mainContent = document.getElementById('main-content');
+            if (!mainContent) return;
+
+            mainContent.innerHTML = `
+                <div class="dashboard-container" style="display: block;">
+                    <div class="dashboard-content">
+                        <div class="dashboard-header">
+                            <div class="dashboard-welcome">
+                                <div>
+                                    <h2 style="margin-bottom: 0.5rem;">Financial Calculators</h2>
+                                    <p style="color: var(--text-secondary); margin: 0;">Plan your finances with our calculators</p>
+                                </div>
+                                <button onclick="loadDashboard()" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="calculators-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                            <div class="calculator-card" onclick="openSIPCalculator()" style="background: var(--light); padding: 1.5rem; border-radius: 16px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border);">
+                                <div style="font-size: 2.5rem; margin-bottom: 1rem;">💰</div>
+                                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text);">SIP Calculator</h3>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary);">Calculate your SIP returns and wealth accumulation</p>
+                            </div>
+
+                            <div class="calculator-card" onclick="openEMICalculator()" style="background: var(--light); padding: 1.5rem; border-radius: 16px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border);">
+                                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🏠</div>
+                                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text);">EMI Calculator</h3>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary);">Calculate loan EMI and total interest payable</p>
+                            </div>
+
+                            <div class="calculator-card" onclick="openFDCalculator()" style="background: var(--light); padding: 1.5rem; border-radius: 16px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border);">
+                                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🏦</div>
+                                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text);">FD Calculator</h3>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary);">Calculate fixed deposit maturity amount</p>
+                            </div>
+
+                            <div class="calculator-card" onclick="openPPFCalculator()" style="background: var(--light); padding: 1.5rem; border-radius: 16px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border);">
+                                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
+                                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text);">PPF Calculator</h3>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary);">Calculate PPF maturity and tax savings</p>
+                            </div>
+
+                            <div class="calculator-card" onclick="openRetirementCalculator()" style="background: var(--light); padding: 1.5rem; border-radius: 16px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border);">
+                                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎯</div>
+                                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text);">Retirement Calculator</h3>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary);">Plan for your retirement corpus</p>
+                            </div>
+
+                            <div class="calculator-card" onclick="openTaxCalculator()" style="background: var(--light); padding: 1.5rem; border-radius: 16px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border);">
+                                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📋</div>
+                                <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text);">Tax Calculator</h3>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary);">Calculate income tax under old/new regime</p>
+                            </div>
+                        </div>
+
+                        <p style="text-align: center; color: var(--text-secondary); margin-top: 2rem; font-size: 0.9rem;">
+                            <i class="fas fa-info-circle"></i> Calculators coming soon! Stay tuned.
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Placeholder calculator functions
+        function openSIPCalculator() { showMessage('SIP Calculator coming soon!', 'info'); }
+        function openEMICalculator() { showMessage('EMI Calculator coming soon!', 'info'); }
+        function openFDCalculator() { showMessage('FD Calculator coming soon!', 'info'); }
+        function openPPFCalculator() { showMessage('PPF Calculator coming soon!', 'info'); }
+        function openRetirementCalculator() { showMessage('Retirement Calculator coming soon!', 'info'); }
+        function openTaxCalculator() { showMessage('Tax Calculator coming soon!', 'info'); }
 
         // Load Landing Page
         function loadLandingPageContent() {
@@ -6048,6 +6362,10 @@
             
             if (nameElement) nameElement.textContent = `Hi, ${displayName}`;
             if (initialsElement) initialsElement.textContent = initials || 'U';
+
+            // Update navbar user menu
+            const userMenuName = document.getElementById('userMenuName');
+            if (userMenuName) userMenuName.textContent = displayName;
         }
 
         function loadStoredProfileDetails() {
@@ -6202,14 +6520,20 @@
             const totalLoans = loans.reduce((sum, loan) => sum + (parseFloat(loan.outstandingAmount) || 0), 0);
             const monthlyEmi = loans.reduce((sum, loan) => sum + (parseFloat(loan.emiAmount) || 0), 0);
 
-            // Calculate ESOPs value (vested options * (current price - strike price))
+            // Calculate ESOPs value (total and vested)
             const esops = JSON.parse(localStorage.getItem('fintpe_esops') || '[]');
-            const esopsValue = esops.reduce((sum, esop) => {
+            let esopsTotalValue = 0;
+            let esopsVestedValue = 0;
+            esops.forEach(esop => {
+                const totalOptions = parseFloat(esop.totalOptions) || 0;
                 const vestedOptions = parseFloat(esop.vestedOptions) || 0;
                 const currentPrice = parseFloat(esop.currentPrice) || 0;
                 const strikePrice = parseFloat(esop.strikePrice) || 0;
-                return sum + (vestedOptions * Math.max(0, currentPrice - strikePrice));
-            }, 0);
+                const gain = Math.max(0, currentPrice - strikePrice);
+                esopsTotalValue += totalOptions * gain;
+                esopsVestedValue += vestedOptions * gain;
+            });
+            const esopsValue = esopsVestedValue; // For net worth, use vested value
 
             // Calculate NPS value
             const npsAccounts = JSON.parse(localStorage.getItem('fintpe_nps') || '[]');
@@ -6235,6 +6559,7 @@
                 totalAssets,
                 netWorth,
                 esopsValue,
+                esopsTotalValue,
                 npsValue,
                 ppfValue
             };
@@ -6271,22 +6596,7 @@
             alert('OTP resent successfully! Use any 6 digits for demo.');
         }
 
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                isLoggedIn = false;
-                currentUser = null;
-                clearSession();
-                loadPage('landing');
-                
-                const loginBtn = document.getElementById('loginBtn');
-                if (loginBtn) {
-                    loginBtn.innerHTML = 'Login';
-                    loginBtn.onclick = openLoginModal;
-                }
-                
-                showSuccessMessage('Logged out successfully!');
-            }
-        }
+        // Second logout is duplicate - removed in favor of first one
 
         // Family View Functions
         let dashboardFamilyViewEnabled = false;
