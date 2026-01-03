@@ -4,34 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fintpe - DIY Personal Finance | Track Net Worth, Assets & Investments</title>
-    <meta name="description" content="Your money. Your way. Your data. A privacy-first personal finance platform to track net worth, assets, and investments. No clutter, no spam, no tracking.">
+    <meta name="description" content="Managing personal finances made easy. A privacy-first platform to track net worth, assets, and investments. No clutter, no spam, no tracking.">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         /* Include your main.css styles here */
         :root {
-            /* Minimalistic pastel color scheme - soft and soothing */
-            --primary: #6b7280;
-            --primary-dark: #4b5563;
-            --primary-light: #9ca3af;
-            --accent: #8b7355;
-            --secondary: #6b8e7d;
-            --success: #6b8e7d;
-            --warning: #c9a86c;
-            --danger: #b87070;
-            --dark: #374151;
-            --light: #faf9f7;
+            /* Clean white and navy blue color scheme */
+            --primary: #1e3a5f;
+            --primary-dark: #152a45;
+            --primary-light: #2d4a6f;
+            --accent: #1e3a5f;
+            --secondary: #4a6fa5;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e3a5f;
+            --light: #ffffff;
             --white: #ffffff;
-            --text-primary: #374151;
-            --text-secondary: #6b7280;
-            --text-muted: #9ca3af;
-            --border: #e8e6e3;
-            --border-light: #f3f2f0;
+            --text-primary: #1e3a5f;
+            --text-secondary: #4a6fa5;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --border-light: #f3f4f6;
 
-            /* Subtle pastel additions */
-            --gradient-primary: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-            --gradient-accent: linear-gradient(135deg, #8b7355 0%, #a68b5b 100%);
-            --gradient-subtle: linear-gradient(135deg, #faf9f7 0%, #f3f2f0 100%);
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #1e3a5f 0%, #2d4a6f 100%);
+            --gradient-accent: linear-gradient(135deg, #1e3a5f 0%, #4a6fa5 100%);
+            --gradient-subtle: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
             --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
             --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.03);
@@ -169,11 +169,10 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
-            background-color: var(--white);
-            transition: all 0.3s ease;
+            background: var(--white);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -3272,6 +3271,9 @@
                             <button class="user-dropdown-item" onclick="openCalculators()">
                                 <i class="fas fa-calculator"></i> Calculators
                             </button>
+                            <button class="user-dropdown-item" onclick="openEvents()">
+                                <i class="fas fa-calendar-alt"></i> Events
+                            </button>
                             <div class="user-dropdown-divider"></div>
                             <button class="user-dropdown-item danger" onclick="logout()">
                                 <i class="fas fa-sign-out-alt"></i> Logout
@@ -3996,6 +3998,10 @@
             window.location.href = 'calculators.html';
         }
 
+        function openEvents() {
+            window.location.href = 'events.html';
+        }
+
         // Load Dashboard with Family View Support
         function loadDashboard() {
             if (!isLoggedIn || !currentUser) {
@@ -4038,7 +4044,7 @@
                                     <!-- Individual Net Worth Card (Top Priority) -->
                                     <div class="dashboard-card" style="background: linear-gradient(135deg, var(--success), #059669); color: white; margin-bottom: 3rem; border: none;">
                                         <div class="card-header" style="border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-                                            <span class="card-title" style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">YOUR NET WORTH</span>
+                                            <span class="card-title" style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">Your Net Worth</span>
                                             <div style="display: flex; align-items: center; gap: 1rem;">
                                                 <i class="fas fa-user-crown" style="color: #fbbf24; font-size: 1.5rem;"></i>
                                                 <button onclick="loadPage('account')" class="insight-arrow-btn" style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white;" title="Add your financial details">
@@ -4063,7 +4069,7 @@
                                     <div class="dashboard-cards" style="grid-template-columns: repeat(3, 1fr);">
                                         <div class="dashboard-card" onclick="openBankAccounts()" style="cursor: pointer;">
                                             <div class="card-header">
-                                                <span class="card-title">LIQUID BALANCE</span>
+                                                <span class="card-title">Liquid Balance</span>
                                                 <div style="display: flex; align-items: center; gap: 1rem;">
                                                     <i class="fas fa-wallet" style="color: var(--primary);"></i>
                                                     <button onclick="event.stopPropagation(); openBankAccounts()" class="insight-arrow-btn" title="Add bank accounts">
@@ -4191,47 +4197,6 @@
 
                                     </div>
 
-                                    <!-- Market Rates Section -->
-                                    <div style="margin-top: 2rem;">
-                                        <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                                            <i class="fas fa-chart-bar" style="color: var(--accent);"></i> Market Rates
-                                        </h3>
-                                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem;">
-                                            <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 1rem; border-radius: 12px;">
-                                                <div style="font-size: 0.75rem; color: #92400e; font-weight: 500;">Gold (24K)</div>
-                                                <div style="font-size: 1.25rem; font-weight: 700; color: #78350f;">₹7,850/g</div>
-                                                <div style="font-size: 0.7rem; color: #10b981;">+0.32%</div>
-                                            </div>
-                                            <div style="background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); padding: 1rem; border-radius: 12px;">
-                                                <div style="font-size: 0.75rem; color: #4b5563; font-weight: 500;">Silver</div>
-                                                <div style="font-size: 1.25rem; font-weight: 700; color: #1f2937;">₹95.50/g</div>
-                                                <div style="font-size: 0.7rem; color: #10b981;">+0.18%</div>
-                                            </div>
-                                            <div style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding: 1rem; border-radius: 12px;">
-                                                <div style="font-size: 0.75rem; color: #1e40af; font-weight: 500;">USD/INR</div>
-                                                <div style="font-size: 1.25rem; font-weight: 700; color: #1e3a8a;">₹84.35</div>
-                                                <div style="font-size: 0.7rem; color: #ef4444;">-0.05%</div>
-                                            </div>
-                                            <div style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); padding: 1rem; border-radius: 12px;">
-                                                <div style="font-size: 0.75rem; color: #065f46; font-weight: 500;">FD Rate (SBI)</div>
-                                                <div style="font-size: 1.25rem; font-weight: 700; color: #064e3b;">7.10%</div>
-                                                <div style="font-size: 0.7rem; color: #6b7280;">1 Year</div>
-                                            </div>
-                                            <div style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); padding: 1rem; border-radius: 12px;">
-                                                <div style="font-size: 0.75rem; color: #9d174d; font-weight: 500;">SENSEX</div>
-                                                <div style="font-size: 1.25rem; font-weight: 700; color: #831843;">78,472</div>
-                                                <div style="font-size: 0.7rem; color: #10b981;">+0.45%</div>
-                                            </div>
-                                            <div style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); padding: 1rem; border-radius: 12px;">
-                                                <div style="font-size: 0.75rem; color: #3730a3; font-weight: 500;">NIFTY 50</div>
-                                                <div style="font-size: 1.25rem; font-weight: 700; color: #312e81;">23,644</div>
-                                                <div style="font-size: 0.7rem; color: #10b981;">+0.38%</div>
-                                            </div>
-                                        </div>
-                                        <p style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.75rem; text-align: right;">
-                                            <i class="fas fa-info-circle"></i> Indicative rates · Updated periodically
-                                        </p>
-                                    </div>
                                 </div>
                             </div>
 
@@ -4242,7 +4207,7 @@
                                     <!-- Family Net Worth Card (Top Priority) -->
                                     <div class="dashboard-card" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; margin-bottom: 3rem; border: none;">
                                         <div class="card-header" style="border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-                                            <span class="card-title" style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">FAMILY NET WORTH</span>
+                                            <span class="card-title" style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">Family Net Worth</span>
                                             <div style="display: flex; align-items: center; gap: 1rem;">
                                                 <i class="fas fa-crown" style="color: #fbbf24; font-size: 1.5rem;"></i>
                                                 <button onclick="openNetWorthInsights()" class="insight-arrow-btn" style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white;" title="View net worth breakdown">
@@ -4426,55 +4391,11 @@
                                 </div>
                             </div>
 
-                            <div class="transactions-section">
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                                    <h4 style="margin: 0; color: var(--text-primary);">Upcoming Events</h4>
-                                    <button onclick="openCalendarModal()" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
-                                        <i class="fas fa-calendar-alt"></i>
-                                        View Calendar
-                                    </button>
+                            <div class="transactions-section" style="cursor: pointer;" onclick="openEvents()">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h4 style="margin: 0; color: var(--text-primary);"><i class="fas fa-calendar-alt" style="margin-right: 0.5rem; color: var(--primary);"></i>Upcoming Events</h4>
+                                    <span style="color: var(--text-secondary); font-size: 0.85rem;">View all <i class="fas fa-chevron-right"></i></span>
                                 </div>
-                                <table class="transactions-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Event</th>
-                                            <th>Type</th>
-                                            <th>Amount</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr onclick="showEventDetails('emi')" style="cursor: pointer;">
-                                            <td>Jan 25</td>
-                                            <td>Home Loan EMI - SBI</td>
-                                            <td><span class="transaction-type" style="background: #fef0f0; color: #b87070;">EMI Due</span></td>
-                                            <td style="color: var(--danger); font-weight: 600;" data-private="₹22,450" data-placeholder="₹•••••">₹22,450</td>
-                                            <td><span style="color: #f59e0b; font-weight: 500;">⏰ Pending</span></td>
-                                        </tr>
-                                        <tr onclick="showEventDetails('sip')" style="cursor: pointer;">
-                                            <td>Jan 28</td>
-                                            <td>SIP - Axis Bluechip Fund</td>
-                                            <td><span class="transaction-type" style="background: #d1fae5; color: #059669;">SIP</span></td>
-                                            <td style="color: var(--success); font-weight: 600;" data-private="₹15,000" data-placeholder="₹•••••">₹15,000</td>
-                                            <td><span style="color: var(--success); font-weight: 500;">✅ Auto-pay</span></td>
-                                        </tr>
-                                        <tr onclick="showEventDetails('insurance')" style="cursor: pointer;">
-                                            <td>Feb 02</td>
-                                            <td>Health Insurance Premium - HDFC ERGO</td>
-                                            <td><span class="transaction-type" style="background: #e8eff8; color: #6b7280;">Insurance</span></td>
-                                            <td style="color: var(--primary); font-weight: 600;" data-private="₹8,500" data-placeholder="₹••••">₹8,500</td>
-                                            <td><span style="color: #f59e0b; font-weight: 500;">⚠️ Due Soon</span></td>
-                                        </tr>
-                                        <tr onclick="showEventDetails('bill')" style="cursor: pointer;">
-                                            <td>Feb 05</td>
-                                            <td>Postpaid Bill - Airtel</td>
-                                            <td><span class="transaction-type" style="background: #fef3c7; color: #f59e0b;">Bill</span></td>
-                                            <td style="color: var(--warning); font-weight: 600;" data-private="₹1,250" data-placeholder="₹••••">₹1,250</td>
-                                            <td><span style="color: #059669; font-weight: 500;">🔄 Auto-pay</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -4566,7 +4487,7 @@
 
                         <div class="hero-content">
                             <p class="hero-eyebrow">Now in Beta</p>
-                            <h1 class="hero-title">Your money.<br><span class="hero-title-gradient">Your way.</span></h1>
+                            <h1 class="hero-title">Managing personal<br><span class="hero-title-gradient">finances made easy.</span></h1>
                             <p class="hero-subtitle">The private finance platform for people who want control. Track everything, share nothing.</p>
                             <div class="cta-buttons">
                                 <button onclick="openLoginModal()" class="btn btn-primary">
@@ -4891,6 +4812,14 @@
                                             <div class="card-icon" style="color: #9b8bb8;"><i class="fas fa-landmark"></i></div>
                                             <div class="card-content"><h3>PPF</h3></div>
                                         </div>
+                                        <div class="account-card" data-section="family" onclick="loadAccountSection('family')">
+                                            <div class="card-icon" style="color: #5a7d9a;"><i class="fas fa-users"></i></div>
+                                            <div class="card-content"><h3>Family</h3></div>
+                                        </div>
+                                        <div class="account-card" data-section="vault" onclick="loadAccountSection('vault')">
+                                            <div class="card-icon" style="color: #8b5a2b;"><i class="fas fa-vault"></i></div>
+                                            <div class="card-content"><h3>Vault</h3></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="account-content-panel" id="accountContentPanel">
@@ -4940,7 +4869,9 @@
                 taxServices: { title: 'Tax Services', subtitle: 'ITR filing and tax planning', key: 'taxServices' },
                 esops: { title: 'ESOPs', subtitle: 'Track employee stock options and vesting', key: 'esops' },
                 nps: { title: 'NPS', subtitle: 'National Pension System contributions', key: 'nps' },
-                ppf: { title: 'PPF', subtitle: 'Public Provident Fund balance tracking', key: 'ppf' }
+                ppf: { title: 'PPF', subtitle: 'Public Provident Fund balance tracking', key: 'ppf' },
+                family: { title: 'Family', subtitle: 'Manage family members and combined portfolio view', key: 'family' },
+                vault: { title: 'Vault', subtitle: 'Legacy access for trusted contacts after inactivity', key: 'vault' }
             };
 
             const info = sectionInfo[sectionKey];
@@ -4952,6 +4883,10 @@
                 loadInvestmentPanelContent(bodyEl);
             } else if (sectionKey === 'myProfile') {
                 loadProfilePanelContent(bodyEl);
+            } else if (sectionKey === 'family') {
+                loadFamilyPanelContent(bodyEl);
+            } else if (sectionKey === 'vault') {
+                loadVaultPanelContent(bodyEl);
             } else if (info.key && ACCOUNT_MANAGEMENT_SECTIONS[info.key]) {
                 loadManagementPanelContent(bodyEl, info.key);
             }
@@ -5133,6 +5068,584 @@
                 localStorage.setItem('fintpe_profile_details', JSON.stringify(data));
                 showSuccessMessage('Profile saved');
             });
+        }
+
+        // Family Management Functions
+        function getFamilyData() {
+            return JSON.parse(localStorage.getItem('fintpe_family_' + currentUser) || '{"members":[],"pendingInvites":[],"pendingRequests":[]}');
+        }
+
+        function saveFamilyData(data) {
+            localStorage.setItem('fintpe_family_' + currentUser, JSON.stringify(data));
+        }
+
+        function loadFamilyPanelContent(container) {
+            const familyData = getFamilyData();
+
+            container.innerHTML = `
+                <div class="family-section">
+                    <div class="family-invite-form" style="background: var(--light); padding: 1.25rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                        <h4 style="margin: 0 0 1rem 0; font-size: 1rem;">Invite Family Member</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                            Enter their email to send an invite. They can accept on their device to share portfolio data.
+                        </p>
+                        <form id="familyInviteForm" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                            <input type="email" id="familyInviteEmail" placeholder="family@email.com" required
+                                style="flex: 1; min-width: 200px; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">
+                            <input type="text" id="familyInviteName" placeholder="Name (optional)"
+                                style="width: 150px; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Invite</button>
+                        </form>
+                    </div>
+
+                    <div id="familyPendingInvites" style="margin-bottom: 1.5rem;"></div>
+                    <div id="familyPendingRequests" style="margin-bottom: 1.5rem;"></div>
+                    <div id="familyMembers"></div>
+                </div>
+            `;
+
+            renderFamilyPendingInvites();
+            renderFamilyPendingRequests();
+            renderFamilyMembers();
+            attachFamilyInviteForm();
+        }
+
+        function attachFamilyInviteForm() {
+            const form = document.getElementById('familyInviteForm');
+            if (!form) return;
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('familyInviteEmail').value.trim().toLowerCase();
+                const name = document.getElementById('familyInviteName').value.trim();
+
+                if (!email) return;
+                if (email === currentUser) {
+                    showMessage('You cannot invite yourself', 'error');
+                    return;
+                }
+
+                const familyData = getFamilyData();
+
+                // Check if already invited or connected
+                if (familyData.pendingInvites.some(i => i.email === email)) {
+                    showMessage('Invite already sent to this email', 'error');
+                    return;
+                }
+                if (familyData.members.some(m => m.email === email)) {
+                    showMessage('This person is already a family member', 'error');
+                    return;
+                }
+
+                // Generate OTP for verification
+                const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+                familyData.pendingInvites.push({
+                    email: email,
+                    name: name || email.split('@')[0],
+                    invitedAt: new Date().toISOString(),
+                    otp: otp,
+                    status: 'pending'
+                });
+                saveFamilyData(familyData);
+
+                // Store pending request for the invitee (so they can see it when they log in)
+                const inviteeRequests = JSON.parse(localStorage.getItem('fintpe_family_requests_' + email) || '[]');
+                inviteeRequests.push({
+                    fromEmail: currentUser,
+                    fromName: getUserDisplayName(),
+                    otp: otp,
+                    invitedAt: new Date().toISOString()
+                });
+                localStorage.setItem('fintpe_family_requests_' + email, JSON.stringify(inviteeRequests));
+
+                showSuccessMessage('Invite sent! OTP: ' + otp);
+                form.reset();
+                renderFamilyPendingInvites();
+            });
+        }
+
+        function getUserDisplayName() {
+            const profile = JSON.parse(localStorage.getItem('fintpe_profile_details') || '{}');
+            return profile.fullName || currentUser.split('@')[0];
+        }
+
+        function renderFamilyPendingInvites() {
+            const container = document.getElementById('familyPendingInvites');
+            if (!container) return;
+
+            const familyData = getFamilyData();
+            const pending = familyData.pendingInvites.filter(i => i.status === 'pending');
+
+            if (!pending.length) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '<div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;">';
+            html += '<h4 style="margin: 0 0 1rem 0; font-size: 0.95rem; color: var(--text-secondary);"><i class="fas fa-clock" style="margin-right: 0.5rem;"></i>Pending Invites</h4>';
+
+            pending.forEach((invite, index) => {
+                html += `
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                        <div>
+                            <div style="font-weight: 500;">${invite.name}</div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary);">${invite.email}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary);">OTP: ${invite.otp}</div>
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="cancelFamilyInvite(${index})" style="font-size: 0.85rem;">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function renderFamilyPendingRequests() {
+            const container = document.getElementById('familyPendingRequests');
+            if (!container) return;
+
+            const requests = JSON.parse(localStorage.getItem('fintpe_family_requests_' + currentUser) || '[]');
+
+            if (!requests.length) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '<div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 12px; padding: 1.25rem;">';
+            html += '<h4 style="margin: 0 0 1rem 0; font-size: 0.95rem; color: #92400e;"><i class="fas fa-bell" style="margin-right: 0.5rem;"></i>Pending Requests</h4>';
+
+            requests.forEach((request, index) => {
+                html += `
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(245,158,11,0.3);">
+                        <div>
+                            <div style="font-weight: 500; color: #92400e;">${request.fromName}</div>
+                            <div style="font-size: 0.85rem; color: #b45309;">${request.fromEmail} wants to add you as family</div>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button type="button" class="btn btn-primary" onclick="showAcceptFamilyModal(${index})" style="font-size: 0.85rem;">
+                                <i class="fas fa-check"></i> Accept
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="rejectFamilyRequest(${index})" style="font-size: 0.85rem;">
+                                <i class="fas fa-times"></i> Reject
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function renderFamilyMembers() {
+            const container = document.getElementById('familyMembers');
+            if (!container) return;
+
+            const familyData = getFamilyData();
+            const members = familyData.members || [];
+
+            if (!members.length) {
+                container.innerHTML = `
+                    <div class="management-empty-state">
+                        <i class="fas fa-users" style="font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 0.75rem;"></i>
+                        <p style="font-size: 0.9rem;">No family members added yet. Send an invite to get started.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '<div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;">';
+            html += '<h4 style="margin: 0 0 1rem 0; font-size: 0.95rem;"><i class="fas fa-users" style="margin-right: 0.5rem; color: var(--primary);"></i>Connected Family Members</h4>';
+
+            members.forEach((member, index) => {
+                html += `
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600;">
+                                ${member.name.charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                                <div style="font-weight: 500;">${member.name}</div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">${member.email}</div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="revokeFamilyMember(${index})" style="font-size: 0.85rem; color: var(--danger);">
+                            <i class="fas fa-unlink"></i> Revoke
+                        </button>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function cancelFamilyInvite(index) {
+            if (!confirm('Cancel this invite?')) return;
+            const familyData = getFamilyData();
+            const invite = familyData.pendingInvites[index];
+
+            if (invite) {
+                // Remove from invitee's pending requests
+                const inviteeRequests = JSON.parse(localStorage.getItem('fintpe_family_requests_' + invite.email) || '[]');
+                const filtered = inviteeRequests.filter(r => r.fromEmail !== currentUser);
+                localStorage.setItem('fintpe_family_requests_' + invite.email, JSON.stringify(filtered));
+            }
+
+            familyData.pendingInvites.splice(index, 1);
+            saveFamilyData(familyData);
+            renderFamilyPendingInvites();
+            showSuccessMessage('Invite cancelled');
+        }
+
+        function showAcceptFamilyModal(requestIndex) {
+            const requests = JSON.parse(localStorage.getItem('fintpe_family_requests_' + currentUser) || '[]');
+            const request = requests[requestIndex];
+            if (!request) return;
+
+            const modal = document.getElementById('serviceModal');
+            const title = document.getElementById('serviceModalTitle');
+            const subtitle = document.getElementById('serviceModalSubtitle');
+            const body = document.getElementById('serviceModalBody');
+
+            title.textContent = 'Accept Family Invite';
+            subtitle.textContent = 'Enter the OTP shared by ' + request.fromName;
+            body.innerHTML = `
+                <form id="acceptFamilyForm" style="max-width: 400px; margin: 0 auto;">
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Enter 6-digit OTP</label>
+                        <input type="text" id="familyOtpInput" maxlength="6" placeholder="000000" required
+                            style="width: 100%; padding: 1rem; font-size: 1.5rem; text-align: center; letter-spacing: 0.5rem; border: 2px solid var(--border); border-radius: 8px;">
+                    </div>
+                    <input type="hidden" id="familyRequestIndex" value="${requestIndex}">
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button type="button" class="btn btn-secondary" onclick="closeServiceModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Verify & Accept</button>
+                    </div>
+                </form>
+            `;
+            modal.style.display = 'block';
+
+            document.getElementById('acceptFamilyForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                verifyAndAcceptFamily();
+            });
+        }
+
+        function verifyAndAcceptFamily() {
+            const otpInput = document.getElementById('familyOtpInput').value.trim();
+            const requestIndex = parseInt(document.getElementById('familyRequestIndex').value);
+
+            const requests = JSON.parse(localStorage.getItem('fintpe_family_requests_' + currentUser) || '[]');
+            const request = requests[requestIndex];
+
+            if (!request) {
+                showMessage('Request not found', 'error');
+                return;
+            }
+
+            if (otpInput !== request.otp) {
+                showMessage('Invalid OTP. Please check and try again.', 'error');
+                return;
+            }
+
+            // Add to current user's family
+            const myFamilyData = getFamilyData();
+            myFamilyData.members.push({
+                email: request.fromEmail,
+                name: request.fromName,
+                connectedAt: new Date().toISOString()
+            });
+            saveFamilyData(myFamilyData);
+
+            // Add current user to requester's family
+            const requesterFamily = JSON.parse(localStorage.getItem('fintpe_family_' + request.fromEmail) || '{"members":[],"pendingInvites":[],"pendingRequests":[]}');
+            requesterFamily.members.push({
+                email: currentUser,
+                name: getUserDisplayName(),
+                connectedAt: new Date().toISOString()
+            });
+            // Remove from pending invites
+            requesterFamily.pendingInvites = requesterFamily.pendingInvites.filter(i => i.email !== currentUser);
+            localStorage.setItem('fintpe_family_' + request.fromEmail, JSON.stringify(requesterFamily));
+
+            // Remove request
+            requests.splice(requestIndex, 1);
+            localStorage.setItem('fintpe_family_requests_' + currentUser, JSON.stringify(requests));
+
+            closeServiceModal();
+            showSuccessMessage('Connected! You are now family members.');
+            loadFamilyPanelContent(document.getElementById('accountPanelBody'));
+        }
+
+        function rejectFamilyRequest(index) {
+            if (!confirm('Reject this request?')) return;
+
+            const requests = JSON.parse(localStorage.getItem('fintpe_family_requests_' + currentUser) || '[]');
+            const request = requests[index];
+
+            if (request) {
+                // Remove from requester's pending invites
+                const requesterFamily = JSON.parse(localStorage.getItem('fintpe_family_' + request.fromEmail) || '{"members":[],"pendingInvites":[],"pendingRequests":[]}');
+                requesterFamily.pendingInvites = requesterFamily.pendingInvites.filter(i => i.email !== currentUser);
+                localStorage.setItem('fintpe_family_' + request.fromEmail, JSON.stringify(requesterFamily));
+            }
+
+            requests.splice(index, 1);
+            localStorage.setItem('fintpe_family_requests_' + currentUser, JSON.stringify(requests));
+            renderFamilyPendingRequests();
+            showSuccessMessage('Request rejected');
+        }
+
+        function revokeFamilyMember(index) {
+            if (!confirm('Remove this family member? They will no longer see your combined portfolio.')) return;
+
+            const familyData = getFamilyData();
+            const member = familyData.members[index];
+
+            if (member) {
+                // Remove current user from member's family too
+                const memberFamily = JSON.parse(localStorage.getItem('fintpe_family_' + member.email) || '{"members":[],"pendingInvites":[],"pendingRequests":[]}');
+                memberFamily.members = memberFamily.members.filter(m => m.email !== currentUser);
+                localStorage.setItem('fintpe_family_' + member.email, JSON.stringify(memberFamily));
+            }
+
+            familyData.members.splice(index, 1);
+            saveFamilyData(familyData);
+            renderFamilyMembers();
+            showSuccessMessage('Family member removed');
+        }
+
+        // Vault Management Functions
+        function getVaultData() {
+            return JSON.parse(localStorage.getItem('fintpe_vault_' + currentUser) || '{"enabled":false,"inactivityDays":30,"trustees":[],"notifications":{"email":true,"sms":false,"whatsapp":false},"lastActivity":null}');
+        }
+
+        function saveVaultData(data) {
+            localStorage.setItem('fintpe_vault_' + currentUser, JSON.stringify(data));
+        }
+
+        function loadVaultPanelContent(container) {
+            const vaultData = getVaultData();
+
+            container.innerHTML = `
+                <div class="vault-section">
+                    <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 1px solid #f59e0b; border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                            <i class="fas fa-shield-alt" style="font-size: 1.5rem; color: #92400e;"></i>
+                            <div>
+                                <h4 style="margin: 0 0 0.5rem 0; color: #92400e;">Digital Inheritance Vault</h4>
+                                <p style="font-size: 0.85rem; color: #b45309; margin: 0;">
+                                    Ensure your loved ones can access your financial information if something happens to you.
+                                    Trusted contacts will receive access after the specified inactivity period.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h4 style="margin: 0; font-size: 1rem;">Vault Status</h4>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" id="vaultEnabled" ${vaultData.enabled ? 'checked' : ''} onchange="toggleVaultStatus()"
+                                    style="width: 18px; height: 18px; cursor: pointer;">
+                                <span style="font-size: 0.9rem; font-weight: 500; color: ${vaultData.enabled ? 'var(--success)' : 'var(--text-secondary)'};">
+                                    ${vaultData.enabled ? 'Active' : 'Inactive'}
+                                </span>
+                            </label>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 200px;">
+                                <label style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">Inactivity Period</label>
+                                <select id="vaultInactivityDays" onchange="updateVaultSettings()"
+                                    style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">
+                                    <option value="30" ${vaultData.inactivityDays === 30 ? 'selected' : ''}>30 Days</option>
+                                    <option value="60" ${vaultData.inactivityDays === 60 ? 'selected' : ''}>60 Days</option>
+                                    <option value="90" ${vaultData.inactivityDays === 90 ? 'selected' : ''}>90 Days</option>
+                                    <option value="180" ${vaultData.inactivityDays === 180 ? 'selected' : ''}>180 Days</option>
+                                    <option value="365" ${vaultData.inactivityDays === 365 ? 'selected' : ''}>1 Year</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
+                        <h4 style="margin: 0 0 1rem 0; font-size: 1rem;">Notification Preferences</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                            How should we notify trustees when they gain access?
+                        </p>
+                        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" id="notifyEmail" ${vaultData.notifications.email ? 'checked' : ''} onchange="updateVaultNotifications()"
+                                    style="width: 16px; height: 16px;">
+                                <i class="fas fa-envelope" style="color: var(--primary);"></i>
+                                <span style="font-size: 0.9rem;">Email</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" id="notifySms" ${vaultData.notifications.sms ? 'checked' : ''} onchange="updateVaultNotifications()"
+                                    style="width: 16px; height: 16px;">
+                                <i class="fas fa-sms" style="color: var(--success);"></i>
+                                <span style="font-size: 0.9rem;">SMS</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" id="notifyWhatsapp" ${vaultData.notifications.whatsapp ? 'checked' : ''} onchange="updateVaultNotifications()"
+                                    style="width: 16px; height: 16px;">
+                                <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+                                <span style="font-size: 0.9rem;">WhatsApp</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--light); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
+                        <h4 style="margin: 0 0 1rem 0; font-size: 1rem;">Add Trusted Contact</h4>
+                        <form id="vaultTrusteeForm" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                            <input type="text" id="trusteeName" placeholder="Name" required
+                                style="flex: 1; min-width: 120px; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">
+                            <input type="email" id="trusteeEmail" placeholder="Email" required
+                                style="flex: 1; min-width: 180px; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">
+                            <input type="tel" id="trusteePhone" placeholder="Phone (optional)"
+                                style="width: 140px; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">
+                            <select id="trusteeRelation" style="width: 120px; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">
+                                <option value="spouse">Spouse</option>
+                                <option value="parent">Parent</option>
+                                <option value="child">Child</option>
+                                <option value="sibling">Sibling</option>
+                                <option value="friend">Friend</option>
+                                <option value="lawyer">Lawyer</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add</button>
+                        </form>
+                    </div>
+
+                    <div id="vaultTrustees"></div>
+                </div>
+            `;
+
+            renderVaultTrustees();
+            attachVaultForm();
+        }
+
+        function attachVaultForm() {
+            const form = document.getElementById('vaultTrusteeForm');
+            if (!form) return;
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('trusteeName').value.trim();
+                const email = document.getElementById('trusteeEmail').value.trim().toLowerCase();
+                const phone = document.getElementById('trusteePhone').value.trim();
+                const relation = document.getElementById('trusteeRelation').value;
+
+                if (!name || !email) return;
+
+                const vaultData = getVaultData();
+
+                if (vaultData.trustees.some(t => t.email === email)) {
+                    showMessage('This contact is already added', 'error');
+                    return;
+                }
+
+                vaultData.trustees.push({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    relation: relation,
+                    addedAt: new Date().toISOString()
+                });
+                saveVaultData(vaultData);
+
+                showSuccessMessage('Trusted contact added');
+                form.reset();
+                renderVaultTrustees();
+            });
+        }
+
+        function renderVaultTrustees() {
+            const container = document.getElementById('vaultTrustees');
+            if (!container) return;
+
+            const vaultData = getVaultData();
+            const trustees = vaultData.trustees || [];
+
+            if (!trustees.length) {
+                container.innerHTML = `
+                    <div class="management-empty-state">
+                        <i class="fas fa-user-shield" style="font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 0.75rem;"></i>
+                        <p style="font-size: 0.9rem;">No trusted contacts added yet. Add someone you trust to manage your vault.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const relationIcons = {
+                spouse: 'fa-heart', parent: 'fa-user', child: 'fa-child',
+                sibling: 'fa-users', friend: 'fa-user-friends', lawyer: 'fa-gavel', other: 'fa-user'
+            };
+
+            let html = '<div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;">';
+            html += '<h4 style="margin: 0 0 1rem 0; font-size: 0.95rem;"><i class="fas fa-user-shield" style="margin-right: 0.5rem; color: var(--primary);"></i>Trusted Contacts</h4>';
+
+            trustees.forEach((trustee, index) => {
+                html += `
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas ${relationIcons[trustee.relation] || 'fa-user'}"></i>
+                            </div>
+                            <div>
+                                <div style="font-weight: 500;">${trustee.name}</div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">${trustee.email}</div>
+                                <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: capitalize;">${trustee.relation}${trustee.phone ? ' • ' + trustee.phone : ''}</div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="removeVaultTrustee(${index})" style="font-size: 0.85rem; color: var(--danger);">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function toggleVaultStatus() {
+            const vaultData = getVaultData();
+            vaultData.enabled = document.getElementById('vaultEnabled').checked;
+            if (vaultData.enabled) {
+                vaultData.lastActivity = new Date().toISOString();
+            }
+            saveVaultData(vaultData);
+            loadVaultPanelContent(document.getElementById('accountPanelBody'));
+            showSuccessMessage(vaultData.enabled ? 'Vault activated' : 'Vault deactivated');
+        }
+
+        function updateVaultSettings() {
+            const vaultData = getVaultData();
+            vaultData.inactivityDays = parseInt(document.getElementById('vaultInactivityDays').value);
+            saveVaultData(vaultData);
+            showSuccessMessage('Settings updated');
+        }
+
+        function updateVaultNotifications() {
+            const vaultData = getVaultData();
+            vaultData.notifications = {
+                email: document.getElementById('notifyEmail').checked,
+                sms: document.getElementById('notifySms').checked,
+                whatsapp: document.getElementById('notifyWhatsapp').checked
+            };
+            saveVaultData(vaultData);
+            showSuccessMessage('Notification preferences updated');
+        }
+
+        function removeVaultTrustee(index) {
+            if (!confirm('Remove this trusted contact?')) return;
+            const vaultData = getVaultData();
+            vaultData.trustees.splice(index, 1);
+            saveVaultData(vaultData);
+            renderVaultTrustees();
+            showSuccessMessage('Contact removed');
         }
 
         // Services Modal
@@ -6491,6 +7004,251 @@
             };
         }
 
+        // Get financial data for a specific user (by reading their localStorage data)
+        function getUserFinancialData(userEmail) {
+            const prefix = userEmail ? '_' + userEmail : '';
+
+            const bankAccounts = JSON.parse(localStorage.getItem('fintpe_bank_accounts' + prefix) || '[]');
+            const liquidBalance = bankAccounts.reduce((sum, acc) => sum + (parseFloat(acc.balance) || 0), 0);
+
+            const portfolio = JSON.parse(localStorage.getItem('fintpe_portfolio' + prefix) || '[]');
+            const totalInvestments = portfolio.reduce((sum, h) => sum + (parseFloat(h.currentValue) || 0), 0);
+
+            const assets = JSON.parse(localStorage.getItem('fintpe_realestate_gold' + prefix) || '[]');
+            const realEstateValue = assets
+                .filter(a => a.assetType === 'Real Estate')
+                .reduce((sum, a) => sum + (parseFloat(a.currentValue) || 0), 0);
+            const goldValue = assets
+                .filter(a => a.assetType === 'Gold')
+                .reduce((sum, a) => sum + (parseFloat(a.currentValue) || 0), 0);
+
+            const loans = JSON.parse(localStorage.getItem('fintpe_loans' + prefix) || '[]');
+            const totalLoans = loans.reduce((sum, loan) => sum + (parseFloat(loan.outstandingAmount) || 0), 0);
+            const monthlyEmi = loans.reduce((sum, loan) => sum + (parseFloat(loan.emiAmount) || 0), 0);
+
+            const esops = JSON.parse(localStorage.getItem('fintpe_esops' + prefix) || '[]');
+            let esopsValue = 0;
+            esops.forEach(esop => {
+                const vestedOptions = parseFloat(esop.vestedOptions) || 0;
+                const currentPrice = parseFloat(esop.currentPrice) || 0;
+                const strikePrice = parseFloat(esop.strikePrice) || 0;
+                esopsValue += vestedOptions * Math.max(0, currentPrice - strikePrice);
+            });
+
+            const npsAccounts = JSON.parse(localStorage.getItem('fintpe_nps' + prefix) || '[]');
+            const npsValue = npsAccounts.reduce((sum, nps) => sum + (parseFloat(nps.currentValue) || 0), 0);
+
+            const ppfAccounts = JSON.parse(localStorage.getItem('fintpe_ppf' + prefix) || '[]');
+            const ppfValue = ppfAccounts.reduce((sum, ppf) => sum + (parseFloat(ppf.currentBalance) || 0), 0);
+
+            const totalAssets = liquidBalance + totalInvestments + realEstateValue + goldValue + esopsValue + npsValue + ppfValue;
+            const netWorth = totalAssets - totalLoans;
+
+            return { liquidBalance, totalInvestments, realEstateValue, goldValue, totalLoans, monthlyEmi, totalAssets, netWorth, esopsValue, npsValue, ppfValue };
+        }
+
+        // Get combined family financial data
+        function getFamilyFinancialData() {
+            const familyData = getFamilyData();
+            const members = familyData.members || [];
+
+            // Start with current user's data
+            const myData = getFinancialData();
+            const memberDetails = [{
+                email: currentUser,
+                name: getUserDisplayName(),
+                data: myData,
+                isCurrentUser: true
+            }];
+
+            // Add each family member's data
+            let combinedData = { ...myData };
+            members.forEach(member => {
+                // Try to get family member's data (they share same localStorage in this demo)
+                const memberData = getUserFinancialData(member.email);
+                memberDetails.push({
+                    email: member.email,
+                    name: member.name,
+                    data: memberData,
+                    isCurrentUser: false
+                });
+
+                // Add to combined totals
+                combinedData.liquidBalance += memberData.liquidBalance;
+                combinedData.totalInvestments += memberData.totalInvestments;
+                combinedData.realEstateValue += memberData.realEstateValue;
+                combinedData.goldValue += memberData.goldValue;
+                combinedData.totalLoans += memberData.totalLoans;
+                combinedData.monthlyEmi += memberData.monthlyEmi;
+                combinedData.totalAssets += memberData.totalAssets;
+                combinedData.netWorth += memberData.netWorth;
+                combinedData.esopsValue += memberData.esopsValue;
+                combinedData.npsValue += memberData.npsValue;
+                combinedData.ppfValue += memberData.ppfValue;
+            });
+
+            return {
+                combined: combinedData,
+                members: memberDetails,
+                totalMembers: memberDetails.length
+            };
+        }
+
+        function formatCurrency(amount) {
+            if (amount >= 10000000) {
+                return '₹' + (amount / 10000000).toFixed(2) + ' Cr';
+            } else if (amount >= 100000) {
+                return '₹' + (amount / 100000).toFixed(2) + ' L';
+            } else if (amount >= 1000) {
+                return '₹' + (amount / 1000).toFixed(2) + ' K';
+            }
+            return '₹' + amount.toLocaleString('en-IN');
+        }
+
+        function updateFamilyDashboardView() {
+            const familyFinData = getFamilyFinancialData();
+            const combined = familyFinData.combined;
+            const members = familyFinData.members;
+            const familyView = document.getElementById('dashboardFamilyView');
+            if (!familyView) return;
+
+            // Calculate asset breakdown for donut chart
+            const assets = [
+                { name: 'Liquid', value: combined.liquidBalance, color: '#1e3a5f' },
+                { name: 'Investments', value: combined.totalInvestments, color: '#10b981' },
+                { name: 'Real Estate', value: combined.realEstateValue, color: '#f59e0b' },
+                { name: 'Gold', value: combined.goldValue, color: '#c9a86c' },
+                { name: 'ESOPs', value: combined.esopsValue, color: '#7ba3a8' },
+                { name: 'NPS', value: combined.npsValue, color: '#6b8e7d' },
+                { name: 'PPF', value: combined.ppfValue, color: '#9b8bb8' }
+            ].filter(a => a.value > 0);
+
+            const totalAssets = assets.reduce((sum, a) => sum + a.value, 0);
+            let cumulativePercent = 0;
+            const donutSegments = assets.map(asset => {
+                const percent = (asset.value / totalAssets) * 100;
+                const startAngle = cumulativePercent * 3.6;
+                cumulativePercent += percent;
+                const endAngle = cumulativePercent * 3.6;
+                return { ...asset, percent, startAngle, endAngle };
+            });
+
+            // Generate SVG conic gradient style segments
+            let conicGradient = 'conic-gradient(';
+            let currentDeg = 0;
+            donutSegments.forEach((seg, i) => {
+                const segDeg = (seg.value / totalAssets) * 360;
+                conicGradient += `${seg.color} ${currentDeg}deg ${currentDeg + segDeg}deg`;
+                currentDeg += segDeg;
+                if (i < donutSegments.length - 1) conicGradient += ', ';
+            });
+            conicGradient += ')';
+
+            familyView.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 280px; gap: 2rem; align-items: start;">
+                    <!-- Left: Main Content -->
+                    <div>
+                        <!-- Family Net Worth Header -->
+                        <div class="dashboard-card" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; margin-bottom: 1.5rem; border: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <span style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">Family Net Worth</span>
+                                <span style="background: rgba(255,255,255,0.2); padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem;">
+                                    ${members.length} Member${members.length > 1 ? 's' : ''}
+                                </span>
+                            </div>
+                            <div style="font-size: 2rem; font-weight: 700;" data-private="${formatCurrency(combined.netWorth)}" data-placeholder="₹••••••••">
+                                ${formatCurrency(combined.netWorth)}
+                            </div>
+                            ${combined.totalLoans > 0 ? `<div style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-top: 0.5rem;">Liabilities: ${formatCurrency(combined.totalLoans)}</div>` : ''}
+                        </div>
+
+                        <!-- Family Members Row -->
+                        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                            ${members.map(m => `
+                                <div style="background: var(--white); border: 1px solid var(--border); padding: 0.75rem 1rem; border-radius: 10px; display: flex; align-items: center; gap: 0.75rem; min-width: 160px;">
+                                    <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.9rem;">
+                                        ${m.name.charAt(0).toUpperCase()}
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 500; font-size: 0.85rem;">${m.name}${m.isCurrentUser ? ' (You)' : ''}</div>
+                                        <div style="font-size: 0.9rem; font-weight: 600; color: var(--primary);" data-private="${formatCurrency(m.data.netWorth)}" data-placeholder="₹••••">
+                                            ${formatCurrency(m.data.netWorth)}
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <!-- Asset Breakdown List -->
+                        <div class="dashboard-card">
+                            <div style="font-weight: 600; margin-bottom: 1rem; font-size: 0.95rem;">Asset Breakdown</div>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                ${[
+                                    { icon: 'fa-tint', name: 'Liquid Balance', value: combined.liquidBalance, color: '#1e3a5f' },
+                                    { icon: 'fa-chart-line', name: 'Investments', value: combined.totalInvestments, color: '#10b981' },
+                                    { icon: 'fa-home', name: 'Real Estate', value: combined.realEstateValue, color: '#f59e0b' },
+                                    { icon: 'fa-coins', name: 'Gold', value: combined.goldValue, color: '#c9a86c' },
+                                    { icon: 'fa-briefcase', name: 'ESOPs', value: combined.esopsValue, color: '#7ba3a8' },
+                                    { icon: 'fa-piggy-bank', name: 'NPS', value: combined.npsValue, color: '#6b8e7d' },
+                                    { icon: 'fa-landmark', name: 'PPF', value: combined.ppfValue, color: '#9b8bb8' }
+                                ].filter(a => a.value > 0).map(a => `
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                            <div style="width: 8px; height: 8px; border-radius: 50%; background: ${a.color};"></div>
+                                            <i class="fas ${a.icon}" style="color: ${a.color}; width: 16px;"></i>
+                                            <span style="font-size: 0.9rem;">${a.name}</span>
+                                        </div>
+                                        <span style="font-weight: 600;" data-private="${formatCurrency(a.value)}" data-placeholder="₹••••">${formatCurrency(a.value)}</span>
+                                    </div>
+                                `).join('')}
+                                ${combined.totalLoans > 0 ? `
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; color: var(--danger);">
+                                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                            <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--danger);"></div>
+                                            <i class="fas fa-hand-holding-usd" style="width: 16px;"></i>
+                                            <span style="font-size: 0.9rem;">Loans (EMI: ${formatCurrency(combined.monthlyEmi)}/mo)</span>
+                                        </div>
+                                        <span style="font-weight: 600;" data-private="-${formatCurrency(combined.totalLoans)}" data-placeholder="₹••••">-${formatCurrency(combined.totalLoans)}</span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Donut Chart -->
+                    <div class="dashboard-card" style="position: sticky; top: 6rem;">
+                        <div style="font-weight: 600; margin-bottom: 1rem; font-size: 0.95rem; text-align: center;">Portfolio Mix</div>
+                        <div style="position: relative; width: 180px; height: 180px; margin: 0 auto 1rem;">
+                            <div style="width: 100%; height: 100%; border-radius: 50%; background: ${conicGradient};"></div>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; border-radius: 50%; background: var(--white); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <div style="font-size: 0.7rem; color: var(--text-secondary);">Total Assets</div>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--primary);" data-private="${formatCurrency(totalAssets)}" data-placeholder="₹••••">${formatCurrency(totalAssets)}</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                            ${donutSegments.slice(0, 5).map(seg => `
+                                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem;">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <div style="width: 10px; height: 10px; border-radius: 2px; background: ${seg.color};"></div>
+                                        <span>${seg.name}</span>
+                                    </div>
+                                    <span style="font-weight: 500;">${seg.percent.toFixed(0)}%</span>
+                                </div>
+                            `).join('')}
+                            ${donutSegments.length > 5 ? `<div style="font-size: 0.75rem; color: var(--text-secondary); text-align: center;">+${donutSegments.length - 5} more</div>` : ''}
+                        </div>
+                        ${members.length === 1 ? `
+                            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); text-align: center;">
+                                <button onclick="loadPage('account'); setTimeout(() => loadAccountSection('family'), 300);" class="btn btn-secondary" style="font-size: 0.8rem; width: 100%;">
+                                    <i class="fas fa-user-plus"></i> Add Family
+                                </button>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
         function saveSession() {
             if (currentUser) {
                 localStorage.setItem('fintpe_user_email', currentUser);
@@ -6530,14 +7288,15 @@
 
         function toggleDashboardFamilyView() {
             dashboardFamilyViewEnabled = !dashboardFamilyViewEnabled;
-            
+
             const individualView = document.getElementById('dashboardIndividualView');
             const familyView = document.getElementById('dashboardFamilyView');
             const toggleButton = document.getElementById('dashboardFamilyToggle');
-            
+
             if (dashboardFamilyViewEnabled) {
                 if (individualView) individualView.style.display = 'none';
                 if (familyView) familyView.style.display = 'block';
+                updateFamilyDashboardView(); // Load real family data
                 if (toggleButton) {
                     toggleButton.innerHTML = '<i class="fas fa-user"></i> Individual View';
                 }
