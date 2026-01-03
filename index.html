@@ -270,72 +270,166 @@
             cursor: pointer;
         }
 
-        /* Hero Section */
+        /* ========== PREMIUM DARK HERO ========== */
         .hero {
-            padding: 12rem 2rem 8rem;
-            text-align: center;
-            background: var(--white);
+            min-height: 100vh;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #020347;
             position: relative;
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
+        /* Animated gradient mesh background */
+        .hero-gradient {
             position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 1200px;
-            height: 100%;
-            background: radial-gradient(ellipse at top, rgba(2, 3, 71, 0.03) 0%, transparent 70%);
-            pointer-events: none;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(120, 119, 198, 0.15), transparent),
+                radial-gradient(ellipse 60% 50% at 80% 50%, rgba(79, 70, 229, 0.12), transparent),
+                radial-gradient(ellipse 50% 40% at 40% 80%, rgba(16, 185, 129, 0.08), transparent);
+            animation: gradientShift 15s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+            33% { opacity: 0.8; transform: scale(1.05) rotate(1deg); }
+            66% { opacity: 0.9; transform: scale(0.98) rotate(-1deg); }
+        }
+
+        /* Grid overlay */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+        }
+
+        /* Glow orbs */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 600px;
+            height: 600px;
+            background: rgba(79, 70, 229, 0.3);
+            top: -20%;
+            right: -10%;
+            animation-delay: 0s;
+        }
+
+        .hero-orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(16, 185, 129, 0.2);
+            bottom: -10%;
+            left: -5%;
+            animation-delay: -7s;
+        }
+
+        .hero-orb-3 {
+            width: 300px;
+            height: 300px;
+            background: rgba(120, 119, 198, 0.25);
+            top: 40%;
+            left: 20%;
+            animation-delay: -14s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(10px, 10px) scale(1.02); }
         }
 
         .hero-content {
-            max-width: 720px;
+            max-width: 900px;
             margin: 0 auto;
             position: relative;
-            z-index: 1;
+            z-index: 10;
+            text-align: center;
+            padding: 4rem 0;
         }
 
         .hero-eyebrow {
-            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            color: var(--primary);
-            letter-spacing: 0.15em;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
             opacity: 0;
-            animation: fadeInUp 0.8s var(--ease-out-expo) 0.2s forwards;
+            animation: fadeInUp 1s var(--ease-out-expo) 0.1s forwards;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
         }
 
         .hero-title {
-            font-size: clamp(2.75rem, 7vw, 4.25rem);
+            font-size: clamp(3rem, 10vw, 5.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            line-height: 1.08;
-            letter-spacing: -0.03em;
+            color: #ffffff;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
             opacity: 0;
-            animation: fadeInUp 0.8s var(--ease-out-expo) 0.35s forwards;
+            animation: fadeInUp 1s var(--ease-out-expo) 0.25s forwards;
         }
 
-        .hero-title-line {
-            display: block;
-            overflow: hidden;
+        .hero-title-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: textShimmer 5s linear infinite;
+        }
+
+        @keyframes textShimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-            color: var(--text-secondary);
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.6);
             line-height: 1.7;
-            max-width: 520px;
+            max-width: 560px;
             margin-left: auto;
             margin-right: auto;
             opacity: 0;
-            animation: fadeInUp 0.8s var(--ease-out-expo) 0.5s forwards;
+            animation: fadeInUp 1s var(--ease-out-expo) 0.4s forwards;
         }
 
         .cta-buttons {
@@ -343,15 +437,16 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 4rem;
             opacity: 0;
-            animation: fadeInUp 0.8s var(--ease-out-expo) 0.65s forwards;
+            animation: fadeInUp 1s var(--ease-out-expo) 0.55s forwards;
         }
 
-        /* Buttons */
+        /* Premium buttons */
         .btn {
-            padding: 0.95rem 1.75rem;
+            padding: 1rem 2rem;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 0.95rem;
             text-decoration: none;
@@ -365,51 +460,87 @@
         }
 
         .btn-primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 2px 8px rgba(2, 3, 71, 0.2);
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            background: #ffffff;
+            color: #020347;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(2, 3, 71, 0.25);
-        }
-
-        .btn-primary:hover::before {
-            opacity: 1;
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2), 0 10px 40px rgba(0, 0, 0, 0.4);
         }
 
         .btn-primary i {
-            transition: transform 0.3s var(--ease-out-expo);
+            transition: transform 0.4s var(--ease-out-expo);
         }
 
         .btn-primary:hover i {
-            transform: translateX(3px);
+            transform: translateX(4px);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--primary);
-            border: 1.5px solid var(--primary);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+        }
+
+        .btn-tertiary {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 1rem 1.5rem;
+        }
+
+        .btn-tertiary:hover {
+            color: #ffffff;
+        }
+
+        /* Stats row */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            opacity: 0;
+            animation: fadeInUp 1s var(--ease-out-expo) 0.7s forwards;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 768px) {
+            .hero-stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .hero-stat-value {
+                font-size: 2rem;
+            }
+        }
+
+        /* Non-hero button overrides */
+        .features-section .btn-primary {
             background: var(--primary);
             color: white;
             box-shadow: 0 4px 12px rgba(2, 3, 71, 0.15);
@@ -2616,18 +2747,40 @@
             if (mainContent) {
                 mainContent.innerHTML = `
                     <section class="hero">
+                        <!-- Animated background layers -->
+                        <div class="hero-gradient"></div>
+                        <div class="hero-grid"></div>
+                        <div class="hero-orb hero-orb-1"></div>
+                        <div class="hero-orb hero-orb-2"></div>
+                        <div class="hero-orb hero-orb-3"></div>
+
                         <div class="hero-content">
-                            <p class="hero-eyebrow">Personal Finance, Simplified</p>
-                            <h1 class="hero-title">Your money.<br>Your way.</h1>
-                            <p class="hero-subtitle">A private, DIY finance platform. Track net worth, assets, and investments in one place. No accounts. No tracking. No clutter.</p>
+                            <p class="hero-eyebrow">Now in Beta</p>
+                            <h1 class="hero-title">Your money.<br><span class="hero-title-gradient">Your way.</span></h1>
+                            <p class="hero-subtitle">The private finance platform for people who want control. Track everything, share nothing.</p>
                             <div class="cta-buttons">
                                 <button onclick="openLoginModal()" class="btn btn-primary">
-                                    Start tracking
-                                    <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
+                                    Start for free
+                                    <i class="fas fa-arrow-right"></i>
                                 </button>
-                                <button onclick="openProductsModal()" class="btn btn-tertiary">
-                                    Learn more
+                                <button onclick="openProductsModal()" class="btn btn-secondary">
+                                    <i class="fas fa-play"></i>
+                                    Watch demo
                                 </button>
+                            </div>
+                            <div class="hero-stats">
+                                <div class="hero-stat">
+                                    <div class="hero-stat-value" data-count="100">100%</div>
+                                    <div class="hero-stat-label">Private</div>
+                                </div>
+                                <div class="hero-stat">
+                                    <div class="hero-stat-value">0</div>
+                                    <div class="hero-stat-label">Data shared</div>
+                                </div>
+                                <div class="hero-stat">
+                                    <div class="hero-stat-value">∞</div>
+                                    <div class="hero-stat-label">Control</div>
+                                </div>
                             </div>
                         </div>
                     </section>
