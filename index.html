@@ -4680,13 +4680,17 @@
                                 <div class="account-sidebar">
                                     <div class="account-sidebar-header">Settings</div>
                                     <div class="account-management-grid">
-                                        <div class="account-card" data-section="bankAccounts" onclick="loadAccountSection('bankAccounts')">
-                                            <div class="card-icon" style="color: #6b8e7d;"><i class="fas fa-university"></i></div>
-                                            <div class="card-content"><h3>Bank Accounts</h3></div>
-                                        </div>
                                         <div class="account-card" data-section="myProfile" onclick="loadAccountSection('myProfile')">
                                             <div class="card-icon" style="color: #8b7355;"><i class="fas fa-user-circle"></i></div>
                                             <div class="card-content"><h3>My Profile</h3></div>
+                                        </div>
+                                        <div class="account-card" data-section="preferences" onclick="loadAccountSection('preferences')">
+                                            <div class="card-icon" style="color: #6366f1;"><i class="fas fa-sliders-h"></i></div>
+                                            <div class="card-content"><h3>Preferences</h3></div>
+                                        </div>
+                                        <div class="account-card" data-section="bankAccounts" onclick="loadAccountSection('bankAccounts')">
+                                            <div class="card-icon" style="color: #6b8e7d;"><i class="fas fa-university"></i></div>
+                                            <div class="card-content"><h3>Bank Accounts</h3></div>
                                         </div>
                                         <div class="account-card" data-section="investments" onclick="loadAccountSection('investments')">
                                             <div class="card-icon" style="color: #9b8bb8;"><i class="fas fa-chart-line"></i></div>
@@ -4771,8 +4775,9 @@
             const bodyEl = document.getElementById('accountPanelBody');
 
             const sectionInfo = {
+                myProfile: { title: 'My Profile', subtitle: 'Personal details and contact information', key: null },
+                preferences: { title: 'Preferences', subtitle: 'Customize your app experience', key: null },
                 bankAccounts: { title: 'Bank Accounts', subtitle: 'Manage your linked bank accounts and balances', key: 'bankAccounts' },
-                myProfile: { title: 'My Profile', subtitle: 'Personal details, contact information', key: null },
                 investments: { title: 'Investments', subtitle: 'Upload broker files to track your portfolio', key: 'investments' },
                 realEstateGold: { title: 'Real Estate & Gold', subtitle: 'Property and gold investment tracking', key: 'realEstateGold' },
                 loans: { title: 'Loans & EMIs', subtitle: 'Track your loans, EMIs and outstanding balances', key: 'loans' },
@@ -4791,10 +4796,12 @@
             if (subtitleEl) subtitleEl.textContent = info.subtitle;
 
             // Load content based on section
-            if (sectionKey === 'investments') {
-                loadInvestmentPanelContent(bodyEl);
-            } else if (sectionKey === 'myProfile') {
+            if (sectionKey === 'myProfile') {
                 loadProfilePanelContent(bodyEl);
+            } else if (sectionKey === 'preferences') {
+                loadPreferencesPanelContent(bodyEl);
+            } else if (sectionKey === 'investments') {
+                loadInvestmentPanelContent(bodyEl);
             } else if (sectionKey === 'family') {
                 loadFamilyPanelContent(bodyEl);
             } else if (sectionKey === 'vault') {
@@ -4960,17 +4967,63 @@
 
         function loadProfilePanelContent(container) {
             const profile = JSON.parse(localStorage.getItem('fintpe_profile_details') || '{}');
-            container.innerHTML = '<form id="inlineProfileForm">' +
-                '<div class="form-fields-grid">' +
-                    '<div class="management-field"><label>Full Name</label><input type="text" name="fullName" value="' + (profile.fullName || '') + '"></div>' +
-                    '<div class="management-field"><label>Email</label><input type="email" name="email" value="' + (currentUser || '') + '" readonly style="background: var(--light);"></div>' +
-                    '<div class="management-field"><label>Phone</label><input type="tel" name="phone" value="' + (profile.phone || '') + '"></div>' +
-                    '<div class="management-field"><label>Date of Birth</label><input type="date" name="dob" value="' + (profile.dob || '') + '"></div>' +
-                    '<div class="management-field"><label>PAN Number</label><input type="text" name="pan" value="' + (profile.pan || '') + '" placeholder="ABCDE1234F"></div>' +
-                    '<div class="management-field"><label>Occupation</label><input type="text" name="occupation" value="' + (profile.occupation || '') + '"></div>' +
-                '</div>' +
-                '<div style="margin-top: 1.5rem;"><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Profile</button></div>' +
-            '</form>';
+            const formatDate = (dateStr) => {
+                if (!dateStr) return '-';
+                const d = new Date(dateStr);
+                return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+            };
+
+            container.innerHTML = `
+                <div id="profileViewMode">
+                    <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+                        <button onclick="toggleProfileEditMode(true)" style="padding: 0.4rem 0.75rem; font-size: 0.85rem; background: transparent; border: 1px solid var(--border); border-radius: 6px; color: #424242; cursor: pointer;">
+                            <i class="fas fa-pen"></i> Edit
+                        </button>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                        <div style="padding: 1rem; background: var(--light); border-radius: 8px;">
+                            <div style="font-size: 0.75rem; color: #424242; margin-bottom: 0.25rem;">Full Name</div>
+                            <div style="font-weight: 500; color: #1e3a5f;">${profile.fullName || '-'}</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--light); border-radius: 8px;">
+                            <div style="font-size: 0.75rem; color: #424242; margin-bottom: 0.25rem;">Email</div>
+                            <div style="font-weight: 500; color: #1e3a5f;">${currentUser || '-'}</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--light); border-radius: 8px;">
+                            <div style="font-size: 0.75rem; color: #424242; margin-bottom: 0.25rem;">Phone</div>
+                            <div style="font-weight: 500; color: #1e3a5f;">${profile.phone || '-'}</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--light); border-radius: 8px;">
+                            <div style="font-size: 0.75rem; color: #424242; margin-bottom: 0.25rem;">Date of Birth</div>
+                            <div style="font-weight: 500; color: #1e3a5f;">${formatDate(profile.dob)}</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--light); border-radius: 8px;">
+                            <div style="font-size: 0.75rem; color: #424242; margin-bottom: 0.25rem;">PAN Number</div>
+                            <div style="font-weight: 500; color: #1e3a5f;">${profile.pan || '-'}</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--light); border-radius: 8px;">
+                            <div style="font-size: 0.75rem; color: #424242; margin-bottom: 0.25rem;">Occupation</div>
+                            <div style="font-weight: 500; color: #1e3a5f;">${profile.occupation || '-'}</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="profileEditMode" style="display: none;">
+                    <form id="inlineProfileForm">
+                        <div class="form-fields-grid">
+                            <div class="management-field"><label>Full Name</label><input type="text" name="fullName" value="${profile.fullName || ''}"></div>
+                            <div class="management-field"><label>Email</label><input type="email" name="email" value="${currentUser || ''}" readonly style="background: var(--light);"></div>
+                            <div class="management-field"><label>Phone</label><input type="tel" name="phone" value="${profile.phone || ''}"></div>
+                            <div class="management-field"><label>Date of Birth</label><input type="date" name="dob" value="${profile.dob || ''}"></div>
+                            <div class="management-field"><label>PAN Number</label><input type="text" name="pan" value="${profile.pan || ''}" placeholder="ABCDE1234F"></div>
+                            <div class="management-field"><label>Occupation</label><input type="text" name="occupation" value="${profile.occupation || ''}"></div>
+                        </div>
+                        <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem;">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                            <button type="button" onclick="toggleProfileEditMode(false)" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            `;
 
             document.getElementById('inlineProfileForm').addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -4979,6 +5032,118 @@
                 formData.forEach(function(value, key) { data[key] = value; });
                 localStorage.setItem('fintpe_profile_details', JSON.stringify(data));
                 showSuccessMessage('Profile saved');
+                loadProfilePanelContent(container);
+            });
+        }
+
+        function toggleProfileEditMode(edit) {
+            document.getElementById('profileViewMode').style.display = edit ? 'none' : 'block';
+            document.getElementById('profileEditMode').style.display = edit ? 'block' : 'none';
+        }
+
+        // Preferences Functions
+        function getPreferences() {
+            return JSON.parse(localStorage.getItem('fintpe_preferences_' + currentUser) || '{"privacyMode":false,"theme":"light","currency":"INR"}');
+        }
+
+        function savePreferences(prefs) {
+            localStorage.setItem('fintpe_preferences_' + currentUser, JSON.stringify(prefs));
+        }
+
+        function loadPreferencesPanelContent(container) {
+            const prefs = getPreferences();
+
+            container.innerHTML = `
+                <div class="preferences-section">
+                    <!-- Privacy Mode -->
+                    <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 500; color: #1e3a5f; margin-bottom: 0.25rem;">
+                                    <i class="fas fa-eye-slash" style="margin-right: 0.5rem; color: #6366f1;"></i>Privacy Mode
+                                </div>
+                                <div style="font-size: 0.85rem; color: #424242;">Hide sensitive financial information with blur effect</div>
+                            </div>
+                            <label style="position: relative; display: inline-block; width: 50px; height: 28px;">
+                                <input type="checkbox" id="privacyModeToggle" ${prefs.privacyMode ? 'checked' : ''} onchange="updatePreference('privacyMode', this.checked)"
+                                    style="opacity: 0; width: 0; height: 0;">
+                                <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: ${prefs.privacyMode ? '#10b981' : '#e5e7eb'}; border-radius: 28px; transition: 0.3s;">
+                                    <span style="position: absolute; content: ''; height: 22px; width: 22px; left: ${prefs.privacyMode ? '25px' : '3px'}; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Theme -->
+                    <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;">
+                        <div style="font-weight: 500; color: #1e3a5f; margin-bottom: 0.75rem;">
+                            <i class="fas fa-palette" style="margin-right: 0.5rem; color: #f59e0b;"></i>Theme
+                        </div>
+                        <div style="display: flex; gap: 0.75rem;">
+                            <button onclick="updatePreference('theme', 'light')" style="flex: 1; padding: 0.75rem; border: 2px solid ${prefs.theme === 'light' ? '#1e3a5f' : 'var(--border)'}; border-radius: 8px; background: ${prefs.theme === 'light' ? '#f0f4f8' : 'var(--white)'}; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                                <i class="fas fa-sun" style="color: #f59e0b;"></i> Light
+                            </button>
+                            <button onclick="updatePreference('theme', 'dark')" style="flex: 1; padding: 0.75rem; border: 2px solid ${prefs.theme === 'dark' ? '#1e3a5f' : 'var(--border)'}; border-radius: 8px; background: ${prefs.theme === 'dark' ? '#f0f4f8' : 'var(--white)'}; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                                <i class="fas fa-moon" style="color: #6366f1;"></i> Dark
+                            </button>
+                        </div>
+                        <p style="font-size: 0.75rem; color: #424242; margin-top: 0.5rem;"><i class="fas fa-info-circle"></i> Dark theme coming soon</p>
+                    </div>
+
+                    <!-- Currency -->
+                    <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;">
+                        <div style="font-weight: 500; color: #1e3a5f; margin-bottom: 0.75rem;">
+                            <i class="fas fa-rupee-sign" style="margin-right: 0.5rem; color: #10b981;"></i>Display Currency
+                        </div>
+                        <select id="currencySelect" onchange="updatePreference('currency', this.value)"
+                            style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; background: var(--white);">
+                            <option value="INR" ${prefs.currency === 'INR' ? 'selected' : ''}>₹ Indian Rupee (INR)</option>
+                            <option value="USD" ${prefs.currency === 'USD' ? 'selected' : ''}>$ US Dollar (USD)</option>
+                            <option value="EUR" ${prefs.currency === 'EUR' ? 'selected' : ''}>€ Euro (EUR)</option>
+                            <option value="GBP" ${prefs.currency === 'GBP' ? 'selected' : ''}>£ British Pound (GBP)</option>
+                            <option value="AED" ${prefs.currency === 'AED' ? 'selected' : ''}>د.إ UAE Dirham (AED)</option>
+                            <option value="SGD" ${prefs.currency === 'SGD' ? 'selected' : ''}>S$ Singapore Dollar (SGD)</option>
+                        </select>
+                        <p style="font-size: 0.75rem; color: #424242; margin-top: 0.5rem;"><i class="fas fa-info-circle"></i> All portfolio values will be displayed in selected currency</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updatePreference(key, value) {
+            const prefs = getPreferences();
+            prefs[key] = value;
+            savePreferences(prefs);
+
+            if (key === 'privacyMode') {
+                applyPrivacyMode(value);
+                showSuccessMessage(value ? 'Privacy mode enabled' : 'Privacy mode disabled');
+            } else if (key === 'theme') {
+                showSuccessMessage('Theme preference saved');
+            } else if (key === 'currency') {
+                showSuccessMessage('Currency changed to ' + value);
+            }
+
+            // Refresh the panel to update UI
+            loadPreferencesPanelContent(document.getElementById('accountPanelBody'));
+        }
+
+        function applyPrivacyMode(enabled) {
+            document.querySelectorAll('[data-private]').forEach(el => {
+                if (enabled) {
+                    el.dataset.originalText = el.textContent;
+                    el.textContent = el.dataset.placeholder || '••••••';
+                    el.style.filter = 'blur(4px)';
+                    el.style.userSelect = 'none';
+                } else {
+                    if (el.dataset.originalText) {
+                        el.textContent = el.dataset.originalText;
+                    } else {
+                        el.textContent = el.dataset.private;
+                    }
+                    el.style.filter = 'none';
+                    el.style.userSelect = 'auto';
+                }
             });
         }
 
