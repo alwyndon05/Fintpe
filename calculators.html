@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculators - Fintpe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a7c59;
+            --primary-dark: #3d6b4a;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --light: #f9fafb;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .coming-soon-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* Main Content */
+        .page-section {
+            padding: 6rem 2rem 2rem 2rem;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Calculator List */
+        .calc-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .calc-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calc-item {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 40px;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .calc-item:last-child {
+            border-bottom: none;
+        }
+
+        .calc-item:hover {
+            background: var(--light);
+            margin: 0 -1rem;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .calc-name {
+            font-weight: 500;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .calc-name i {
+            color: var(--primary);
+            width: 20px;
+        }
+
+        .calc-category {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .calc-desc {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .calc-arrow {
+            color: var(--text-secondary);
+            text-align: right;
+        }
+
+        .page-footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .calc-item {
+                grid-template-columns: 1fr 40px;
+            }
+            .calc-category, .calc-desc { display: none; }
+            .page-header { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo">Fintpe</a>
+                <span class="coming-soon-badge">Coming Soon</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-section">
+        <div class="page-container">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Calculators</h1>
+                    <p class="page-subtitle">Financial planning tools</p>
+                </div>
+            </div>
+
+            <div class="calc-section">
+                <div class="calc-list">
+                    <div class="calc-item" onclick="showToast('SIP Calculator coming soon!')">
+                        <span class="calc-name"><i class="fas fa-chart-line"></i> SIP Calculator</span>
+                        <span class="calc-category">Mutual Funds</span>
+                        <span class="calc-desc">Calculate returns</span>
+                        <span class="calc-arrow"><i class="fas fa-chevron-right"></i></span>
+                    </div>
+                    <div class="calc-item" onclick="showToast('EMI Calculator coming soon!')">
+                        <span class="calc-name"><i class="fas fa-home"></i> EMI Calculator</span>
+                        <span class="calc-category">Loans</span>
+                        <span class="calc-desc">Calculate EMI</span>
+                        <span class="calc-arrow"><i class="fas fa-chevron-right"></i></span>
+                    </div>
+                    <div class="calc-item" onclick="showToast('FD Calculator coming soon!')">
+                        <span class="calc-name"><i class="fas fa-university"></i> FD Calculator</span>
+                        <span class="calc-category">Fixed Deposit</span>
+                        <span class="calc-desc">Calculate maturity</span>
+                        <span class="calc-arrow"><i class="fas fa-chevron-right"></i></span>
+                    </div>
+                    <div class="calc-item" onclick="showToast('PPF Calculator coming soon!')">
+                        <span class="calc-name"><i class="fas fa-piggy-bank"></i> PPF Calculator</span>
+                        <span class="calc-category">Provident Fund</span>
+                        <span class="calc-desc">Calculate returns</span>
+                        <span class="calc-arrow"><i class="fas fa-chevron-right"></i></span>
+                    </div>
+                    <div class="calc-item" onclick="showToast('Retirement Calculator coming soon!')">
+                        <span class="calc-name"><i class="fas fa-umbrella-beach"></i> Retirement Calculator</span>
+                        <span class="calc-category">Planning</span>
+                        <span class="calc-desc">Plan corpus</span>
+                        <span class="calc-arrow"><i class="fas fa-chevron-right"></i></span>
+                    </div>
+                    <div class="calc-item" onclick="showToast('Tax Calculator coming soon!')">
+                        <span class="calc-name"><i class="fas fa-receipt"></i> Tax Calculator</span>
+                        <span class="calc-category">Income Tax</span>
+                        <span class="calc-desc">Old vs New regime</span>
+                        <span class="calc-arrow"><i class="fas fa-chevron-right"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="page-footer">
+                <i class="fas fa-info-circle"></i> Calculators coming soon! Stay tuned.
+            </p>
+        </div>
+    </section>
+
+    <script>
+        function showToast(message) {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
