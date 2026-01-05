@@ -874,6 +874,98 @@
             background: var(--primary-dark);
         }
 
+        /* Main Nav Links */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .nav-links .nav-link:hover {
+            color: var(--primary);
+            background: rgba(30, 58, 95, 0.05);
+        }
+
+        .nav-links .nav-link.active {
+            color: var(--primary);
+            background: rgba(30, 58, 95, 0.08);
+            font-weight: 600;
+        }
+
+        /* Nav Dropdown */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+
+        .nav-dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .nav-dropdown-menu a:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .nav-dropdown-menu a i {
+            width: 18px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .nav-dropdown-menu a:hover i {
+            color: var(--primary);
+        }
+
         /* User Menu Dropdown */
         .user-menu {
             position: relative;
@@ -3924,9 +4016,27 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo-container">
-                <a href="#" class="logo">Fintpe</a>
+                <a href="#" class="logo" onclick="loadDashboard()">Fintpe</a>
                 <span class="coming-soon-badge">Coming Soon</span>
             </div>
+
+            <!-- Main Nav Links (visible when logged in) -->
+            <ul class="nav-links" id="mainNavLinks" style="display: none;">
+                <li><a href="#" class="nav-link active" onclick="loadDashboard()" id="navDashboard">Dashboard</a></li>
+                <li><a href="#" class="nav-link" onclick="openInsightsSection()" id="navInsights">Insights</a></li>
+                <li class="nav-dropdown">
+                    <a href="#" class="nav-link" id="navTools">Tools <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 4px;"></i></a>
+                    <div class="nav-dropdown-menu">
+                        <a href="#" onclick="openRateChart()"><i class="fas fa-chart-bar"></i> Rate Chart</a>
+                        <a href="#" onclick="openWhatIfSimulator()"><i class="fas fa-magic"></i> What If Simulator</a>
+                        <a href="#" onclick="openInflationCalculator()"><i class="fas fa-fire-alt"></i> Inflation Calculator</a>
+                        <a href="#" onclick="openDiversificationScore()"><i class="fas fa-chart-pie"></i> Diversification Score</a>
+                    </div>
+                </li>
+                <li><a href="#" class="nav-link" onclick="openCalculators()" id="navCalculators">Calculators</a></li>
+                <li><a href="#" class="nav-link" onclick="openEvents()" id="navEvents">Events</a></li>
+            </ul>
+
             <ul class="nav-menu" id="nav-menu">
                 <li id="loginBtnContainer"><button class="login-btn" onclick="openLoginModal()" id="loginBtn">Login</button></li>
                 <li id="userMenuContainer" style="display: none;">
@@ -3937,21 +4047,18 @@
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="user-dropdown" id="userDropdown">
-                            <button class="user-dropdown-item" onclick="loadDashboard()">
-                                <i class="fas fa-chart-pie"></i> My Portfolio
-                            </button>
                             <button class="user-dropdown-item" onclick="loadPage('account')">
-                                <i class="fas fa-user-cog"></i> My Account
+                                <i class="fas fa-user"></i> My Profile
                             </button>
                             <div class="user-dropdown-divider"></div>
-                            <button class="user-dropdown-item" onclick="openRateChart()">
-                                <i class="fas fa-chart-bar"></i> Rate Chart
+                            <button class="user-dropdown-item" onclick="openReferFriends()">
+                                <i class="fas fa-user-friends"></i> Refer Friends
                             </button>
-                            <button class="user-dropdown-item" onclick="openCalculators()">
-                                <i class="fas fa-calculator"></i> Calculators
+                            <button class="user-dropdown-item" onclick="openFeedback()">
+                                <i class="fas fa-comment-alt"></i> Share Feedback
                             </button>
-                            <button class="user-dropdown-item" onclick="openEvents()">
-                                <i class="fas fa-calendar-alt"></i> Events
+                            <button class="user-dropdown-item" onclick="openSupport()">
+                                <i class="fas fa-headset"></i> Support
                             </button>
                             <div class="user-dropdown-divider"></div>
                             <button class="user-dropdown-item danger" onclick="logout()">
@@ -4632,6 +4739,7 @@
         function updateNavigationForLogin() {
             const loginBtnContainer = document.getElementById('loginBtnContainer');
             const userMenuContainer = document.getElementById('userMenuContainer');
+            const mainNavLinks = document.getElementById('mainNavLinks');
             const userMenuName = document.getElementById('userMenuName');
             const profile = getUserProfile();
 
@@ -4640,6 +4748,9 @@
             }
             if (userMenuContainer) {
                 userMenuContainer.style.display = 'block';
+            }
+            if (mainNavLinks) {
+                mainNavLinks.style.display = 'flex';
             }
             if (userMenuName && profile?.name) {
                 userMenuName.textContent = profile.name.split(' ')[0];
@@ -4652,9 +4763,10 @@
             currentUser = null;
             localStorage.removeItem('fintpe_current_user');
 
-            // Hide user menu, show login button
+            // Hide user menu and nav links, show login button
             const loginBtnContainer = document.getElementById('loginBtnContainer');
             const userMenuContainer = document.getElementById('userMenuContainer');
+            const mainNavLinks = document.getElementById('mainNavLinks');
 
             if (loginBtnContainer) {
                 loginBtnContainer.style.display = 'block';
@@ -4662,9 +4774,216 @@
             if (userMenuContainer) {
                 userMenuContainer.style.display = 'none';
             }
+            if (mainNavLinks) {
+                mainNavLinks.style.display = 'none';
+            }
 
             loadPage('landing');
             showMessage('You have been logged out', 'info');
+        }
+
+        // Set active nav link
+        function setActiveNavLink(linkId) {
+            document.querySelectorAll('.nav-links .nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeLink = document.getElementById(linkId);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
+        // Open Insights Section (scrolls to insights on dashboard)
+        function openInsightsSection() {
+            setActiveNavLink('navInsights');
+            loadDashboard();
+            setTimeout(() => {
+                const insightsSection = document.querySelector('.insights-grid');
+                if (insightsSection) {
+                    insightsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 300);
+        }
+
+        // Open Refer Friends Modal
+        function openReferFriends() {
+            const modal = document.getElementById('serviceModal');
+            const modalBody = document.getElementById('serviceModalBody');
+
+            modalBody.innerHTML = `
+                <div class="service-modal-header" style="background: linear-gradient(135deg, #60C681, #4BA968);">
+                    <span class="close-modal" onclick="closeServiceModal()">&times;</span>
+                    <h2 style="color: white; margin: 0;"><i class="fas fa-gift"></i> Refer Friends</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0 0 0;">Share Fintpe with your friends</p>
+                </div>
+                <div class="service-modal-body">
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="width: 80px; height: 80px; background: #E8F8ED; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                            <i class="fas fa-user-friends" style="font-size: 2rem; color: #60C681;"></i>
+                        </div>
+                        <h3 style="color: #1e3a5f; margin-bottom: 0.5rem;">Invite Your Friends</h3>
+                        <p style="color: #909090; margin-bottom: 1.5rem;">Share Fintpe and help your friends manage their finances better!</p>
+
+                        <div style="background: var(--light); padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                            <div style="font-size: 0.8rem; color: #909090; margin-bottom: 0.5rem;">Your referral link</div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" value="https://fintpe.com/join?ref=${currentUser || 'user'}" readonly
+                                    style="flex: 1; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;">
+                                <button onclick="copyReferralLink()" style="padding: 0.75rem 1rem; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer;">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; justify-content: center;">
+                            <button onclick="shareVia('whatsapp')" style="padding: 0.75rem 1.5rem; background: #25D366; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </button>
+                            <button onclick="shareVia('twitter')" style="padding: 0.75rem 1.5rem; background: #1DA1F2; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                                <i class="fab fa-twitter"></i> Twitter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            modal.style.display = 'block';
+        }
+
+        function copyReferralLink() {
+            const link = 'https://fintpe.com/join?ref=' + (currentUser || 'user');
+            navigator.clipboard.writeText(link);
+            showSuccessMessage('Link copied to clipboard!');
+        }
+
+        function shareVia(platform) {
+            const link = encodeURIComponent('https://fintpe.com/join?ref=' + (currentUser || 'user'));
+            const text = encodeURIComponent('Check out Fintpe - a simple way to track your personal finances!');
+            let url = '';
+            if (platform === 'whatsapp') {
+                url = 'https://wa.me/?text=' + text + ' ' + link;
+            } else if (platform === 'twitter') {
+                url = 'https://twitter.com/intent/tweet?text=' + text + '&url=' + link;
+            }
+            window.open(url, '_blank');
+        }
+
+        // Open Feedback Modal
+        function openFeedback() {
+            const modal = document.getElementById('serviceModal');
+            const modalBody = document.getElementById('serviceModalBody');
+
+            modalBody.innerHTML = `
+                <div class="service-modal-header" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
+                    <span class="close-modal" onclick="closeServiceModal()">&times;</span>
+                    <h2 style="color: white; margin: 0;"><i class="fas fa-comment-alt"></i> Share Feedback</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0 0 0;">Help us improve Fintpe</p>
+                </div>
+                <div class="service-modal-body">
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #1e3a5f;">How would you rate Fintpe?</label>
+                        <div style="display: flex; gap: 0.5rem;" id="ratingStars">
+                            ${[1,2,3,4,5].map(i => `
+                                <button onclick="setRating(${i})" class="rating-star" data-rating="${i}"
+                                    style="font-size: 1.5rem; background: none; border: none; cursor: pointer; color: #e5e7eb; transition: color 0.2s;">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #1e3a5f;">What can we improve?</label>
+                        <textarea id="feedbackText" rows="4" placeholder="Tell us what you think..."
+                            style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; resize: none;"></textarea>
+                    </div>
+
+                    <button onclick="submitFeedback()" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i> Submit Feedback
+                    </button>
+                </div>
+            `;
+            modal.style.display = 'block';
+        }
+
+        let selectedRating = 0;
+        function setRating(rating) {
+            selectedRating = rating;
+            document.querySelectorAll('.rating-star').forEach((star, index) => {
+                star.style.color = index < rating ? '#fbbf24' : '#e5e7eb';
+            });
+        }
+
+        function submitFeedback() {
+            const feedback = document.getElementById('feedbackText').value;
+            if (!selectedRating) {
+                showMessage('Please select a rating', 'warning');
+                return;
+            }
+            // Save feedback locally (in real app, send to server)
+            showSuccessMessage('Thank you for your feedback!');
+            closeServiceModal();
+        }
+
+        // Open Support Modal
+        function openSupport() {
+            const modal = document.getElementById('serviceModal');
+            const modalBody = document.getElementById('serviceModalBody');
+
+            modalBody.innerHTML = `
+                <div class="service-modal-header" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                    <span class="close-modal" onclick="closeServiceModal()">&times;</span>
+                    <h2 style="color: white; margin: 0;"><i class="fas fa-headset"></i> Support</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0 0 0;">We're here to help</p>
+                </div>
+                <div class="service-modal-body">
+                    <div style="display: grid; gap: 1rem;">
+                        <a href="mailto:support@fintpe.com" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--light); border-radius: 12px; text-decoration: none; color: var(--text-primary); transition: all 0.2s;">
+                            <div style="width: 48px; height: 48px; background: #eff6ff; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-envelope" style="color: #3b82f6; font-size: 1.25rem;"></i>
+                            </div>
+                            <div>
+                                <div style="font-weight: 600;">Email Support</div>
+                                <div style="font-size: 0.85rem; color: #909090;">support@fintpe.com</div>
+                            </div>
+                        </a>
+
+                        <a href="#" onclick="openFAQ()" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--light); border-radius: 12px; text-decoration: none; color: var(--text-primary); transition: all 0.2s;">
+                            <div style="width: 48px; height: 48px; background: #E8F8ED; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-question-circle" style="color: #60C681; font-size: 1.25rem;"></i>
+                            </div>
+                            <div>
+                                <div style="font-weight: 600;">FAQs</div>
+                                <div style="font-size: 0.85rem; color: #909090;">Find answers to common questions</div>
+                            </div>
+                        </a>
+
+                        <a href="#" onclick="reportBug()" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--light); border-radius: 12px; text-decoration: none; color: var(--text-primary); transition: all 0.2s;">
+                            <div style="width: 48px; height: 48px; background: #fef2f2; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-bug" style="color: #ef4444; font-size: 1.25rem;"></i>
+                            </div>
+                            <div>
+                                <div style="font-weight: 600;">Report a Bug</div>
+                                <div style="font-size: 0.85rem; color: #909090;">Help us fix issues</div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: #f3e8ff; border-radius: 12px; text-align: center;">
+                        <p style="color: #7c3aed; margin: 0; font-size: 0.9rem;">
+                            <i class="fas fa-clock"></i> We typically respond within 24 hours
+                        </p>
+                    </div>
+                </div>
+            `;
+            modal.style.display = 'block';
+        }
+
+        function openFAQ() {
+            showMessage('FAQ section coming soon!', 'info');
+        }
+
+        function reportBug() {
+            showMessage('Bug report feature coming soon!', 'info');
         }
 
         // Open Rate Chart page
