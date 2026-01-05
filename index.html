@@ -461,6 +461,295 @@
         .stagger-grid > *:nth-child(5) { animation-delay: 0.5s; }
         .stagger-grid > *:nth-child(6) { animation-delay: 0.6s; }
 
+        /* ========== FINANCIAL PLANNING WIDGETS ========== */
+
+        /* Insights Grid */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Insight Widget Card */
+        .insight-widget {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .insight-widget:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
+        }
+
+        .insight-widget::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .insight-widget.green::before { background: linear-gradient(180deg, #60C681, #4BA968); }
+        .insight-widget.blue::before { background: linear-gradient(180deg, #3b82f6, #2563eb); }
+        .insight-widget.purple::before { background: linear-gradient(180deg, #8b5cf6, #7c3aed); }
+        .insight-widget.orange::before { background: linear-gradient(180deg, #f59e0b, #d97706); }
+        .insight-widget.red::before { background: linear-gradient(180deg, #ef4444, #dc2626); }
+        .insight-widget.teal::before { background: linear-gradient(180deg, #14b8a6, #0d9488); }
+        .insight-widget.pink::before { background: linear-gradient(180deg, #ec4899, #db2777); }
+        .insight-widget.navy::before { background: linear-gradient(180deg, #1e3a5f, #152a45); }
+
+        .insight-widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .insight-widget-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .insight-widget-icon.green { background: #E8F8ED; color: #60C681; }
+        .insight-widget-icon.blue { background: #eff6ff; color: #3b82f6; }
+        .insight-widget-icon.purple { background: #f3e8ff; color: #8b5cf6; }
+        .insight-widget-icon.orange { background: #fff7ed; color: #f59e0b; }
+        .insight-widget-icon.red { background: #fef2f2; color: #ef4444; }
+        .insight-widget-icon.teal { background: #f0fdfa; color: #14b8a6; }
+        .insight-widget-icon.pink { background: #fdf2f8; color: #ec4899; }
+        .insight-widget-icon.navy { background: #e8eef4; color: #1e3a5f; }
+
+        .insight-widget-arrow {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+        }
+
+        .insight-widget:hover .insight-widget-arrow {
+            transform: translateX(4px);
+            color: var(--primary);
+        }
+
+        .insight-widget-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-widget-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .insight-widget-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Progress Ring */
+        .progress-ring {
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+
+        .progress-ring-circle {
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .progress-ring-bg {
+            fill: none;
+            stroke: var(--border);
+            stroke-width: 6;
+        }
+
+        .progress-ring-fill {
+            fill: none;
+            stroke-width: 6;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease-out;
+        }
+
+        .progress-ring-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Simulator Slider */
+        .simulator-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--border);
+            outline: none;
+            -webkit-appearance: none;
+            margin: 1rem 0;
+        }
+
+        .simulator-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .simulator-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* Checklist Styles */
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--light);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checklist-item:hover {
+            background: #E8F8ED;
+        }
+
+        .checklist-item.completed {
+            opacity: 0.6;
+        }
+
+        .checklist-item.completed .checklist-text {
+            text-decoration: line-through;
+        }
+
+        .checklist-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .checklist-item.completed .checklist-checkbox {
+            background: #60C681;
+            border-color: #60C681;
+            color: white;
+        }
+
+        .checklist-text {
+            flex: 1;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        /* Comparison Bar */
+        .comparison-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .comparison-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease-out;
+        }
+
+        .comparison-bar-marker {
+            position: absolute;
+            top: -6px;
+            width: 2px;
+            height: 20px;
+            background: var(--text-primary);
+        }
+
+        /* Life Event Card */
+        .life-event-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .life-event-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .life-event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .life-event-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .life-event-progress {
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .life-event-progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #60C681, #4BA968);
+        }
+
         /* Dark Mode Variables - subtle and muted */
         [data-theme="dark"] {
             --primary: #9ca3af;
@@ -4496,6 +4785,126 @@
                                             <span style="color: #909090; font-size: 0.85rem;">View all <i class="fas fa-chevron-right"></i></span>
                                         </div>
                                     </div>
+
+                                    <!-- Financial Insights Section -->
+                                    <div style="margin-top: 2rem;">
+                                        <h4 style="margin: 0 0 1rem 0; color: #1e3a5f; font-size: 1rem;">
+                                            <i class="fas fa-lightbulb" style="margin-right: 0.5rem; color: #f59e0b;"></i>Financial Insights
+                                        </h4>
+                                        <div class="insights-grid">
+                                            <!-- Financial Runway -->
+                                            <div class="insight-widget green" onclick="openFinancialRunway()">
+                                                <div class="insight-widget-header">
+                                                    <div class="insight-widget-icon green">
+                                                        <i class="fas fa-parachute-box"></i>
+                                                    </div>
+                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
+                                                </div>
+                                                <div class="insight-widget-title">Financial Runway</div>
+                                                <div class="insight-widget-value" id="runwayMonths">${calculateRunway(financialData)} months</div>
+                                                <div class="insight-widget-subtitle">If income stops today</div>
+                                            </div>
+
+                                            <!-- FI Tracker -->
+                                            <div class="insight-widget purple" onclick="openFITracker()">
+                                                <div class="insight-widget-header">
+                                                    <div class="insight-widget-icon purple">
+                                                        <i class="fas fa-flag-checkered"></i>
+                                                    </div>
+                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
+                                                </div>
+                                                <div class="insight-widget-title">Financial Independence</div>
+                                                <div class="insight-widget-value" id="fiProgress">${calculateFIProgress(financialData)}%</div>
+                                                <div class="insight-widget-subtitle">Progress to FI goal</div>
+                                            </div>
+
+                                            <!-- Asset Diversification -->
+                                            <div class="insight-widget blue" onclick="openDiversificationScore()">
+                                                <div class="insight-widget-header">
+                                                    <div class="insight-widget-icon blue">
+                                                        <i class="fas fa-chart-pie"></i>
+                                                    </div>
+                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
+                                                </div>
+                                                <div class="insight-widget-title">Diversification Score</div>
+                                                <div class="insight-widget-value" id="diversificationScore">${calculateDiversification(financialData)}/100</div>
+                                                <div class="insight-widget-subtitle">Asset allocation health</div>
+                                            </div>
+
+                                            <!-- Net Worth Percentile -->
+                                            <div class="insight-widget teal" onclick="openNetWorthComparison()">
+                                                <div class="insight-widget-header">
+                                                    <div class="insight-widget-icon teal">
+                                                        <i class="fas fa-users"></i>
+                                                    </div>
+                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
+                                                </div>
+                                                <div class="insight-widget-title">Net Worth Percentile</div>
+                                                <div class="insight-widget-value" id="networthPercentile">Top ${calculatePercentile(financialData)}%</div>
+                                                <div class="insight-widget-subtitle">For your age group in India</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Planning Tools Section -->
+                                    <div style="margin-top: 2rem;">
+                                        <h4 style="margin: 0 0 1rem 0; color: #1e3a5f; font-size: 1rem;">
+                                            <i class="fas fa-tools" style="margin-right: 0.5rem; color: #8b5cf6;"></i>Planning Tools
+                                        </h4>
+                                        <div class="insights-grid">
+                                            <!-- What If Simulator -->
+                                            <div class="insight-widget orange" onclick="openWhatIfSimulator()">
+                                                <div class="insight-widget-header">
+                                                    <div class="insight-widget-icon orange">
+                                                        <i class="fas fa-magic"></i>
+                                                    </div>
+                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
+                                                </div>
+                                                <div class="insight-widget-title">What If Simulator</div>
+                                                <div class="insight-widget-value" style="font-size: 1.1rem;">Explore Scenarios</div>
+                                                <div class="insight-widget-subtitle">Investment & loan projections</div>
+                                            </div>
+
+                                            <!-- Inflation Calculator -->
+                                            <div class="insight-widget red" onclick="openInflationCalculator()">
+                                                <div class="insight-widget-header">
+                                                    <div class="insight-widget-icon red">
+                                                        <i class="fas fa-fire-alt"></i>
+                                                    </div>
+                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
+                                                </div>
+                                                <div class="insight-widget-title">Inflation Impact</div>
+                                                <div class="insight-widget-value" id="inflationImpact">${formatCurrency(calculateInflationImpact(financialData))}</div>
+                                                <div class="insight-widget-subtitle">Your money in 10 years</div>
+                                            </div>
+
+                                            <!-- Life Event Planner -->
+                                            <div class="insight-widget pink" onclick="openLifeEventPlanner()">
+                                                <div class="insight-widget-header">
+                                                    <div class="insight-widget-icon pink">
+                                                        <i class="fas fa-heart"></i>
+                                                    </div>
+                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
+                                                </div>
+                                                <div class="insight-widget-title">Life Event Planner</div>
+                                                <div class="insight-widget-value" style="font-size: 1.1rem;">Plan Ahead</div>
+                                                <div class="insight-widget-subtitle">Marriage, kids, house & more</div>
+                                            </div>
+
+                                            <!-- Wealth Transfer Checklist -->
+                                            <div class="insight-widget navy" onclick="openWealthTransferChecklist()">
+                                                <div class="insight-widget-header">
+                                                    <div class="insight-widget-icon navy">
+                                                        <i class="fas fa-file-signature"></i>
+                                                    </div>
+                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
+                                                </div>
+                                                <div class="insight-widget-title">Wealth Transfer</div>
+                                                <div class="insight-widget-value" id="checklistProgress">${getChecklistProgress()}/12</div>
+                                                <div class="insight-widget-subtitle">Legacy checklist complete</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -4689,13 +5098,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="transactions-section" style="cursor: pointer;" onclick="openEvents()">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h4 style="margin: 0; color: var(--text-primary);"><i class="fas fa-calendar-alt" style="margin-right: 0.5rem; color: var(--primary);"></i>Upcoming Events</h4>
-                                    <span style="color: var(--text-secondary); font-size: 0.85rem;">View all <i class="fas fa-chevron-right"></i></span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 `;
@@ -4825,6 +5227,865 @@
             saveReceivables(receivables);
             renderReceivables();
             showSuccessMessage('Marked as received');
+        }
+
+        // ========== FINANCIAL PLANNING FUNCTIONS ==========
+
+        // Get user preferences (monthly expenses for runway calculation)
+        function getUserFinancialPrefs() {
+            return JSON.parse(localStorage.getItem('fintpe_financial_prefs_' + currentUser) || '{"monthlyExpenses": 50000, "age": 30, "retirementAge": 60, "annualIncome": 1200000}');
+        }
+
+        function saveUserFinancialPrefs(prefs) {
+            localStorage.setItem('fintpe_financial_prefs_' + currentUser, JSON.stringify(prefs));
+        }
+
+        // Calculate Financial Runway (months of survival if income stops)
+        function calculateRunway(data) {
+            const prefs = getUserFinancialPrefs();
+            const liquidAssets = data.totalBalance + data.totalInvestments;
+            const monthlyExpenses = prefs.monthlyExpenses || 50000;
+            if (monthlyExpenses <= 0) return 0;
+            return Math.floor(liquidAssets / monthlyExpenses);
+        }
+
+        // Calculate FI Progress (25x annual expenses rule)
+        function calculateFIProgress(data) {
+            const prefs = getUserFinancialPrefs();
+            const annualExpenses = (prefs.monthlyExpenses || 50000) * 12;
+            const fiNumber = annualExpenses * 25; // 4% rule
+            const currentNetWorth = data.netWorth;
+            const progress = Math.min(100, Math.round((currentNetWorth / fiNumber) * 100));
+            return progress;
+        }
+
+        // Calculate Asset Diversification Score
+        function calculateDiversification(data) {
+            const total = data.totalAssets;
+            if (total <= 0) return 0;
+
+            // Calculate percentages
+            const categories = [
+                data.totalBalance / total,
+                data.totalInvestments / total,
+                data.realEstateValue / total,
+                data.goldValue / total,
+                data.esopsValue / total
+            ].filter(v => v > 0);
+
+            // Ideal is equal distribution
+            const idealPercent = 1 / 5; // 20% each
+            let score = 100;
+
+            // Penalize for over-concentration (any category > 50%)
+            categories.forEach(cat => {
+                if (cat > 0.5) score -= 20;
+                else if (cat > 0.4) score -= 10;
+            });
+
+            // Bonus for having multiple asset types
+            score += categories.length * 5;
+
+            // Penalize if only 1-2 categories
+            if (categories.length < 3) score -= 15;
+
+            return Math.max(0, Math.min(100, score));
+        }
+
+        // Calculate Net Worth Percentile (based on India wealth distribution)
+        function calculatePercentile(data) {
+            const prefs = getUserFinancialPrefs();
+            const age = prefs.age || 30;
+            const netWorth = data.netWorth;
+
+            // Approximate percentiles for Indian population by age
+            // Based on general wealth distribution data
+            const percentileThresholds = {
+                25: { 90: 500000, 80: 300000, 70: 150000, 50: 50000 },
+                30: { 90: 1500000, 80: 800000, 70: 400000, 50: 150000 },
+                35: { 90: 3000000, 80: 1500000, 70: 800000, 50: 300000 },
+                40: { 90: 5000000, 80: 2500000, 70: 1200000, 50: 500000 },
+                45: { 90: 8000000, 80: 4000000, 70: 2000000, 50: 800000 },
+                50: { 90: 12000000, 80: 6000000, 70: 3000000, 50: 1200000 }
+            };
+
+            const ageGroup = Math.min(50, Math.max(25, Math.floor(age / 5) * 5));
+            const thresholds = percentileThresholds[ageGroup] || percentileThresholds[30];
+
+            if (netWorth >= thresholds[90]) return 10;
+            if (netWorth >= thresholds[80]) return 20;
+            if (netWorth >= thresholds[70]) return 30;
+            if (netWorth >= thresholds[50]) return 50;
+            return 70;
+        }
+
+        // Calculate Inflation Impact (show value in 10 years)
+        function calculateInflationImpact(data) {
+            const currentNetWorth = data.netWorth;
+            const inflationRate = 0.06; // 6% annual inflation
+            const years = 10;
+            const futureValue = currentNetWorth / Math.pow(1 + inflationRate, years);
+            return futureValue;
+        }
+
+        // Wealth Transfer Checklist
+        function getWealthTransferChecklist() {
+            return JSON.parse(localStorage.getItem('fintpe_wealth_checklist_' + currentUser) || '[]');
+        }
+
+        function saveWealthTransferChecklist(items) {
+            localStorage.setItem('fintpe_wealth_checklist_' + currentUser, JSON.stringify(items));
+        }
+
+        function getChecklistProgress() {
+            const completed = getWealthTransferChecklist().filter(item => item.completed).length;
+            return completed;
+        }
+
+        // Life Events Data
+        function getLifeEvents() {
+            return JSON.parse(localStorage.getItem('fintpe_life_events_' + currentUser) || '[]');
+        }
+
+        function saveLifeEvents(events) {
+            localStorage.setItem('fintpe_life_events_' + currentUser, JSON.stringify(events));
+        }
+
+        // ========== MODAL FUNCTIONS ==========
+
+        // Financial Runway Modal
+        function openFinancialRunway() {
+            const modal = document.getElementById('serviceModal');
+            const modalBody = document.getElementById('serviceModalBody');
+            const data = getFinancialData();
+            const prefs = getUserFinancialPrefs();
+            const runway = calculateRunway(data);
+            const liquidAssets = data.totalBalance + data.totalInvestments;
+
+            modalBody.innerHTML = `
+                <div class="service-modal-header" style="background: linear-gradient(135deg, #60C681, #4BA968);">
+                    <span class="close-modal" onclick="closeServiceModal()">&times;</span>
+                    <h2 style="color: white; margin: 0;"><i class="fas fa-parachute-box"></i> Financial Runway</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0 0 0;">How long can you survive without income?</p>
+                </div>
+                <div class="service-modal-body">
+                    <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #E8F8ED, #C5F0D4); border-radius: 16px; margin-bottom: 1.5rem;">
+                        <div style="font-size: 4rem; font-weight: 800; color: #60C681;">${runway}</div>
+                        <div style="font-size: 1.2rem; color: #4BA968; font-weight: 600;">Months of Runway</div>
+                        <div style="font-size: 0.9rem; color: #909090; margin-top: 0.5rem;">Based on your current liquid assets and monthly expenses</div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="background: var(--light); padding: 1rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.8rem; color: #909090; margin-bottom: 0.25rem;">Liquid Assets</div>
+                            <div style="font-size: 1.25rem; font-weight: 700; color: #1e3a5f;">${formatCurrency(liquidAssets)}</div>
+                        </div>
+                        <div style="background: var(--light); padding: 1rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.8rem; color: #909090; margin-bottom: 0.25rem;">Monthly Expenses</div>
+                            <div style="font-size: 1.25rem; font-weight: 700; color: #1e3a5f;">${formatCurrency(prefs.monthlyExpenses)}</div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;">
+                        <h4 style="margin: 0 0 1rem 0; color: #1e3a5f;">Update Monthly Expenses</h4>
+                        <div style="margin-bottom: 1rem;">
+                            <input type="range" class="simulator-slider" id="expenseSlider" min="10000" max="500000" step="5000" value="${prefs.monthlyExpenses}" oninput="updateRunwayCalc()">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #909090;">
+                                <span>₹10K</span>
+                                <span id="expenseValue" style="font-weight: 600; color: #1e3a5f;">${formatCurrency(prefs.monthlyExpenses)}</span>
+                                <span>₹5L</span>
+                            </div>
+                        </div>
+                        <div id="updatedRunway" style="text-align: center; padding: 1rem; background: #E8F8ED; border-radius: 8px;">
+                            <span style="color: #60C681; font-weight: 700; font-size: 1.25rem;">${runway} months</span>
+                            <span style="color: #909090;"> runway with this expense</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: #fff7ed; border-radius: 12px; border-left: 4px solid #f59e0b;">
+                        <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                            <i class="fas fa-lightbulb" style="color: #f59e0b; margin-top: 2px;"></i>
+                            <div>
+                                <strong style="color: #1e3a5f;">Recommendation</strong>
+                                <p style="color: #909090; margin: 0.25rem 0 0 0; font-size: 0.9rem;">
+                                    ${runway < 6 ? 'Your runway is low. Aim for at least 6 months of expenses in liquid assets.' :
+                                      runway < 12 ? 'Good start! Try to build up to 12 months for better security.' :
+                                      'Excellent! You have a healthy financial buffer.'}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="saveExpensePrefs()" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">
+                        <i class="fas fa-save"></i> Save Preferences
+                    </button>
+                </div>
+            `;
+            modal.style.display = 'block';
+        }
+
+        function updateRunwayCalc() {
+            const expense = parseInt(document.getElementById('expenseSlider').value);
+            document.getElementById('expenseValue').textContent = formatCurrency(expense);
+            const data = getFinancialData();
+            const liquidAssets = data.totalBalance + data.totalInvestments;
+            const newRunway = Math.floor(liquidAssets / expense);
+            document.getElementById('updatedRunway').innerHTML = `
+                <span style="color: #60C681; font-weight: 700; font-size: 1.25rem;">${newRunway} months</span>
+                <span style="color: #909090;"> runway with this expense</span>
+            `;
+        }
+
+        function saveExpensePrefs() {
+            const expense = parseInt(document.getElementById('expenseSlider').value);
+            const prefs = getUserFinancialPrefs();
+            prefs.monthlyExpenses = expense;
+            saveUserFinancialPrefs(prefs);
+            showSuccessMessage('Preferences saved');
+            closeServiceModal();
+            loadDashboardContent();
+        }
+
+        // Financial Independence Tracker Modal
+        function openFITracker() {
+            const modal = document.getElementById('serviceModal');
+            const modalBody = document.getElementById('serviceModalBody');
+            const data = getFinancialData();
+            const prefs = getUserFinancialPrefs();
+            const progress = calculateFIProgress(data);
+            const annualExpenses = (prefs.monthlyExpenses || 50000) * 12;
+            const fiNumber = annualExpenses * 25;
+            const remaining = Math.max(0, fiNumber - data.netWorth);
+
+            // Calculate years to FI (assuming 12% annual growth)
+            const growthRate = 0.12;
+            const monthlyInvestment = prefs.monthlyExpenses * 0.3; // Assume 30% savings rate
+            let yearsToFI = 0;
+            let projected = data.netWorth;
+            while (projected < fiNumber && yearsToFI < 50) {
+                projected = projected * (1 + growthRate) + (monthlyInvestment * 12);
+                yearsToFI++;
+            }
+
+            modalBody.innerHTML = `
+                <div class="service-modal-header" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                    <span class="close-modal" onclick="closeServiceModal()">&times;</span>
+                    <h2 style="color: white; margin: 0;"><i class="fas fa-flag-checkered"></i> Financial Independence</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0 0 0;">Track your journey to financial freedom</p>
+                </div>
+                <div class="service-modal-body">
+                    <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #f3e8ff, #e9d5ff); border-radius: 16px; margin-bottom: 1.5rem;">
+                        <div class="progress-ring" style="width: 120px; height: 120px; margin: 0 auto 1rem;">
+                            <svg width="120" height="120" viewBox="0 0 120 120" class="progress-ring-circle">
+                                <circle cx="60" cy="60" r="50" class="progress-ring-bg"/>
+                                <circle cx="60" cy="60" r="50" class="progress-ring-fill" style="stroke: #8b5cf6; stroke-dasharray: 314; stroke-dashoffset: ${314 - (progress / 100) * 314};"/>
+                            </svg>
+                            <div class="progress-ring-text" style="font-size: 1.5rem;">${progress}%</div>
+                        </div>
+                        <div style="font-size: 1.1rem; color: #7c3aed; font-weight: 600;">Progress to FI</div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="background: var(--light); padding: 1rem; border-radius: 12px;">
+                            <div style="font-size: 0.8rem; color: #909090; margin-bottom: 0.25rem;">Your FI Number</div>
+                            <div style="font-size: 1.25rem; font-weight: 700; color: #1e3a5f;">${formatCurrency(fiNumber)}</div>
+                            <div style="font-size: 0.75rem; color: #909090;">25x annual expenses</div>
+                        </div>
+                        <div style="background: var(--light); padding: 1rem; border-radius: 12px;">
+                            <div style="font-size: 0.8rem; color: #909090; margin-bottom: 0.25rem;">Current Net Worth</div>
+                            <div style="font-size: 1.25rem; font-weight: 700; color: #60C681;">${formatCurrency(data.netWorth)}</div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-size: 0.9rem; color: #909090;">Still needed</span>
+                            <span style="font-size: 0.9rem; font-weight: 600; color: #1e3a5f;">${formatCurrency(remaining)}</span>
+                        </div>
+                        <div class="comparison-bar">
+                            <div class="comparison-bar-fill" style="width: ${progress}%; background: linear-gradient(90deg, #8b5cf6, #7c3aed);"></div>
+                        </div>
+                    </div>
+
+                    <div style="background: #f3e8ff; padding: 1.25rem; border-radius: 12px; text-align: center;">
+                        <i class="fas fa-rocket" style="font-size: 2rem; color: #8b5cf6; margin-bottom: 0.5rem;"></i>
+                        <div style="font-size: 2rem; font-weight: 800; color: #7c3aed;">${yearsToFI < 50 ? yearsToFI : '50+'}</div>
+                        <div style="color: #909090;">Years to Financial Independence</div>
+                        <div style="font-size: 0.8rem; color: #909090; margin-top: 0.5rem;">Assuming 12% annual returns & 30% savings rate</div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: #e8eef4; border-radius: 12px; border-left: 4px solid #1e3a5f;">
+                        <strong style="color: #1e3a5f;"><i class="fas fa-info-circle"></i> What is FI?</strong>
+                        <p style="color: #909090; margin: 0.5rem 0 0 0; font-size: 0.85rem;">
+                            Financial Independence means having 25x your annual expenses invested. This allows you to withdraw 4% yearly to cover expenses indefinitely.
+                        </p>
+                    </div>
+                </div>
+            `;
+            modal.style.display = 'block';
+        }
+
+        // Diversification Score Modal
+        function openDiversificationScore() {
+            const modal = document.getElementById('serviceModal');
+            const modalBody = document.getElementById('serviceModalBody');
+            const data = getFinancialData();
+            const score = calculateDiversification(data);
+            const total = data.totalAssets;
+
+            const allocations = [
+                { name: 'Cash & Bank', value: data.totalBalance, color: '#3b82f6', icon: 'fa-wallet' },
+                { name: 'Investments', value: data.totalInvestments, color: '#60C681', icon: 'fa-chart-line' },
+                { name: 'Real Estate', value: data.realEstateValue, color: '#f59e0b', icon: 'fa-home' },
+                { name: 'Gold', value: data.goldValue, color: '#fbbf24', icon: 'fa-coins' },
+                { name: 'ESOPs', value: data.esopsValue, color: '#8b5cf6', icon: 'fa-briefcase' }
+            ].filter(a => a.value > 0);
+
+            modalBody.innerHTML = `
+                <div class="service-modal-header" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
+                    <span class="close-modal" onclick="closeServiceModal()">&times;</span>
+                    <h2 style="color: white; margin: 0;"><i class="fas fa-chart-pie"></i> Diversification Score</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0 0 0;">How well-balanced is your portfolio?</p>
+                </div>
+                <div class="service-modal-body">
+                    <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #eff6ff, #dbeafe); border-radius: 16px; margin-bottom: 1.5rem;">
+                        <div style="font-size: 4rem; font-weight: 800; color: ${score >= 70 ? '#60C681' : score >= 40 ? '#f59e0b' : '#ef4444'};">${score}</div>
+                        <div style="font-size: 1.2rem; color: #1e3a5f; font-weight: 600;">/100 Diversification Score</div>
+                        <div style="font-size: 0.9rem; color: #909090; margin-top: 0.5rem;">
+                            ${score >= 70 ? 'Well diversified!' : score >= 40 ? 'Room for improvement' : 'Needs attention'}
+                        </div>
+                    </div>
+
+                    <h4 style="margin: 0 0 1rem 0; color: #1e3a5f;">Asset Allocation</h4>
+                    ${allocations.map(a => `
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas ${a.icon}" style="color: ${a.color};"></i>
+                                    <span style="font-weight: 500; color: #1e3a5f;">${a.name}</span>
+                                </div>
+                                <span style="font-weight: 600; color: #1e3a5f;">${total > 0 ? Math.round((a.value / total) * 100) : 0}%</span>
+                            </div>
+                            <div class="comparison-bar">
+                                <div class="comparison-bar-fill" style="width: ${total > 0 ? (a.value / total) * 100 : 0}%; background: ${a.color};"></div>
+                            </div>
+                        </div>
+                    `).join('')}
+
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: ${score < 50 ? '#fef2f2' : '#E8F8ED'}; border-radius: 12px; border-left: 4px solid ${score < 50 ? '#ef4444' : '#60C681'};">
+                        <strong style="color: #1e3a5f;"><i class="fas ${score < 50 ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i> Analysis</strong>
+                        <p style="color: #909090; margin: 0.5rem 0 0 0; font-size: 0.85rem;">
+                            ${allocations.length < 3 ? 'Consider diversifying into more asset classes for better risk management.' :
+                              allocations.some(a => (a.value / total) > 0.5) ? 'One asset class dominates your portfolio. Consider rebalancing.' :
+                              'Good mix of assets! Continue monitoring your allocation.'}
+                        </p>
+                    </div>
+                </div>
+            `;
+            modal.style.display = 'block';
+        }
+
+        // Net Worth Comparison Modal
+        function openNetWorthComparison() {
+            const modal = document.getElementById('serviceModal');
+            const modalBody = document.getElementById('serviceModalBody');
+            const data = getFinancialData();
+            const prefs = getUserFinancialPrefs();
+            const percentile = calculatePercentile(data);
+
+            modalBody.innerHTML = `
+                <div class="service-modal-header" style="background: linear-gradient(135deg, #14b8a6, #0d9488);">
+                    <span class="close-modal" onclick="closeServiceModal()">&times;</span>
+                    <h2 style="color: white; margin: 0;"><i class="fas fa-users"></i> Net Worth Comparison</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0 0 0;">Anonymous benchmarking for your age group</p>
+                </div>
+                <div class="service-modal-body">
+                    <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #f0fdfa, #ccfbf1); border-radius: 16px; margin-bottom: 1.5rem;">
+                        <div style="font-size: 1rem; color: #909090; margin-bottom: 0.5rem;">You are in the</div>
+                        <div style="font-size: 4rem; font-weight: 800; color: #14b8a6;">Top ${percentile}%</div>
+                        <div style="font-size: 1rem; color: #0d9488; font-weight: 600;">for age ${prefs.age || 30} in India</div>
+                    </div>
+
+                    <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
+                        <h4 style="margin: 0 0 1rem 0; color: #1e3a5f;">Set Your Age</h4>
+                        <input type="range" class="simulator-slider" id="ageSlider" min="20" max="60" value="${prefs.age || 30}" oninput="updatePercentile()">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #909090;">
+                            <span>20</span>
+                            <span id="ageValue" style="font-weight: 600; color: #1e3a5f;">${prefs.age || 30} years</span>
+                            <span>60</span>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--light); padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                        <div style="font-size: 0.85rem; color: #909090; margin-bottom: 0.75rem;">Your position in the wealth distribution</div>
+                        <div style="position: relative; height: 40px; background: linear-gradient(90deg, #ef4444 0%, #f59e0b 30%, #60C681 70%, #14b8a6 100%); border-radius: 8px;">
+                            <div id="percentileMarker" style="position: absolute; top: -8px; left: ${100 - percentile}%; transform: translateX(-50%);">
+                                <div style="width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 10px solid #1e3a5f;"></div>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: #909090; margin-top: 0.5rem;">
+                            <span>Lower</span>
+                            <span>Average</span>
+                            <span>Higher</span>
+                        </div>
+                    </div>
+
+                    <div style="padding: 1rem; background: #e8eef4; border-radius: 12px;">
+                        <strong style="color: #1e3a5f;"><i class="fas fa-lock"></i> 100% Anonymous</strong>
+                        <p style="color: #909090; margin: 0.5rem 0 0 0; font-size: 0.85rem;">
+                            This comparison uses general wealth distribution data for India. No personal data is shared or collected.
+                        </p>
+                    </div>
+
+                    <button onclick="saveAgePrefs()" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">
+                        <i class="fas fa-save"></i> Save Age
+                    </button>
+                </div>
+            `;
+            modal.style.display = 'block';
+        }
+
+        function updatePercentile() {
+            const age = parseInt(document.getElementById('ageSlider').value);
+            document.getElementById('ageValue').textContent = age + ' years';
+            const prefs = getUserFinancialPrefs();
+            prefs.age = age;
+            const data = getFinancialData();
+            const percentile = calculatePercentile({ ...data, age });
+            document.getElementById('percentileMarker').style.left = (100 - percentile) + '%';
+        }
+
+        function saveAgePrefs() {
+            const age = parseInt(document.getElementById('ageSlider').value);
+            const prefs = getUserFinancialPrefs();
+            prefs.age = age;
+            saveUserFinancialPrefs(prefs);
+            showSuccessMessage('Age saved');
+            closeServiceModal();
+            loadDashboardContent();
+        }
+
+        // What If Simulator Modal
+        function openWhatIfSimulator() {
+            const modal = document.getElementById('serviceModal');
+            const modalBody = document.getElementById('serviceModalBody');
+            const data = getFinancialData();
+
+            modalBody.innerHTML = `
+                <div class="service-modal-header" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                    <span class="close-modal" onclick="closeServiceModal()">&times;</span>
+                    <h2 style="color: white; margin: 0;"><i class="fas fa-magic"></i> What If Simulator</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0 0 0;">Explore financial scenarios</p>
+                </div>
+                <div class="service-modal-body">
+                    <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;">
+                        <h4 style="margin: 0 0 1rem 0; color: #1e3a5f;"><i class="fas fa-chart-line" style="color: #60C681;"></i> Investment Projection</h4>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label style="font-size: 0.85rem; color: #909090;">Monthly Investment</label>
+                            <input type="range" class="simulator-slider" id="investSlider" min="1000" max="100000" step="1000" value="10000" oninput="updateWhatIf()">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #909090;">
+                                <span>₹1K</span>
+                                <span id="investValue" style="font-weight: 600; color: #1e3a5f;">₹10,000/mo</span>
+                                <span>₹1L</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label style="font-size: 0.85rem; color: #909090;">Investment Period</label>
+                            <input type="range" class="simulator-slider" id="yearsSlider" min="1" max="30" value="10" oninput="updateWhatIf()">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #909090;">
+                                <span>1 yr</span>
+                                <span id="yearsValue" style="font-weight: 600; color: #1e3a5f;">10 years</span>
+                                <span>30 yrs</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label style="font-size: 0.85rem; color: #909090;">Expected Return</label>
+                            <input type="range" class="simulator-slider" id="returnSlider" min="6" max="18" value="12" oninput="updateWhatIf()">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #909090;">
+                                <span>6%</span>
+                                <span id="returnValue" style="font-weight: 600; color: #1e3a5f;">12% p.a.</span>
+                                <span>18%</span>
+                            </div>
+                        </div>
+
+                        <div id="investmentResult" style="background: linear-gradient(135deg, #E8F8ED, #C5F0D4); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.9rem; color: #909090;">Your investment will grow to</div>
+                            <div style="font-size: 2.5rem; font-weight: 800; color: #60C681;" id="futureValue">₹23,23,391</div>
+                            <div style="font-size: 0.85rem; color: #4BA968;">
+                                <span id="investedAmount">Invested: ₹12,00,000</span> •
+                                <span id="wealthGained">Gained: ₹11,23,391</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem;">
+                        <h4 style="margin: 0 0 1rem 0; color: #1e3a5f;"><i class="fas fa-home" style="color: #ef4444;"></i> Loan Payoff Projection</h4>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label style="font-size: 0.85rem; color: #909090;">Current Loan Balance</label>
+                            <input type="number" id="loanBalance" value="${data.totalLoans || 500000}" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem;" oninput="updateLoanPayoff()">
+                        </div>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label style="font-size: 0.85rem; color: #909090;">Extra Monthly Payment</label>
+                            <input type="range" class="simulator-slider" id="extraPaySlider" min="0" max="50000" step="1000" value="5000" oninput="updateLoanPayoff()">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #909090;">
+                                <span>₹0</span>
+                                <span id="extraPayValue" style="font-weight: 600; color: #1e3a5f;">₹5,000/mo extra</span>
+                                <span>₹50K</span>
+                            </div>
+                        </div>
+
+                        <div id="loanResult" style="background: #fef2f2; padding: 1rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.9rem; color: #909090;">Time saved on loan payoff</div>
+                            <div style="font-size: 2rem; font-weight: 700; color: #ef4444;" id="timeSaved">2.5 years</div>
+                            <div style="font-size: 0.85rem; color: #909090;" id="interestSaved">Interest saved: ₹45,000</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            modal.style.display = 'block';
+            updateWhatIf();
+            updateLoanPayoff();
+        }
+
+        function updateWhatIf() {
+            const monthly = parseInt(document.getElementById('investSlider').value);
+            const years = parseInt(document.getElementById('yearsSlider').value);
+            const rate = parseInt(document.getElementById('returnSlider').value) / 100;
+
+            document.getElementById('investValue').textContent = formatCurrency(monthly) + '/mo';
+            document.getElementById('yearsValue').textContent = years + ' years';
+            document.getElementById('returnValue').textContent = (rate * 100) + '% p.a.';
+
+            // SIP Future Value formula
+            const months = years * 12;
+            const monthlyRate = rate / 12;
+            const futureValue = monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
+            const invested = monthly * months;
+            const gained = futureValue - invested;
+
+            document.getElementById('futureValue').textContent = formatCurrency(Math.round(futureValue));
+            document.getElementById('investedAmount').textContent = 'Invested: ' + formatCurrency(invested);
+            document.getElementById('wealthGained').textContent = 'Gained: ' + formatCurrency(Math.round(gained));
+        }
+
+        function updateLoanPayoff() {
+            const balance = parseInt(document.getElementById('loanBalance').value) || 0;
+            const extraPay = parseInt(document.getElementById('extraPaySlider').value);
+
+            document.getElementById('extraPayValue').textContent = formatCurrency(extraPay) + '/mo extra';
+
+            // Simplified calculation (assuming 10% interest, 20 year loan)
+            const interestRate = 0.10 / 12;
+            const normalEMI = 5000; // Simplified
+            const newEMI = normalEMI + extraPay;
+
+            if (extraPay > 0 && balance > 0) {
+                const normalMonths = balance > 0 ? Math.ceil(balance / normalEMI) : 0;
+                const newMonths = balance > 0 ? Math.ceil(balance / newEMI) : 0;
+                const monthsSaved = normalMonths - newMonths;
+                const yearsSaved = (monthsSaved / 12).toFixed(1);
+                const interestSaved = monthsSaved * normalEMI * 0.4; // Rough estimate
+
+                document.getElementById('timeSaved').textContent = yearsSaved + ' years';
+                document.getElementById('interestSaved').textContent = 'Interest saved: ~' + formatCurrency(Math.round(interestSaved));
+            } else {
+                document.getElementById('timeSaved').textContent = '0 years';
+                document.getElementById('interestSaved').textContent = 'Add extra payments to save time';
+            }
+        }
+
+        // Inflation Calculator Modal
+        function openInflationCalculator() {
+            const modal = document.getElementById('serviceModal');
+            const modalBody = document.getElementById('serviceModalBody');
+            const data = getFinancialData();
+
+            modalBody.innerHTML = `
+                <div class="service-modal-header" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                    <span class="close-modal" onclick="closeServiceModal()">&times;</span>
+                    <h2 style="color: white; margin: 0;"><i class="fas fa-fire-alt"></i> Inflation Impact</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0 0 0;">See the real value of your money over time</p>
+                </div>
+                <div class="service-modal-body">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="background: var(--light); padding: 1.25rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.85rem; color: #909090; margin-bottom: 0.5rem;">Today's Value</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: #1e3a5f;">${formatCurrency(data.netWorth)}</div>
+                        </div>
+                        <div style="background: #fef2f2; padding: 1.25rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.85rem; color: #909090; margin-bottom: 0.5rem;">Real Value in 10 Years</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: #ef4444;" id="inflatedValue">${formatCurrency(calculateInflationImpact(data))}</div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
+                        <h4 style="margin: 0 0 1rem 0; color: #1e3a5f;">Adjust Parameters</h4>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label style="font-size: 0.85rem; color: #909090;">Inflation Rate</label>
+                            <input type="range" class="simulator-slider" id="inflationSlider" min="3" max="10" step="0.5" value="6" oninput="updateInflation()">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #909090;">
+                                <span>3%</span>
+                                <span id="inflationRate" style="font-weight: 600; color: #ef4444;">6% p.a.</span>
+                                <span>10%</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label style="font-size: 0.85rem; color: #909090;">Time Period</label>
+                            <input type="range" class="simulator-slider" id="inflationYears" min="5" max="30" value="10" oninput="updateInflation()">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #909090;">
+                                <span>5 yrs</span>
+                                <span id="inflationPeriod" style="font-weight: 600; color: #1e3a5f;">10 years</span>
+                                <span>30 yrs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #fff7ed; padding: 1.25rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                        <div style="text-align: center; margin-bottom: 1rem;">
+                            <div style="font-size: 0.9rem; color: #909090;">Purchasing Power Lost</div>
+                            <div style="font-size: 2.5rem; font-weight: 800; color: #f59e0b;" id="purchasingPowerLost">45%</div>
+                        </div>
+                        <div style="font-size: 0.85rem; color: #909090; text-align: center;">
+                            What costs ₹100 today will cost <strong id="futureCost">₹179</strong> in <span id="yearSpan">10</span> years
+                        </div>
+                    </div>
+
+                    <div style="padding: 1rem; background: #e8eef4; border-radius: 12px;">
+                        <strong style="color: #1e3a5f;"><i class="fas fa-lightbulb"></i> Beat Inflation</strong>
+                        <p style="color: #909090; margin: 0.5rem 0 0 0; font-size: 0.85rem;">
+                            To maintain purchasing power, your investments need to earn more than the inflation rate. Consider equity investments for long-term wealth preservation.
+                        </p>
+                    </div>
+                </div>
+            `;
+            modal.style.display = 'block';
+            updateInflation();
+        }
+
+        function updateInflation() {
+            const rate = parseFloat(document.getElementById('inflationSlider').value) / 100;
+            const years = parseInt(document.getElementById('inflationYears').value);
+            const data = getFinancialData();
+
+            document.getElementById('inflationRate').textContent = (rate * 100).toFixed(1) + '% p.a.';
+            document.getElementById('inflationPeriod').textContent = years + ' years';
+            document.getElementById('yearSpan').textContent = years;
+
+            const realValue = data.netWorth / Math.pow(1 + rate, years);
+            const futureCost = 100 * Math.pow(1 + rate, years);
+            const powerLost = Math.round((1 - (realValue / data.netWorth)) * 100);
+
+            document.getElementById('inflatedValue').textContent = formatCurrency(Math.round(realValue));
+            document.getElementById('futureCost').textContent = '₹' + Math.round(futureCost);
+            document.getElementById('purchasingPowerLost').textContent = powerLost + '%';
+        }
+
+        // Life Event Planner Modal
+        function openLifeEventPlanner() {
+            const modal = document.getElementById('serviceModal');
+            const modalBody = document.getElementById('serviceModalBody');
+            const events = getLifeEvents();
+
+            const defaultEvents = [
+                { id: 'marriage', name: 'Marriage', icon: 'fa-ring', color: '#ec4899', targetAmount: 1500000, savedAmount: 0, targetDate: '', enabled: false },
+                { id: 'house', name: 'Buy House', icon: 'fa-home', color: '#f59e0b', targetAmount: 5000000, savedAmount: 0, targetDate: '', enabled: false },
+                { id: 'car', name: 'Buy Car', icon: 'fa-car', color: '#3b82f6', targetAmount: 1000000, savedAmount: 0, targetDate: '', enabled: false },
+                { id: 'child', name: 'Child Education', icon: 'fa-graduation-cap', color: '#8b5cf6', targetAmount: 3000000, savedAmount: 0, targetDate: '', enabled: false },
+                { id: 'retirement', name: 'Retirement', icon: 'fa-umbrella-beach', color: '#14b8a6', targetAmount: 20000000, savedAmount: 0, targetDate: '', enabled: false },
+                { id: 'vacation', name: 'Dream Vacation', icon: 'fa-plane', color: '#60C681', targetAmount: 500000, savedAmount: 0, targetDate: '', enabled: false }
+            ];
+
+            const mergedEvents = defaultEvents.map(de => {
+                const saved = events.find(e => e.id === de.id);
+                return saved ? { ...de, ...saved } : de;
+            });
+
+            modalBody.innerHTML = `
+                <div class="service-modal-header" style="background: linear-gradient(135deg, #ec4899, #db2777);">
+                    <span class="close-modal" onclick="closeServiceModal()">&times;</span>
+                    <h2 style="color: white; margin: 0;"><i class="fas fa-heart"></i> Life Event Planner</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0 0 0;">Plan and save for life's big moments</p>
+                </div>
+                <div class="service-modal-body">
+                    <div id="lifeEventsList">
+                        ${mergedEvents.map(event => `
+                            <div class="life-event-card" onclick="editLifeEvent('${event.id}')">
+                                <div class="life-event-header">
+                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                        <div class="life-event-icon" style="background: ${event.color}20; color: ${event.color};">
+                                            <i class="fas ${event.icon}"></i>
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 600; color: #1e3a5f;">${event.name}</div>
+                                            <div style="font-size: 0.8rem; color: #909090;">Target: ${formatCurrency(event.targetAmount)}</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="font-weight: 600; color: ${event.color};">${Math.round((event.savedAmount / event.targetAmount) * 100)}%</div>
+                                        <div style="font-size: 0.75rem; color: #909090;">${formatCurrency(event.savedAmount)}</div>
+                                    </div>
+                                </div>
+                                <div class="life-event-progress">
+                                    <div class="life-event-progress-fill" style="width: ${Math.min(100, (event.savedAmount / event.targetAmount) * 100)}%; background: ${event.color};"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <button onclick="addCustomLifeEvent()" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">
+                        <i class="fas fa-plus"></i> Add Custom Goal
+                    </button>
+                </div>
+            `;
+            modal.style.display = 'block';
+        }
+
+        function editLifeEvent(eventId) {
+            const events = getLifeEvents();
+            const event = events.find(e => e.id === eventId) || { id: eventId, targetAmount: 1000000, savedAmount: 0 };
+
+            const modalBody = document.getElementById('serviceModalBody');
+            modalBody.innerHTML = `
+                <div class="service-modal-header" style="background: linear-gradient(135deg, #ec4899, #db2777);">
+                    <span class="close-modal" onclick="closeServiceModal()">&times;</span>
+                    <h2 style="color: white; margin: 0;"><i class="fas fa-edit"></i> Edit Goal</h2>
+                </div>
+                <div class="service-modal-body">
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #1e3a5f;">Target Amount</label>
+                        <input type="number" id="eventTarget" value="${event.targetAmount}"
+                            style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem;">
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #1e3a5f;">Amount Saved</label>
+                        <input type="number" id="eventSaved" value="${event.savedAmount}"
+                            style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem;">
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #1e3a5f;">Target Date (optional)</label>
+                        <input type="date" id="eventDate" value="${event.targetDate || ''}"
+                            style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem;">
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button onclick="openLifeEventPlanner()" class="btn btn-secondary" style="flex: 1;">Cancel</button>
+                        <button onclick="saveLifeEvent('${eventId}')" class="btn btn-primary" style="flex: 1;"><i class="fas fa-save"></i> Save</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function saveLifeEvent(eventId) {
+            const events = getLifeEvents();
+            const existingIndex = events.findIndex(e => e.id === eventId);
+            const eventData = {
+                id: eventId,
+                targetAmount: parseInt(document.getElementById('eventTarget').value) || 0,
+                savedAmount: parseInt(document.getElementById('eventSaved').value) || 0,
+                targetDate: document.getElementById('eventDate').value
+            };
+
+            if (existingIndex >= 0) {
+                events[existingIndex] = { ...events[existingIndex], ...eventData };
+            } else {
+                events.push(eventData);
+            }
+
+            saveLifeEvents(events);
+            showSuccessMessage('Goal saved');
+            openLifeEventPlanner();
+        }
+
+        // Wealth Transfer Checklist Modal
+        function openWealthTransferChecklist() {
+            const modal = document.getElementById('serviceModal');
+            const modalBody = document.getElementById('serviceModalBody');
+            let checklist = getWealthTransferChecklist();
+
+            const defaultItems = [
+                { id: 1, text: 'Write a will', category: 'legal' },
+                { id: 2, text: 'Update nominee in all bank accounts', category: 'accounts' },
+                { id: 3, text: 'Update nominee in investment accounts (MF, Stocks)', category: 'accounts' },
+                { id: 4, text: 'Update nominee in insurance policies', category: 'insurance' },
+                { id: 5, text: 'Document all account passwords securely', category: 'digital' },
+                { id: 6, text: 'Create list of all assets and liabilities', category: 'documentation' },
+                { id: 7, text: 'Inform trusted family member about finances', category: 'communication' },
+                { id: 8, text: 'Update nominee in PPF/EPF accounts', category: 'accounts' },
+                { id: 9, text: 'Review and update life insurance coverage', category: 'insurance' },
+                { id: 10, text: 'Set up joint account with spouse', category: 'accounts' },
+                { id: 11, text: 'Document property papers location', category: 'documentation' },
+                { id: 12, text: 'Create emergency fund access plan', category: 'planning' }
+            ];
+
+            if (checklist.length === 0) {
+                checklist = defaultItems.map(item => ({ ...item, completed: false }));
+                saveWealthTransferChecklist(checklist);
+            }
+
+            const completed = checklist.filter(i => i.completed).length;
+            const total = checklist.length;
+            const progress = Math.round((completed / total) * 100);
+
+            modalBody.innerHTML = `
+                <div class="service-modal-header" style="background: linear-gradient(135deg, #1e3a5f, #152a45);">
+                    <span class="close-modal" onclick="closeServiceModal()">&times;</span>
+                    <h2 style="color: white; margin: 0;"><i class="fas fa-file-signature"></i> Wealth Transfer Checklist</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0 0 0;">Ensure your legacy is protected</p>
+                </div>
+                <div class="service-modal-body">
+                    <div style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, #e8eef4, #d1dce8); border-radius: 16px; margin-bottom: 1.5rem;">
+                        <div class="progress-ring" style="width: 100px; height: 100px; margin: 0 auto 1rem;">
+                            <svg width="100" height="100" viewBox="0 0 100 100" class="progress-ring-circle">
+                                <circle cx="50" cy="50" r="40" class="progress-ring-bg"/>
+                                <circle cx="50" cy="50" r="40" class="progress-ring-fill" style="stroke: #60C681; stroke-dasharray: 251; stroke-dashoffset: ${251 - (progress / 100) * 251};"/>
+                            </svg>
+                            <div class="progress-ring-text" style="font-size: 1.25rem;">${completed}/${total}</div>
+                        </div>
+                        <div style="font-size: 1rem; color: #1e3a5f; font-weight: 600;">${progress}% Complete</div>
+                    </div>
+
+                    <div id="checklistItems">
+                        ${checklist.map(item => `
+                            <div class="checklist-item ${item.completed ? 'completed' : ''}" onclick="toggleChecklistItem(${item.id})">
+                                <div class="checklist-checkbox">
+                                    ${item.completed ? '<i class="fas fa-check"></i>' : ''}
+                                </div>
+                                <span class="checklist-text">${item.text}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: #E8F8ED; border-radius: 12px; border-left: 4px solid #60C681;">
+                        <strong style="color: #1e3a5f;"><i class="fas fa-shield-alt"></i> Why This Matters</strong>
+                        <p style="color: #909090; margin: 0.5rem 0 0 0; font-size: 0.85rem;">
+                            Having your financial affairs in order ensures your family can access funds during emergencies and your wealth is transferred as per your wishes.
+                        </p>
+                    </div>
+                </div>
+            `;
+            modal.style.display = 'block';
+        }
+
+        function toggleChecklistItem(itemId) {
+            const checklist = getWealthTransferChecklist();
+            const item = checklist.find(i => i.id === itemId);
+            if (item) {
+                item.completed = !item.completed;
+                saveWealthTransferChecklist(checklist);
+                openWealthTransferChecklist();
+                loadDashboardContent();
+            }
+        }
+
+        function addCustomLifeEvent() {
+            // Simplified - just show alert for now
+            alert('Custom goal feature coming soon!');
         }
 
         function renderDonutChart(data) {
