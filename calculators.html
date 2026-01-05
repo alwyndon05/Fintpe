@@ -6,14 +6,16 @@
     <title>Financial Calculators - Fintpe | SIP, EMI, FD, PPF Calculator</title>
     <meta name="description" content="Free financial calculators for SIP, EMI, FD, PPF, and more. Plan your investments and loans with easy-to-use tools.">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #1e3a5f;
             --primary-light: #2d4a6f;
-            --success: #10b981;
+            --success: #60C681;
+            --success-dark: #4BA968;
             --text-primary: #1e3a5f;
-            --text-secondary: #424242;
-            --text-muted: #6b7280;
+            --text-secondary: #909090;
+            --text-muted: #909090;
             --border: #e5e7eb;
             --bg-light: #f8fafc;
             --white: #ffffff;
@@ -26,7 +28,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: "Manrope", Arial, "Helvetica Neue", Helvetica, sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
             background: var(--bg-light);
@@ -341,7 +343,7 @@
         }
 
         .result-highlight {
-            background: linear-gradient(135deg, var(--success), #059669);
+            background: linear-gradient(135deg, var(--success), #4BA968);
             color: white;
             padding: 1rem;
             border-radius: 10px;
@@ -908,7 +910,7 @@
                                 <div style="font-size: 1.25rem; font-weight: 700; color: var(--primary);" id="tax-old">₹1,17,000</div>
                                 <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem;">Taxable: <span id="tax-old-taxable">₹10,50,000</span></div>
                             </div>
-                            <div style="background: linear-gradient(135deg, var(--success), #059669); border-radius: 10px; padding: 1rem; text-align: center; color: white;">
+                            <div style="background: linear-gradient(135deg, var(--success), #4BA968); border-radius: 10px; padding: 1rem; text-align: center; color: white;">
                                 <div style="font-size: 0.75rem; opacity: 0.9; margin-bottom: 0.5rem;">New Regime Tax</div>
                                 <div style="font-size: 1.25rem; font-weight: 700;" id="tax-new">₹93,600</div>
                                 <div style="font-size: 0.7rem; opacity: 0.8; margin-top: 0.25rem;">Taxable: <span id="tax-new-taxable">₹12,00,000</span></div>
@@ -968,7 +970,7 @@
             // Returns (green)
             ctx.beginPath();
             ctx.arc(centerX, centerY, radius, -Math.PI / 2, -Math.PI / 2 + 2 * Math.PI);
-            ctx.strokeStyle = '#10b981';
+            ctx.strokeStyle = '#60C681';
             ctx.lineWidth = lineWidth;
             ctx.stroke();
 
@@ -1199,7 +1201,7 @@
             const recommendation = document.getElementById('tax-recommendation');
             if (taxNew < taxOld) {
                 recommendation.innerHTML = '<div class="label">Recommendation</div><div class="value" style="font-size: 1rem;">New Regime saves ' + formatFullCurrency(savings) + '</div>';
-                recommendation.style.background = 'linear-gradient(135deg, var(--success), #059669)';
+                recommendation.style.background = 'linear-gradient(135deg, var(--success), #4BA968)';
             } else if (taxOld < taxNew) {
                 recommendation.innerHTML = '<div class="label">Recommendation</div><div class="value" style="font-size: 1rem;">Old Regime saves ' + formatFullCurrency(savings) + '</div>';
                 recommendation.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
