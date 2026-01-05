@@ -878,10 +878,22 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 0.5rem;
+            gap: 0.25rem;
             align-items: center;
-            margin: 0;
+            margin: 0 0 0 auto;
             padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none !important;
+            }
+            #userMenuContainer {
+                display: none !important;
+            }
+            #loginBtnContainer {
+                display: none !important;
+            }
         }
 
         .nav-links li {
@@ -1071,6 +1083,76 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 1px solid var(--border);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            max-height: calc(100vh - 70px);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu-links {
+            padding: 1rem;
+        }
+
+        .mobile-menu-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .mobile-menu-links a:hover {
+            background: var(--light);
+        }
+
+        .mobile-menu-links a i {
+            width: 20px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .mobile-menu-links a.danger {
+            color: #ef4444;
+        }
+
+        .mobile-menu-links a.danger i {
+            color: #ef4444;
+        }
+
+        .mobile-menu-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+            }
         }
 
         /* ========== CLEAN WHITE HERO ========== */
@@ -4023,7 +4105,6 @@
             <!-- Main Nav Links (visible when logged in) -->
             <ul class="nav-links" id="mainNavLinks" style="display: none;">
                 <li><a href="#" class="nav-link active" onclick="loadDashboard()" id="navDashboard">Dashboard</a></li>
-                <li><a href="#" class="nav-link" onclick="openInsightsSection()" id="navInsights">Insights</a></li>
                 <li class="nav-dropdown">
                     <a href="#" class="nav-link" id="navTools">Tools <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 4px;"></i></a>
                     <div class="nav-dropdown-menu">
@@ -4031,6 +4112,8 @@
                         <a href="#" onclick="openWhatIfSimulator()"><i class="fas fa-magic"></i> What If Simulator</a>
                         <a href="#" onclick="openInflationCalculator()"><i class="fas fa-fire-alt"></i> Inflation Calculator</a>
                         <a href="#" onclick="openDiversificationScore()"><i class="fas fa-chart-pie"></i> Diversification Score</a>
+                        <a href="#" onclick="openLifeEventPlanner()"><i class="fas fa-bullseye"></i> Goals</a>
+                        <a href="#" onclick="openWealthTransferChecklist()"><i class="fas fa-file-signature"></i> Wealth Transfer</a>
                     </div>
                 </li>
                 <li><a href="#" class="nav-link" onclick="openCalculators()" id="navCalculators">Calculators</a></li>
@@ -4068,7 +4151,29 @@
                     </div>
                 </li>
             </ul>
-            <button class="mobile-toggle" id="mobile-toggle">
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu" id="mobileMenu">
+                <!-- Login option (visible when not logged in) -->
+                <div class="mobile-menu-links" id="mobileLoginLink">
+                    <a href="#" onclick="loadPage('login'); closeMobileMenu();"><i class="fas fa-sign-in-alt"></i> Sign In / Join Waitlist</a>
+                </div>
+                <!-- Nav links (visible when logged in) -->
+                <div class="mobile-menu-links" id="mobileNavLinks" style="display: none;">
+                    <a href="#" onclick="loadDashboard(); closeMobileMenu();"><i class="fas fa-chart-pie"></i> Dashboard</a>
+                    <a href="#" onclick="openRateChart(); closeMobileMenu();"><i class="fas fa-chart-bar"></i> Rate Chart</a>
+                    <a href="#" onclick="openWhatIfSimulator(); closeMobileMenu();"><i class="fas fa-magic"></i> What If Simulator</a>
+                    <a href="#" onclick="openLifeEventPlanner(); closeMobileMenu();"><i class="fas fa-bullseye"></i> Goals</a>
+                    <a href="#" onclick="openCalculators(); closeMobileMenu();"><i class="fas fa-calculator"></i> Calculators</a>
+                    <a href="#" onclick="openEvents(); closeMobileMenu();"><i class="fas fa-calendar-alt"></i> Events</a>
+                    <div class="mobile-menu-divider"></div>
+                    <a href="#" onclick="loadPage('account'); closeMobileMenu();"><i class="fas fa-user"></i> My Profile</a>
+                    <a href="#" onclick="openSupport(); closeMobileMenu();"><i class="fas fa-headset"></i> Support</a>
+                    <a href="#" class="danger" onclick="logout(); closeMobileMenu();"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+
+            <button class="mobile-toggle" id="mobile-toggle" onclick="toggleMobileMenu()">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -4740,6 +4845,8 @@
             const loginBtnContainer = document.getElementById('loginBtnContainer');
             const userMenuContainer = document.getElementById('userMenuContainer');
             const mainNavLinks = document.getElementById('mainNavLinks');
+            const mobileNavLinks = document.getElementById('mobileNavLinks');
+            const mobileLoginLink = document.getElementById('mobileLoginLink');
             const userMenuName = document.getElementById('userMenuName');
             const profile = getUserProfile();
 
@@ -4751,6 +4858,12 @@
             }
             if (mainNavLinks) {
                 mainNavLinks.style.display = 'flex';
+            }
+            if (mobileNavLinks) {
+                mobileNavLinks.style.display = 'block';
+            }
+            if (mobileLoginLink) {
+                mobileLoginLink.style.display = 'none';
             }
             if (userMenuName && profile?.name) {
                 userMenuName.textContent = profile.name.split(' ')[0];
@@ -4767,6 +4880,8 @@
             const loginBtnContainer = document.getElementById('loginBtnContainer');
             const userMenuContainer = document.getElementById('userMenuContainer');
             const mainNavLinks = document.getElementById('mainNavLinks');
+            const mobileNavLinks = document.getElementById('mobileNavLinks');
+            const mobileLoginLink = document.getElementById('mobileLoginLink');
 
             if (loginBtnContainer) {
                 loginBtnContainer.style.display = 'block';
@@ -4777,6 +4892,15 @@
             if (mainNavLinks) {
                 mainNavLinks.style.display = 'none';
             }
+            if (mobileNavLinks) {
+                mobileNavLinks.style.display = 'none';
+            }
+            if (mobileLoginLink) {
+                mobileLoginLink.style.display = 'block';
+            }
+
+            // Close mobile menu if open
+            closeMobileMenu();
 
             loadPage('landing');
             showMessage('You have been logged out', 'info');
@@ -4790,6 +4914,22 @@
             const activeLink = document.getElementById(linkId);
             if (activeLink) {
                 activeLink.classList.add('active');
+            }
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('active');
+            }
+        }
+
+        // Close mobile menu
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) {
+                mobileMenu.classList.remove('active');
             }
         }
 
@@ -5102,126 +5242,6 @@
                                         <div style="display: flex; justify-content: space-between; align-items: center;">
                                             <h4 style="margin: 0; color: #1e3a5f;"><i class="fas fa-calendar-alt" style="margin-right: 0.5rem; color: var(--primary);"></i>Upcoming Events</h4>
                                             <span style="color: #909090; font-size: 0.85rem;">View all <i class="fas fa-chevron-right"></i></span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Financial Insights Section -->
-                                    <div style="margin-top: 2rem;">
-                                        <h4 style="margin: 0 0 1rem 0; color: #1e3a5f; font-size: 1rem;">
-                                            <i class="fas fa-lightbulb" style="margin-right: 0.5rem; color: #f59e0b;"></i>Financial Insights
-                                        </h4>
-                                        <div class="insights-grid">
-                                            <!-- Financial Runway -->
-                                            <div class="insight-widget green" onclick="openFinancialRunway()">
-                                                <div class="insight-widget-header">
-                                                    <div class="insight-widget-icon green">
-                                                        <i class="fas fa-parachute-box"></i>
-                                                    </div>
-                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
-                                                </div>
-                                                <div class="insight-widget-title">Financial Runway</div>
-                                                <div class="insight-widget-value" id="runwayMonths">${calculateRunway(financialData)} months</div>
-                                                <div class="insight-widget-subtitle">If income stops today</div>
-                                            </div>
-
-                                            <!-- FI Tracker -->
-                                            <div class="insight-widget purple" onclick="openFITracker()">
-                                                <div class="insight-widget-header">
-                                                    <div class="insight-widget-icon purple">
-                                                        <i class="fas fa-flag-checkered"></i>
-                                                    </div>
-                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
-                                                </div>
-                                                <div class="insight-widget-title">Financial Independence</div>
-                                                <div class="insight-widget-value" id="fiProgress">${calculateFIProgress(financialData)}%</div>
-                                                <div class="insight-widget-subtitle">Progress to FI goal</div>
-                                            </div>
-
-                                            <!-- Asset Diversification -->
-                                            <div class="insight-widget blue" onclick="openDiversificationScore()">
-                                                <div class="insight-widget-header">
-                                                    <div class="insight-widget-icon blue">
-                                                        <i class="fas fa-chart-pie"></i>
-                                                    </div>
-                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
-                                                </div>
-                                                <div class="insight-widget-title">Diversification Score</div>
-                                                <div class="insight-widget-value" id="diversificationScore">${calculateDiversification(financialData)}/100</div>
-                                                <div class="insight-widget-subtitle">Asset allocation health</div>
-                                            </div>
-
-                                            <!-- Net Worth Percentile -->
-                                            <div class="insight-widget teal" onclick="openNetWorthComparison()">
-                                                <div class="insight-widget-header">
-                                                    <div class="insight-widget-icon teal">
-                                                        <i class="fas fa-users"></i>
-                                                    </div>
-                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
-                                                </div>
-                                                <div class="insight-widget-title">Net Worth Percentile</div>
-                                                <div class="insight-widget-value" id="networthPercentile">Top ${calculatePercentile(financialData)}%</div>
-                                                <div class="insight-widget-subtitle">For your age group in India</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Planning Tools Section -->
-                                    <div style="margin-top: 2rem;">
-                                        <h4 style="margin: 0 0 1rem 0; color: #1e3a5f; font-size: 1rem;">
-                                            <i class="fas fa-tools" style="margin-right: 0.5rem; color: #8b5cf6;"></i>Planning Tools
-                                        </h4>
-                                        <div class="insights-grid">
-                                            <!-- What If Simulator -->
-                                            <div class="insight-widget orange" onclick="openWhatIfSimulator()">
-                                                <div class="insight-widget-header">
-                                                    <div class="insight-widget-icon orange">
-                                                        <i class="fas fa-magic"></i>
-                                                    </div>
-                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
-                                                </div>
-                                                <div class="insight-widget-title">What If Simulator</div>
-                                                <div class="insight-widget-value" style="font-size: 1.1rem;">Explore Scenarios</div>
-                                                <div class="insight-widget-subtitle">Investment & loan projections</div>
-                                            </div>
-
-                                            <!-- Inflation Calculator -->
-                                            <div class="insight-widget red" onclick="openInflationCalculator()">
-                                                <div class="insight-widget-header">
-                                                    <div class="insight-widget-icon red">
-                                                        <i class="fas fa-fire-alt"></i>
-                                                    </div>
-                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
-                                                </div>
-                                                <div class="insight-widget-title">Inflation Impact</div>
-                                                <div class="insight-widget-value" id="inflationImpact">${formatCurrency(calculateInflationImpact(financialData))}</div>
-                                                <div class="insight-widget-subtitle">Your money in 10 years</div>
-                                            </div>
-
-                                            <!-- Life Event Planner -->
-                                            <div class="insight-widget pink" onclick="openLifeEventPlanner()">
-                                                <div class="insight-widget-header">
-                                                    <div class="insight-widget-icon pink">
-                                                        <i class="fas fa-heart"></i>
-                                                    </div>
-                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
-                                                </div>
-                                                <div class="insight-widget-title">Life Event Planner</div>
-                                                <div class="insight-widget-value" style="font-size: 1.1rem;">Plan Ahead</div>
-                                                <div class="insight-widget-subtitle">Marriage, kids, house & more</div>
-                                            </div>
-
-                                            <!-- Wealth Transfer Checklist -->
-                                            <div class="insight-widget navy" onclick="openWealthTransferChecklist()">
-                                                <div class="insight-widget-header">
-                                                    <div class="insight-widget-icon navy">
-                                                        <i class="fas fa-file-signature"></i>
-                                                    </div>
-                                                    <i class="fas fa-chevron-right insight-widget-arrow"></i>
-                                                </div>
-                                                <div class="insight-widget-title">Wealth Transfer</div>
-                                                <div class="insight-widget-value" id="checklistProgress">${getChecklistProgress()}/12</div>
-                                                <div class="insight-widget-subtitle">Legacy checklist complete</div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -5562,10 +5582,11 @@
         // Calculate Financial Runway (months of survival if income stops)
         function calculateRunway(data) {
             const prefs = getUserFinancialPrefs();
-            const liquidAssets = data.totalBalance + data.totalInvestments;
+            const liquidAssets = (data.totalBalance || 0) + (data.totalInvestments || 0);
             const monthlyExpenses = prefs.monthlyExpenses || 50000;
-            if (monthlyExpenses <= 0) return 0;
-            return Math.floor(liquidAssets / monthlyExpenses);
+            if (monthlyExpenses <= 0 || liquidAssets <= 0) return 0;
+            const result = Math.floor(liquidAssets / monthlyExpenses);
+            return isNaN(result) ? 0 : result;
         }
 
         // Calculate FI Progress (25x annual expenses rule)
@@ -5573,24 +5594,25 @@
             const prefs = getUserFinancialPrefs();
             const annualExpenses = (prefs.monthlyExpenses || 50000) * 12;
             const fiNumber = annualExpenses * 25; // 4% rule
-            const currentNetWorth = data.netWorth;
+            const currentNetWorth = data.netWorth || 0;
+            if (fiNumber <= 0) return 0;
             const progress = Math.min(100, Math.round((currentNetWorth / fiNumber) * 100));
-            return progress;
+            return isNaN(progress) ? 0 : progress;
         }
 
         // Calculate Asset Diversification Score
         function calculateDiversification(data) {
-            const total = data.totalAssets;
+            const total = data.totalAssets || 0;
             if (total <= 0) return 0;
 
             // Calculate percentages
             const categories = [
-                data.totalBalance / total,
-                data.totalInvestments / total,
-                data.realEstateValue / total,
-                data.goldValue / total,
-                data.esopsValue / total
-            ].filter(v => v > 0);
+                (data.totalBalance || 0) / total,
+                (data.totalInvestments || 0) / total,
+                (data.realEstateValue || 0) / total,
+                (data.goldValue || 0) / total,
+                (data.esopsValue || 0) / total
+            ].filter(v => v > 0 && !isNaN(v));
 
             // Ideal is equal distribution
             const idealPercent = 1 / 5; // 20% each
